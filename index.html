@@ -150,12 +150,15 @@
       </div>
 
       <!-- أزرار التنقل ونظام المراجعة -->
-      <div style="display:flex; gap:10px; margin-top:1.5rem;">
-        <button onclick="processSRS('hard')" style="background:var(--red); color:white; border:none; padding:0.8rem; border-radius:8px; flex:1; cursor:pointer; font-family:'DM Mono'; font-weight:bold;">Hard ↻</button>
-        <button onclick="processSRS('good')" style="background:var(--green); color:white; border:none; padding:0.8rem; border-radius:8px; flex:1; cursor:pointer; font-family:'DM Mono'; font-weight:bold;">Mastered ✓</button>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1.5rem; gap:10px;">
+        <button onclick="navModal(-1)" style="background:var(--cream); color:var(--ink); border:1px solid var(--border); padding:0.8rem 1rem; border-radius:8px; cursor:pointer; font-family:'DM Mono'; font-weight:bold;">← Prev</button>
+        
+        <div style="display:flex; gap:10px; flex:1;">
+          <button onclick="processSRS('hard')" style="background:var(--red); color:white; border:none; padding:0.8rem; border-radius:8px; flex:1; cursor:pointer; font-family:'DM Mono'; font-weight:bold;">Hard ↻</button>
+          <button onclick="processSRS('good')" style="background:var(--green); color:white; border:none; padding:0.8rem; border-radius:8px; flex:1; cursor:pointer; font-family:'DM Mono'; font-weight:bold;">Mastered ✓</button>
+        </div>
+        <button onclick="navModal(1)" style="background:var(--cream); color:var(--ink); border:1px solid var(--border); padding:0.8rem 1rem; border-radius:8px; cursor:pointer; font-family:'DM Mono'; font-weight:bold;">Next →</button>
       </div>
-
-        <button onclick="navModal(1)" style="background:var(--cream); color:var(-l-ink); border:1px solid var(--border); padding:0.8rem 1rem; border-radius:8px; cursor:pointer; font-family:'DM Mono'; font-weight:bold;">Next →</button>
       </div>
     </div>
   </div>
