@@ -146,16 +146,24 @@
          <div id="mTip" style="background:linear-gradient(135deg, rgba(184,134,11,0.08), rgba(184,134,11,0.04)); padding:1rem; border-radius:8px; font-size:0.95rem; border:1px solid rgba(184,134,11,0.2);"></div>
       </div>
 
-      <div style="display:flex; gap:10px; margin-top:1.5rem;">
-        <button class="speak-btn" style="flex:1; padding:0.8rem; border-radius:8px; font-size:0.8rem;" onclick="speakWord()">🔊 Pronounce</button>
-        <button onclick="processSRS('hard')" style="background:var(--red); color:white; border:none; padding:0.8rem; border-radius:8px; flex:1; cursor:pointer; font-family:'DM Mono'; font-weight:bold;">Hard ↻</button>
-        <button onclick="processSRS('good')" style="background:var(--green); color:white; border:none; padding:0.8rem; border-radius:8px; flex:1; cursor:pointer; font-family:'DM Mono'; font-weight:bold;">Easy ✓</button>
+      <!-- أزرار التنقل ونظام المراجعة -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1.5rem; gap:10px;">
+        <button onclick="navModal(-1)" style="background:var(--cream); color:var(--ink); border:1px solid var(--border); padding:0.8rem 1rem; border-radius:8px; cursor:pointer; font-family:'DM Mono'; font-weight:bold;">← Prev</button>
+        
+        <div style="display:flex; gap:10px; flex:1;">
+          <button class="speak-btn" style="flex:1; padding:0.8rem; border-radius:8px; font-size:0.8rem; height:100%;" onclick="speakWord()">🔊</button>
+          <button onclick="processSRS('hard')" style="background:var(--red); color:white; border:none; padding:0.8rem; border-radius:8px; flex:2; cursor:pointer; font-family:'DM Mono'; font-weight:bold;">Hard ↻</button>
+          <button onclick="processSRS('good')" style="background:var(--green); color:white; border:none; padding:0.8rem; border-radius:8px; flex:2; cursor:pointer; font-family:'DM Mono'; font-weight:bold;">Mastered ✓</button>
+        </div>
+
+        <button onclick="navModal(1)" style="background:var(--cream); color:var(--ink); border:1px solid var(--border); padding:0.8rem 1rem; border-radius:8px; cursor:pointer; font-family:'DM Mono'; font-weight:bold;">Next →</button>
       </div>
     </div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
+
 
 <script>
 // ════════════════════════════════════════════════
@@ -1722,12 +1730,56 @@ const hsk1 = [
 // قواعد HSK1
 // ════════════════════════════════════════════════
 const hsk1_grammar = [
-  { id:1, title:"Possession with 的 (de)", structure:"Noun / Pronoun + 的 + Noun", desc:"The particle 的 (de) indicates possession, like the apostrophe 's' in English.", examples:[{h:"这是我的书。", p:"Zhè shì wǒ de shū.", e:"This is my book."}], quiz:{q:"How to say 'Dad's car'?", opts:["爸爸车", "爸爸的车", "的车爸爸", "车爸爸的"], c:1}},
-  { id:2, title:"Yes/No Questions with 吗 (ma)", structure:"Statement + 吗?", desc:"Add 吗 at the end of a statement to turn it into a Yes/No question.", examples:[{h:"你是医生吗？", p:"Nǐ shì yīshēng ma?", e:"Are you a doctor?"}], quiz:{q:"Turn 'You are Chinese' (你是中国人) into a question:", opts:["吗你是中国人？", "你是吗中国人？", "你是中国人吗？", "中国你是人吗？"], c:2}},
-  { id:3, title:"Negation with 不 (bù)", structure:"Subject + 不 + Verb / Adjective", desc:"Use 不 to negate actions in the present or future, or to negate adjectives.", examples:[{h:"我不去。", p:"Wǒ bù qù.", e:"I am not going."}], quiz:{q:"Translate 'Not good':", opts:["不没", "不好", "好不", "没好"], c:1}},
-  { id:4, title:"The Verb 'To Be' 是 (shì)", structure:"A + 是 + B", desc:"Used to link two nouns (A is B). It is NOT used to link a noun and an adjective.", examples:[{h:"我是学生。", p:"Wǒ shì xuéshēng.", e:"I am a student."}], quiz:{q:"Which sentence is correct?", opts:["我很是忙 (I am very busy)", "我是学生 (I am a student)", "他是高 (He is tall)", "她是漂亮 (She is pretty)"], c:1}},
-  { id:5, title:"Expressing 'Also/Too' with 也 (yě)", structure:"Subject + 也 + Verb", desc:"也 (yě) means 'also' or 'too'. It must ALWAYS be placed before the verb.", examples:[{h:"我也去北京。", p:"Wǒ yě qù Běijīng.", e:"I am also going to Beijing."}], quiz:{q:"Translate 'I also like tea':", opts:["我喜欢茶也", "我也喜欢茶", "也我喜欢茶", "我喜欢也茶"], c:1}}
+  { id:1, title:"Possession with 的", structure:"Noun/Pronoun + 的 + Noun", desc:"Indicates possession (like 's).", examples:[{h:"我的书", p:"Wǒ de shū", e:"My book"}], quiz:{q:"Dad's car?", opts:["爸爸车", "爸爸的车", "车爸爸的"], c:1}},
+  { id:2, title:"Yes/No Questions 吗", structure:"Statement + 吗?", desc:"Turns a statement into a Yes/No question.", examples:[{h:"你好吗？", p:"Nǐ hǎo ma?", e:"Are you okay?"}], quiz:{q:"Are you a teacher?", opts:["你是老师吗？", "吗你是老师？", "你是吗老师"], c:0}},
+  { id:3, title:"Negation with 不", structure:"Subject + 不 + Verb/Adj", desc:"Negates present/future actions or adjectives.", examples:[{h:"我不吃", p:"Wǒ bù chī", e:"I don't eat"}], quiz:{q:"Not good?", opts:["不没", "不好", "好不"], c:1}},
+  { id:4, title:"The Verb 是", structure:"A + 是 + B", desc:"Links two nouns (A is B).", examples:[{h:"我是学生", p:"Wǒ shì xuéshēng", e:"I am a student"}], quiz:{q:"She is my mom:", opts:["她是我妈妈", "她是我的妈妈是", "她是妈妈我"], c:0}},
+  { id:5, title:"Quantity with 个", structure:"Number + 个 + Noun", desc:"The universal measure word.", examples:[{h:"三个人", p:"Sān gè rén", e:"Three people"}], quiz:{q:"Two cups?", opts:["二个杯子", "两个杯子", "杯子两"], c:1}},
+  { id:6, title:"Negation with 没", structure:"Subject + 没(有) + Verb", desc:"Negates past actions or possession (don't have).", examples:[{h:"我没去", p:"Wǒ méi qù", e:"I didn't go"}], quiz:{q:"I don't have money:", opts:["我不有钱", "我没有钱", "没我钱"], c:1}},
+  { id:7, title:"Where: 哪儿", structure:"在/去 + 哪儿？", desc:"Asks for location (Where).", examples:[{h:"你去哪儿？", p:"Nǐ qù nǎr?", e:"Where are you going?"}], quiz:{q:"Where is he?", opts:["他在哪儿？", "他哪儿在？", "哪儿他？"], c:0}},
+  { id:8, title:"What: 什么", structure:"Verb + 什么 (+ Noun)?", desc:"Asks 'What'.", examples:[{h:"你吃什么？", p:"Nǐ chī shénme?", e:"What are you eating?"}], quiz:{q:"What book is this?", opts:["这是什么书？", "这是书什么？", "什么书这是？"], c:0}},
+  { id:9, title:"Who: 谁", structure:"Subject + 是 + 谁", desc:"Asks 'Who'.", examples:[{h:"他是谁？", p:"Tā shì shéi?", e:"Who is he?"}], quiz:{q:"Who is eating?", opts:["吃谁？", "谁吃？", "谁是谁吃？"], c:1}},
+  { id:10, title:"Measure Word 本", structure:"Number + 本 + Book", desc:"Measure word for bound items like books.", examples:[{h:"一本书", p:"Yī běn shū", e:"One book"}], quiz:{q:"Two dictionaries:", opts:["二本词典", "两本词典", "两个词典"], c:1}},
+  { id:11, title:"And: 和", structure:"Noun 1 + 和 + Noun 2", desc:"Connects nouns only (never sentences).", examples:[{h:"我和你", p:"Wǒ hé nǐ", e:"You and me"}], quiz:{q:"Apple and water:", opts:["苹果和水", "苹果吃和水", "和苹果水"], c:0}},
+  { id:12, title:"Location: 在", structure:"Subject + 在 + Place", desc:"Means 'at/in/on' a location.", examples:[{h:"他在家", p:"Tā zài jiā", e:"He is at home"}], quiz:{q:"I am at school:", opts:["我学校在", "我在学校", "在学校我"], c:1}},
+  { id:13, title:"Ability: 会", structure:"Subject + 会 + Verb", desc:"Can/know how to (learned skill).", examples:[{h:"我会游泳", p:"Wǒ huì yóuyǒng", e:"I can swim"}], quiz:{q:"I can't speak Chinese:", opts:["我不说汉语", "我不会说汉语", "我没说汉语"], c:1}},
+  { id:14, title:"Permission: 能", structure:"Subject + 能 + Verb", desc:"Can (physical ability or permission).", examples:[{h:"我能坐这儿吗？", p:"Wǒ néng zuò zhèr ma?", e:"Can I sit here?"}], quiz:{q:"I cannot come tomorrow:", opts:["我明天不会来", "我明天不能来", "我明天没来"], c:1}},
+  { id:15, title:"Desire: 想", structure:"Subject + 想 + Verb", desc:"To want to / would like to.", examples:[{h:"我想喝水", p:"Wǒ xiǎng hē shuǐ", e:"I want to drink water"}], quiz:{q:"I want to go home:", opts:["我去家想", "我想回家", "想我去家"], c:1}},
+  { id:16, title:"Degree: 很", structure:"Subject + 很 + Adjective", desc:"Means 'very'. Connects nouns to adjectives.", examples:[{h:"他很高", p:"Tā hěn gāo", e:"He is tall"}], quiz:{q:"I am busy:", opts:["我是忙", "我忙", "我很忙"], c:2}},
+  { id:17, title:"Extreme: 太...了", structure:"太 + Adjective + 了", desc:"Means 'too' or 'extremely'.", examples:[{h:"太贵了", p:"Tài guì le", e:"Too expensive"}], quiz:{q:"Too hot!", opts:["太热", "太热了", "很热了"], c:1}},
+  { id:18, title:"Completed Action 了", structure:"Verb + 了", desc:"Indicates an action is finished.", examples:[{h:"我买了", p:"Wǒ mǎi le", e:"I bought it"}], quiz:{q:"He went to school:", opts:["他去了学校", "他去学校", "去他学校了"], c:0}},
+  { id:19, title:"Change of State 了", structure:"Sentence + 了", desc:"Indicates a new situation ('now it is...').", examples:[{h:"下雨了", p:"Xiàyǔ le", e:"It's raining (now)"}], quiz:{q:"I am 20 years old (now):", opts:["我二十岁", "我二十岁了", "了二十岁我"], c:1}},
+  { id:20, title:"All/Both: 都", structure:"Subject + 都 + Verb", desc:"Means 'all/both'. Placed before the verb.", examples:[{h:"我们都去", p:"Wǒmen dōu qù", e:"We are all going"}], quiz:{q:"They both like tea:", opts:["都他们喜欢茶", "他们喜欢都茶", "他们都喜欢茶"], c:2}},
+  { id:21, title:"Suggestion: 吧", structure:"Sentence + 吧", desc:"Softens a command into 'Let's...'.", examples:[{h:"我们走吧", p:"Wǒmen zǒu ba", e:"Let's go"}], quiz:{q:"Let's eat!", opts:["吃饭吗！", "吃吧饭！", "吃饭吧！"], c:2}},
+  { id:22, title:"How many (<10): 几", structure:"几 + Measure + Noun", desc:"Asks for small quantities.", examples:[{h:"几个人？", p:"Jǐ gè rén?", e:"How many people?"}], quiz:{q:"How many books?", opts:["几本书？", "书几本？", "多少本？"], c:0}},
+  { id:23, title:"How much (>10): 多少", structure:"多少 + (Measure) + Noun", desc:"Asks for larger quantities or price.", examples:[{h:"多少钱？", p:"Duōshao qián?", e:"How much money?"}], quiz:{q:"How many students?", opts:["几学生？", "多少学生？", "多少个吗？"], c:1}},
+  { id:24, title:"When: 什么时候", structure:"什么时候 + Verb?", desc:"Asks for time.", examples:[{h:"你什么时候来？", p:"Nǐ shénme shíhou lái?", e:"When are you coming?"}], quiz:{q:"When will he go?", opts:["他什么时候去？", "什么时候他？", "他去什么时候？"], c:0}},
+  { id:25, title:"To Have/Exist: 有", structure:"Place/Subject + 有 + Obj", desc:"Expresses possession or existence.", examples:[{h:"桌子上有书", p:"Zhuōzi shang yǒu shū", e:"There is a book on the table"}], quiz:{q:"I have a cat:", opts:["我是猫", "我有一只猫", "猫有我"], c:1}},
+  { id:26, title:"Plural Marker: 们", structure:"Pronoun/Person + 们", desc:"Makes human nouns/pronouns plural.", examples:[{h:"我们", p:"Wǒmen", e:"We / Us"}], quiz:{q:"Students:", opts:["学生们", "们学生", "个学生"], c:0}},
+  { id:27, title:"This: 这", structure:"这 + Measure + Noun", desc:"Demonstrative pronoun for close objects.", examples:[{h:"这个杯子", p:"Zhège bēizi", e:"This cup"}], quiz:{q:"This person:", opts:["这人", "这个人", "那个"], c:1}},
+  { id:28, title:"That: 那", structure:"那 + Measure + Noun", desc:"Demonstrative pronoun for distant objects.", examples:[{h:"那只猫", p:"Nà zhī māo", e:"That cat"}], quiz:{q:"That book:", opts:["那本", "那书", "那本书"], c:2}},
+  { id:29, title:"How to do: 怎么", structure:"怎么 + Verb", desc:"Asks how an action is performed.", examples:[{h:"怎么走？", p:"Zěnme zǒu?", e:"How to get there?"}], quiz:{q:"How to read this?", opts:["怎么读？", "读怎么？", "读什么？"], c:0}},
+  { id:30, title:"How is it: 怎么样", structure:"Subject + 怎么样？", desc:"Asks for opinions or conditions.", examples:[{h:"今天天气怎么样？", p:"Jīntiān tiānqì zěnmeyàng?", e:"How is the weather today?"}], quiz:{q:"How is this book?", opts:["书怎么？", "这本书怎么样？", "怎么样书？"], c:1}},
+  { id:31, title:"Time Placement", structure:"Subj + Time + Verb", desc:"Time words go before or right after the subject.", examples:[{h:"我明天去", p:"Wǒ míngtiān qù", e:"I will go tomorrow"}], quiz:{q:"I am busy today:", opts:["我忙今天", "今天忙我", "我今天很忙"], c:2}},
+  { id:32, title:"Age: 岁", structure:"Subj + Number + 岁", desc:"Used to state someone's age.", examples:[{h:"他十岁", p:"Tā shí suì", e:"He is 10 years old"}], quiz:{q:"I am 20 years old:", opts:["我是二十岁", "我二十岁", "二十岁我"], c:1}},
+  { id:33, title:"Money: 块/元", structure:"Number + 块 (+钱)", desc:"Expressing prices.", examples:[{h:"五块钱", p:"Wǔ kuài qián", e:"Five yuan"}], quiz:{q:"Ten yuan:", opts:["十钱", "十块钱", "块十钱"], c:1}},
+  { id:34, title:"Days of the Week", structure:"星期 + Number (1-6, 日)", desc:"Monday is 1, Sunday is 日.", examples:[{h:"星期三", p:"Xīngqīsān", e:"Wednesday"}], quiz:{q:"Sunday:", opts:["星期七", "星期天/日", "日星期"], c:1}},
+  { id:35, title:"Dates", structure:"Number+月 + Number+号/日", desc:"Month comes before Day.", examples:[{h:"八月一号", p:"Bā yuè yī hào", e:"August 1st"}], quiz:{q:"May 10th:", opts:["十号五月", "五月十号", "月五号十"], c:1}},
+  { id:36, title:"Time of Day", structure:"Number+点 (+ Number+分)", desc:"O'clock (点) and Minutes (分).", examples:[{h:"两点半", p:"Liǎng diǎn bàn", e:"2:30"}], quiz:{q:"3:15", opts:["三点十五分", "十五分三点", "三点半"], c:0}},
+  { id:37, title:"Location Words", structure:"Noun + 上/下/里", desc:"Positional words go AFTER the noun.", examples:[{h:"桌子上", p:"Zhuōzi shang", e:"On the table"}], quiz:{q:"In the room:", opts:["里房间", "在房间", "房间里"], c:2}},
+  { id:38, title:"Going to do something", structure:"去 + Place + Verb", desc:"Expresses purpose of going somewhere.", examples:[{h:"我去商店买书", p:"Wǒ qù shāngdiàn mǎi shū", e:"I go to the store to buy books"}], quiz:{q:"I go to China to study:", opts:["我去中国学习", "我学习去中国", "去中国我学习"], c:0}},
+  { id:39, title:"Also/Too: 也", structure:"Subject + 也 + Verb", desc:"Placed before the verb.", examples:[{h:"我也喜欢", p:"Wǒ yě xǐhuān", e:"I also like it"}], quiz:{q:"Me too:", opts:["我也", "我也是", "是我也"], c:1}},
+  { id:40, title:"From: 从", structure:"从 + Place/Time + Verb", desc:"Starting point of time or space.", examples:[{h:"我从中国来", p:"Wǒ cóng Zhōngguó lái", e:"I come from China"}], quiz:{q:"From 8 o'clock:", opts:["八点从", "从八点", "在八点从"], c:1}},
+  { id:41, title:"Because... So...", structure:"因为...所以...", desc:"Shows cause and effect.", examples:[{h:"因为下雨，所以我没去", p:"Yīnwèi xiàyǔ, suǒyǐ wǒ méi qù", e:"Because it rained, I didn't go"}], quiz:{q:"Because I'm busy, so I won't go:", opts:["因为我忙，所以不去", "所以不去，因为我忙", "因为忙所以我不"], c:0}},
+  { id:42, title:"Although... But...", structure:"虽然...但是...", desc:"Shows contrast.", examples:[{h:"虽然很贵，但是我买了", p:"Suīrán hěn guì, dànshì wǒ mǎi le", e:"Although expensive, I bought it"}], quiz:{q:"Although raining, he went:", opts:["虽然下雨，但是他去了", "下雨虽然，他去但是", "但是去了，虽然下雨"], c:0}},
+  { id:43, title:"Alternative 'Or' 还是", structure:"A 还是 B?", desc:"Used to offer choices in a QUESTION.", examples:[{h:"你喝茶还是咖啡？", p:"Nǐ hē chá háishi kāfēi?", e:"Do you drink tea or coffee?"}], quiz:{q:"Apple or banana?", opts:["苹果或者香蕉？", "苹果还是香蕉？", "还是苹果香蕉？"], c:1}},
+  { id:44, title:"Statement 'Or' 或者", structure:"A 或者 B", desc:"Used for 'or' in regular STATEMENTS.", examples:[{h:"今天或者明天都可以", p:"Jīntiān huòzhě míngtiān dōu kěyǐ", e:"Today or tomorrow is fine"}], quiz:{q:"I will buy tea or coffee:", opts:["我买茶或者咖啡", "我买茶还是咖啡", "茶或者咖啡买我"], c:0}},
+  { id:45, title:"Verb Doubling", structure:"Verb + Verb", desc:"Softens the tone or indicates a brief action.", examples:[{h:"我看看", p:"Wǒ kànkan", e:"Let me take a look"}], quiz:{q:"Think about it briefly:", opts:["想想", "很想", "想了"], c:0}},
+  { id:46, title:"Frequency: 经常", structure:"Subject + 经常 + Verb", desc:"Means 'often' or 'frequently'.", examples:[{h:"我经常去", p:"Wǒ jīngcháng qù", e:"I often go"}], quiz:{q:"I often exercise:", opts:["我运动经常", "我经常运动", "经常我运动"], c:1}},
+  { id:47, title:"Already: 已经...了", structure:"已经 + Verb + 了", desc:"Emphasizes that something is already done.", examples:[{h:"我已经吃了", p:"Wǒ yǐjīng chī le", e:"I already ate"}], quiz:{q:"He already left:", opts:["他已经走了", "已经他走", "他走了已经"], c:0}},
+  { id:48, title:"Action in Progress: 正在", structure:"正在 + Verb", desc:"Indicates an action happening right now (ing).", examples:[{h:"我正在学习", p:"Wǒ zhèngzài xuéxí", e:"I am studying"}], quiz:{q:"He is sleeping (right now):", opts:["他睡觉", "他正在睡觉", "正在他睡"], c:1}}
 ];
+
 
 // STATE VARIABLES
 let mastered = JSON.parse(localStorage.getItem('hsk1_mastered') || '[]');
@@ -1944,7 +1996,12 @@ window.onload = () => {
     localStorage.setItem('hsk_last_visit', today); localStorage.setItem('hsk_streak', streak);
   }
   document.getElementById('streakBadge').textContent = `🔥 ${streak} Days Streak`;
-  
+
+  function navModal(dir) { 
+  modalIndex = (modalIndex + dir + hsk1.length) % hsk1.length; 
+  openModal(modalIndex); 
+}
+
   if(hsk1.length > 0) {
       buildFilterBar(); renderCards();
   } else {
