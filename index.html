@@ -108,9 +108,7 @@
 <script>
  // 🔴 ضع كلماتك الـ 500 هنا لاحقاً 🔴
 const hsk1 = [
-  Word
-
-
+  
 {
     id:1, hanzi:"爱", pinyin:"ài", meaning:"to love; love",
     category:"Emotions",
@@ -1675,66 +1673,213 @@ const hsk1_grammar = [
   { id:5, title:"Quantity with 个 (gè)", structure:"Number + 个 + Noun", desc:"The most common measure word.", examples:[{h:"三个人", p:"Sān gè rén", e:"Three people"}], quiz:{q:"'Two cups'?", opts:["二个杯子", "两个杯子", "个两杯子"], c:1}}
   // ... سيتم إضافة باقي القواعد هنا تلقائياً عند تشغيلك للموقع
 ];
+
+  // --- الجزء الخاص بالجافا سكريبت المعدل بالكامل ---
+
 let mastered = JSON.parse(localStorage.getItem('hsk1_mastered') || '[]');
 let srsData = JSON.parse(localStorage.getItem('hsk1_srs') || '{}');
-let activeWriters = []; let modalIndex = 0; let currentMode = 'vocab';
-function switchMode(m) {
-  currentMode = m; document.getElementById('tabVocab').classList.toggle('active', m==='vocab'); document.getElementById('tabGrammar').classList.toggle('active', m==='grammar');
-  document.getElementById('vocabMain').style.display = m==='vocab'?'block':'none'; document.getElementById('grammarMain').style.display = m==='grammar'?'block':'none';
-  document.querySelectorAll('.vocab-only').forEach(el=>el.style.display = m==='vocab'?'flex':'none');
-  if(m==='grammar') renderGrammar();
+let currentFilter = 'all';
+let currentCategory = 'all';
+let currentView = 'grid';
+let modalIndex = 0;
+let quizScore = 0; let quizStreak = 0; let quizCurrentWord = null;
+let activeWriters = [];
+
+// استخراج الفئات تلقائياً من قائمة الكلمات
+const categories = [...new Set(hsk1.map(w => w.category))].sort();
+
+// نظام أيام المتابعة (Streak)
+function updateStreak() {
+  const today = new Date().toDateString();
+  let lastVisit = localStorage.getItem('hsk_last_visit');
+  let streak = parseInt(localStorage.getItem('hsk_streak') || '0');
+  if (lastVisit !== today) {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    if (lastVisit === yesterday.toDateString()) { 
+      streak++; 
+    } else { 
+      streak = 1; 
+    }
+    localStorage.setItem('hsk_last_visit', today);
+    localStorage.setItem('hsk_streak', streak);
+  }
+  const badge = document.getElementById('streakBadge');
+  if(badge) badge.innerHTML = `🔥 ${streak} Days Streak`;
 }
-function renderGrammar() {
-  const container = document.getElementById('grammarList'); container.innerHTML = '';
-  hsk1_grammar.forEach(g => {
-    const card = document.createElement('div'); card.className = 'grammar-card';
-    card.innerHTML = `<div class="g-title">${g.title}</div><div class="g-structure">${g.structure}</div><p>${g.desc}</p>
-      <div style="margin:1rem 0; background:var(--cream); padding:0.5rem; border-radius:6px;">Example: <b>${g.examples[0].h}</b> (${g.examples[0].p})</div>
-      <div class="g-quiz-box"><b>Test: ${g.quiz.q}</b><br>${g.quiz.opts.map((o,i)=>`<button class="g-opt-btn" onclick="checkGQuiz(this,${i},${g.quiz.c})">${o}</button>`).join('')}</div>`;
-    container.appendChild(card);
+
+// بناء شريط الفئات (التصنيفات)
+function buildFilterBar() {
+  const bar = document.getElementById('filterBar');
+  if(!bar) return;
+  bar.innerHTML = '<span style="margin-right:10px; font-weight:bold;">Category:</span>';
+  
+  const allBtn = document.createElement('button');
+  allBtn.className = 'cat-btn active';
+  allBtn.textContent = 'All';
+  allBtn.onclick = () => setCat('all', allBtn);
+  bar.appendChild(allBtn);
+
+  categories.forEach(cat => {
+    if(cat) {
+      const btn = document.createElement('button');
+      btn.className = 'cat-btn';
+      btn.textContent = cat;
+      btn.onclick = () => setCat(cat, btn);
+      bar.appendChild(btn);
+    }
   });
 }
-function checkGQuiz(btn, s, c) { if(s===c) btn.classList.add('correct'); else btn.classList.add('wrong'); }
+
+function setCat(cat, btn) {
+  currentCategory = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+}
+
+// دالة البحث والفلترة الأساسية (تجمع بين البحث والتصنيف)
+function getFiltered() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  const now = Date.now();
+  return hsk1.filter(w => {
+    // فلترة بناءً على الحالة (متقن أو غير متقن)
+    if (currentFilter === 'mastered' && !mastered.includes(w.id)) return false;
+    if (currentFilter === 'unmastered' && mastered.includes(w.id)) return false;
+    
+    // فلترة بناءً على الفئة
+    if (currentCategory !== 'all' && w.category !== currentCategory) return false;
+    
+    // فلترة البحث (الاسم، البينين، أو المعنى)
+    if (q && !w.hanzi.includes(q) && !w.pinyin.toLowerCase().includes(q) && !w.meaning.toLowerCase().includes(q)) return false;
+    
+    return true;
+  });
+}
+
+// عرض الكلمات في الصفحة
 function renderCards() {
-  const grid = document.getElementById('cardsGrid'); grid.innerHTML = '';
-  hsk1.forEach((w,i) => {
-    const card = document.createElement('div'); card.className = `card ${mastered.includes(w.id)?'mastered':''}`;
-    card.innerHTML = `<div class="hanzi">${w.hanzi}</div><div class="pinyin">${w.pinyin}</div><div style="font-size:0.8rem; color:var(--muted);">${w.meaning}</div>`;
-    card.onclick = () => openModal(i); grid.appendChild(card);
-  });
+  const grid = document.getElementById('cardsGrid');
+  if(!grid) return;
+  const words = getFiltered();
+  
+  // تحديث عداد الكلمات
+  const countEl = document.getElementById('countShown');
+  if(countEl) countEl.textContent = words.length;
+  
   updateProgress();
+  grid.innerHTML = '';
+  
+  words.forEach(w => {
+    const isMastered = mastered.includes(w.id);
+    const card = document.createElement('div');
+    card.className = `card ${isMastered ? 'mastered' : ''}`;
+    card.innerHTML = `
+        <div class="hanzi">${w.hanzi}</div>
+        <div class="pinyin">${w.pinyin}</div>
+        <div style="font-size:0.85rem; color:var(--muted);">${w.meaning}</div>
+      `;
+    card.onclick = () => openModal(hsk1.indexOf(w));
+    grid.appendChild(card);
+  });
 }
+
+// فتح النافذة المنبثقة للكلمة
 function openModal(idx) {
-  modalIndex = idx; const w = hsk1[idx]; document.getElementById('mHanzi').textContent = w.hanzi;
-  document.getElementById('mPinyin').textContent = w.pinyin; document.getElementById('mMeaning').textContent = w.meaning;
-  document.getElementById('mTip').textContent = "💡 " + w.tip; setupHanziWriter(w.hanzi);
+  modalIndex = idx;
+  const w = hsk1[idx];
+  document.getElementById('mHanzi').textContent = w.hanzi;
+  document.getElementById('mPinyin').textContent = w.pinyin;
+  document.getElementById('mMeaning').textContent = w.meaning;
+  document.getElementById('mTip').textContent = "💡 " + w.tip;
+  
+  setupHanziWriter(w.hanzi);
   document.getElementById('modalOverlay').classList.add('open');
 }
-function setupHanziWriter(h) {
-  const container = document.getElementById('hanziWriterContainer'); container.innerHTML = ''; activeWriters = [];
-  Array.from(h).forEach(c => {
-    const box = document.createElement('div'); box.className = 'hanzi-character-box'; container.appendChild(box);
-    activeWriters.push(HanziWriter.create(box, c, { width:100, height:100, padding:5, strokeColor:'#c0392b' }));
+
+// إعداد مدرب كتابة الحروف (Hanzi Writer)
+function setupHanziWriter(hanziWord) {
+  const container = document.getElementById('hanziWriterContainer');
+  container.innerHTML = ''; 
+  activeWriters = [];
+  Array.from(hanziWord).forEach(char => {
+    const box = document.createElement('div');
+    box.className = 'hanzi-character-box';
+    container.appendChild(box);
+    const writer = HanziWriter.create(box, char, {
+      width: 100,
+      height: 100,
+      padding: 5,
+      strokeColor: '#c0392b'
+    });
+    activeWriters.push(writer);
   });
 }
+
 function animateWriters() { activeWriters.forEach(w => w.animateCharacter()); }
 function quizWriters() { activeWriters.forEach(w => w.quiz()); }
-function closeModalDirect() { document.getElementById('modalOverlay').classList.remove('open'); }
-function processSRS(g) {
-  const id = hsk1[modalIndex].id; if(g==='good') { if(!mastered.includes(id)) mastered.push(id); } else { mastered = mastered.filter(x=>x!==id); }
-  localStorage.setItem('hsk1_mastered', JSON.stringify(mastered)); closeModalDirect(); renderCards();
+
+// نظام حفظ التقدم (SRS)
+function processSRS(grade) {
+  const w = hsk1[modalIndex];
+  if(grade === 'good') {
+    if(!mastered.includes(w.id)) mastered.push(w.id);
+    showToast('✓ تمت الإضافة للمتقن');
+  } else {
+    mastered = mastered.filter(id => id !== w.id);
+    showToast('↻ ستحتاج لمراجعتها');
+  }
+  
+  localStorage.setItem('hsk1_mastered', JSON.stringify(mastered));
+  closeModalDirect();
+  renderCards();
 }
+
+function closeModalDirect() { 
+  document.getElementById('modalOverlay').classList.remove('open'); 
+}
+
 function updateProgress() {
-  const p = (mastered.length / (hsk1.length||1) * 100).toFixed(0);
-  document.getElementById('progressFill').style.width = p + '%'; document.getElementById('progressText').textContent = `${mastered.length}/${hsk1.length||500}`;
+  const pct = (mastered.length / (hsk1.length || 1) * 100).toFixed(0);
+  const fill = document.getElementById('progressFill');
+  const txt = document.getElementById('progressText');
+  if(fill) fill.style.width = pct + '%';
+  if(txt) txt.textContent = `${mastered.length}/${hsk1.length}`;
 }
-function speakWord() { const u = new SpeechSynthesisUtterance(hsk1[modalIndex].hanzi); u.lang='zh-CN'; window.speechSynthesis.speak(u); }
-function updateStreak() {
-  const d = new Date().toDateString(); let s = parseInt(localStorage.getItem('hsk_streak')||'0');
-  if(localStorage.getItem('hsk_last') !== d) { s++; localStorage.setItem('hsk_last', d); localStorage.setItem('hsk_streak', s); }
-  document.getElementById('streakBadge').textContent = `🔥 ${s} Days Streak`;
+
+// نطق الكلمات
+function speakWord() {
+  const w = hsk1[modalIndex];
+  const utt = new SpeechSynthesisUtterance(w.hanzi);
+  utt.lang = 'zh-CN';
+  window.speechSynthesis.speak(utt);
 }
-setTimeout(() => { updateStreak(); if(hsk1.length>0) renderCards(); else document.getElementById('cardsGrid').innerHTML="<p style='text-align:center; width:100%;'>Please add vocabulary to the hsk1 array.</p>"; }, 100);
+
+// البحث عند الكتابة
+function filterCards() { 
+  renderCards(); 
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// تشغيل الوظائف عند تحميل الصفحة
+setTimeout(() => { 
+  updateStreak();
+  if (hsk1.length > 0) { 
+    buildFilterBar(); 
+    renderCards(); 
+  } else {
+    document.getElementById('cardsGrid').innerHTML = "<h2>الرجاء التأكد من وجود الكلمات في المصفوفة!</h2>";
+  }
+}, 100);
+
 </script>
 </body>
 </html>
