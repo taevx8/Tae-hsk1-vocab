@@ -1,0 +1,2231 @@
+# Tae-hsk1-vocab
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HSK 1 — Master Chinese</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1008;
+    --paper: #f5f0e8;
+    --cream: #ede8dc;
+    --red: #c0392b;
+    --red-light: #e74c3c;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --muted: #7a6f60;
+    --border: #c8bfaa;
+    --card-bg: #faf7f2;
+    --shadow: rgba(26,16,8,0.12);
+    --shadow-deep: rgba(26,16,8,0.25);
+    --green: #2e7d32;
+    --blue: #1565c0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Crimson Pro', Georgia, serif;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 0%, rgba(192,57,43,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(184,134,11,0.06) 0%, transparent 60%);
+  }
+
+  /* HEADER */
+  header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2rem 2rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px var(--shadow-deep);
+  }
+
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .logo {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .logo-hanzi {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--red-light);
+    line-height: 1;
+    text-shadow: 0 0 20px rgba(231,76,60,0.4);
+  }
+
+  .logo-text {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--cream);
+  }
+
+  .logo-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-top: 0.15rem;
+  }
+
+  /* CONTROLS */
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .search-wrap {
+    position: relative;
+  }
+
+  .search-wrap input {
+    background: rgba(245,240,232,0.1);
+    border: 1px solid rgba(245,240,232,0.2);
+    border-radius: 6px;
+    color: var(--paper);
+    font-family: 'Crimson Pro', serif;
+    font-size: 1rem;
+    padding: 0.5rem 1rem 0.5rem 2.2rem;
+    width: 220px;
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  .search-wrap input::placeholder { color: rgba(245,240,232,0.4); }
+  .search-wrap input:focus { border-color: var(--gold-light); background: rgba(245,240,232,0.15); }
+  .search-icon {
+    position: absolute;
+    left: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(245,240,232,0.4);
+    font-size: 0.9rem;
+    pointer-events: none;
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .btn {
+    background: transparent;
+    border: 1px solid rgba(245,240,232,0.25);
+    border-radius: 6px;
+    color: rgba(245,240,232,0.7);
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    padding: 0.45rem 0.9rem;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .btn:hover, .btn.active {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+  }
+
+  .btn.gold.active { background: var(--gold); border-color: var(--gold); }
+
+  .progress-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold-light);
+  }
+
+  .progress-bar {
+    width: 120px;
+    height: 4px;
+    background: rgba(245,240,232,0.15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red), var(--gold-light));
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  /* FILTER TABS */
+  .filter-bar {
+    background: var(--cream);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 2rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .filter-bar .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-right: 0.25rem;
+  }
+
+  .cat-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.85rem;
+    transition: all 0.2s;
+  }
+
+  .cat-btn:hover { border-color: var(--red); color: var(--red); }
+  .cat-btn.active { background: var(--red); border-color: var(--red); color: #fff; }
+
+  /* STATS BAR */
+  .stats-bar {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .stats-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  .stats-count span { color: var(--red); font-weight: 500; }
+
+  .view-toggle {
+    display: flex;
+    gap: 0.3rem;
+  }
+
+  .view-btn {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 0.3rem 0.6rem;
+    transition: all 0.2s;
+  }
+
+  .view-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  /* MAIN GRID */
+  main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem 4rem;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
+    transition: all 0.3s;
+  }
+
+  .cards-grid.list-view {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px var(--shadow-deep);
+    border-color: var(--gold);
+  }
+
+  .card.mastered {
+    border-color: var(--green);
+    background: linear-gradient(135deg, var(--card-bg), rgba(46,125,50,0.04));
+  }
+
+  .card.mastered::after {
+    content: '✓';
+    position: absolute;
+    top: 0.5rem;
+    right: 0.6rem;
+    color: var(--green);
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+
+  .card-front {
+    padding: 1.5rem 1rem;
+    text-align: center;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .hanzi {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+    transition: color 0.2s;
+  }
+
+  .card:hover .hanzi { color: var(--red); }
+
+  .pinyin {
+    font-family: 'Crimson Pro', serif;
+    font-size: 0.95rem;
+    color: var(--red);
+    font-style: italic;
+  }
+
+  .meaning-short {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .card-number {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.6rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--border);
+  }
+
+  /* EXPANDED CARD DETAILS */
+  .card-details {
+    display: none;
+    border-top: 1px solid var(--border);
+    padding: 1.25rem;
+    animation: slideDown 0.3s ease;
+  }
+
+  .card.expanded .card-details { display: block; }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .detail-section {
+    margin-bottom: 1rem;
+  }
+
+  .detail-section:last-child { margin-bottom: 0; }
+
+  .detail-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .detail-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .example-block {
+    background: var(--cream);
+    border-left: 3px solid var(--red);
+    border-radius: 0 6px 6px 0;
+    padding: 0.75rem;
+  }
+
+  .example-hanzi {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  .example-pinyin {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    color: var(--red);
+    font-size: 0.9rem;
+    margin: 0.2rem 0;
+  }
+
+  .example-english {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .tip-block {
+    background: linear-gradient(135deg, rgba(184,134,11,0.08), rgba(184,134,11,0.04));
+    border: 1px solid rgba(184,134,11,0.2);
+    border-radius: 6px;
+    padding: 0.65rem 0.85rem;
+    font-size: 0.9rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  .writing-block {
+    font-size: 0.9rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* SPEAK BUTTON */
+  .speak-btn {
+    background: var(--red);
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    padding: 0.35rem 0.7rem;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .speak-btn:hover { background: var(--red-light); transform: scale(1.03); }
+  .speak-btn.example { background: var(--blue); margin-top: 0.5rem; }
+  .speak-btn.example:hover { background: #1976d2; }
+
+  .card-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .master-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    padding: 0.35rem 0.7rem;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .master-btn:hover { border-color: var(--green); color: var(--green); }
+  .card.mastered .master-btn { background: var(--green); border-color: var(--green); color: #fff; }
+
+  /* LIST VIEW */
+  .cards-grid.list-view .card { border-radius: 8px; }
+  .cards-grid.list-view .card-front {
+    display: grid;
+    grid-template-columns: 80px 120px 1fr;
+    align-items: center;
+    min-height: 60px;
+    padding: 0.85rem 1.25rem;
+    text-align: left;
+    gap: 1rem;
+  }
+
+  .cards-grid.list-view .hanzi { font-size: 1.8rem; }
+  .cards-grid.list-view .card-number { position: static; font-size: 0.65rem; }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 5rem 2rem;
+    color: var(--muted);
+    grid-column: 1 / -1;
+  }
+
+  .empty-state .big {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 4rem;
+    opacity: 0.3;
+  }
+
+  /* MODAL / LIGHTBOX */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(26,16,8,0.7);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--card-bg);
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 24px 80px var(--shadow-deep);
+    animation: modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.85) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  .modal-header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2rem 2rem 1.5rem;
+    text-align: center;
+    position: relative;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .modal-hanzi {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: var(--paper);
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(231,76,60,0.5);
+  }
+
+  .modal-pinyin {
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--red-light);
+    margin-top: 0.5rem;
+  }
+
+  .modal-meaning {
+    font-size: 1.15rem;
+    color: rgba(245,240,232,0.7);
+    margin-top: 0.25rem;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(245,240,232,0.1);
+    border: none;
+    border-radius: 50%;
+    color: var(--paper);
+    cursor: pointer;
+    font-size: 1.2rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+
+  .modal-close:hover { background: rgba(245,240,232,0.2); }
+
+  .modal-body {
+    padding: 1.75rem 2rem 2rem;
+  }
+
+  .modal-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-btn {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--ink);
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 1rem;
+    text-transform: uppercase;
+    transition: all 0.2s;
+  }
+
+  .nav-btn:hover { background: var(--ink); color: var(--paper); }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    z-index: 2000;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    pointer-events: none;
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* QUIZ MODE */
+  .quiz-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--paper);
+    z-index: 500;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .quiz-overlay.open { display: flex; }
+
+  .quiz-card {
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    padding: 3rem;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px var(--shadow-deep);
+  }
+
+  .quiz-hanzi {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 6rem;
+    font-weight: 900;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .quiz-option {
+    background: var(--cream);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    color: var(--ink);
+    cursor: pointer;
+    font-family: 'Crimson Pro', serif;
+    font-size: 1.05rem;
+    padding: 0.85rem;
+    transition: all 0.2s;
+  }
+
+  .quiz-option:hover { border-color: var(--red); background: rgba(192,57,43,0.05); }
+  .quiz-option.correct { background: rgba(46,125,50,0.15); border-color: var(--green); color: var(--green); }
+  .quiz-option.wrong { background: rgba(192,57,43,0.1); border-color: var(--red); color: var(--red); }
+
+  .quiz-score {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .quiz-close {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: var(--ink);
+    border: none;
+    border-radius: 50%;
+    color: var(--paper);
+    cursor: pointer;
+    font-size: 1.2rem;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* TONE COLORS */
+  .tone1 { color: #c0392b; }
+  .tone2 { color: #2980b9; }
+  .tone3 { color: #27ae60; }
+  .tone4 { color: #8e44ad; }
+  .tone5 { color: #7f8c8d; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    header { padding: 1rem; }
+    .header-inner { gap: 0.75rem; }
+    .logo-hanzi { font-size: 1.7rem; }
+    .logo-text { font-size: 1.1rem; }
+    .search-wrap input { width: 160px; }
+    main { padding: 1rem 1rem 3rem; }
+    .cards-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.85rem; }
+    .modal-hanzi { font-size: 3.5rem; }
+    .modal-body { padding: 1.25rem; }
+    .progress-bar-wrap { display: none; }
+    .stats-bar { padding: 0.75rem 1rem 0; }
+    .filter-bar { padding: 0.5rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div>
+        <div class="logo-hanzi">汉语</div>
+        <div class="logo-sub">HSK Level 1</div>
+      </div>
+      <div class="logo-text">Master Chinese</div>
+    </div>
+    <div class="controls">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search characters..." oninput="filterCards()">
+      </div>
+      <div class="btn-group">
+        <button class="btn active" id="showAll" onclick="setFilter('all',this)">All</button>
+        <button class="btn gold" id="showMastered" onclick="setFilter('mastered',this)">Mastered</button>
+        <button class="btn" id="showUnmastered" onclick="setFilter('unmastered',this)">To Learn</button>
+      </div>
+      <button class="btn" onclick="openQuiz()">⚡ Quiz</button>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <span id="progressText">0/150</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="filter-bar" id="filterBar"></div>
+
+<div class="stats-bar">
+  <div class="stats-count">Showing <span id="countShown">150</span> of 150 words</div>
+  <div class="view-toggle">
+    <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')" title="Grid view">⊞</button>
+    <button class="view-btn" id="listViewBtn" onclick="setView('list')" title="List view">☰</button>
+  </div>
+</div>
+
+<main>
+  <div class="cards-grid" id="cardsGrid"></div>
+</main>
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+      <div class="modal-hanzi" id="mHanzi"></div>
+      <div class="modal-pinyin" id="mPinyin"></div>
+      <div class="modal-meaning" id="mMeaning"></div>
+      <div style="margin-top:1rem; display:flex; gap:0.6rem; justify-content:center; flex-wrap:wrap;">
+        <button class="speak-btn" onclick="speakWord()">🔊 Pronounce</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="detail-section">
+        <div class="detail-label">Example Sentence</div>
+        <div class="example-block">
+          <div class="example-hanzi" id="mExHanzi"></div>
+          <div class="example-pinyin" id="mExPinyin"></div>
+          <div class="example-english" id="mExEnglish"></div>
+        </div>
+        <button class="speak-btn example" onclick="speakExample()" style="margin-top:0.6rem;">🔊 Hear Example</button>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Writing Guide</div>
+        <div class="writing-block" id="mWriting"></div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Memory Tip 💡</div>
+        <div class="tip-block" id="mTip"></div>
+      </div>
+      <div class="modal-nav">
+        <button class="nav-btn" onclick="navModal(-1)">← Previous</button>
+        <button class="master-btn" id="modalMasterBtn" onclick="toggleMasterFromModal()">Mark as Mastered</button>
+        <button class="nav-btn" onclick="navModal(1)">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div class="quiz-overlay" id="quizOverlay">
+  <button class="quiz-close" onclick="closeQuiz()">✕</button>
+  <div class="quiz-score" id="quizScore">Score: 0 | Streak: 0</div>
+  <div class="quiz-card">
+    <div class="quiz-hanzi" id="quizHanzi">?</div>
+    <div id="quizQuestion" style="font-size:1rem; color:var(--muted); font-family:'Crimson Pro',serif;">What does this mean?</div>
+    <div class="quiz-options" id="quizOptions"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ════════════════════════════════════════════════
+//  HSK 1 COMPLETE VOCABULARY — 150 WORDS
+// ════════════════════════════════════════════════
+const hsk1 = [
+  {
+    id:1, hanzi:"爱", pinyin:"ài", meaning:"to love; love",
+    category:"Emotions",
+    example:{ hanzi:"我爱你。", pinyin:"Wǒ ài nǐ.", english:"I love you." },
+    writing:"Two components: 爫 (claw/hand) on top, 友 (friend) below — loving hands reaching for a friend.",
+    tip:"Picture a hand (爫) resting over a heart with a friend (友) — 'love is a hand over your heart for a friend.'"
+  },
+  {
+    id:2, hanzi:"八", pinyin:"bā", meaning:"eight",
+    category:"Numbers",
+    example:{ hanzi:"我有八本书。", pinyin:"Wǒ yǒu bā běn shū.", english:"I have eight books." },
+    writing:"Two diagonal strokes spreading apart — like two legs walking apart. Simple and symmetric.",
+    tip:"It looks like two legs spreading apart — 'eight legs of a spider spread out.' Also lucky in Chinese culture!"
+  },
+  {
+    id:3, hanzi:"爸爸", pinyin:"bàba", meaning:"dad; father",
+    category:"Family",
+    example:{ hanzi:"我爸爸在家。", pinyin:"Wǒ bàba zài jiā.", english:"My dad is at home." },
+    writing:"爸 = 父 (father radical) on top + 巴 (sound component). Doubled for emphasis.",
+    tip:"'Ba-ba' sounds like a baby's first word for dad — universal baby talk for father!"
+  },
+  {
+    id:4, hanzi:"杯子", pinyin:"bēizi", meaning:"cup; glass; mug",
+    category:"Objects",
+    example:{ hanzi:"这个杯子很漂亮。", pinyin:"Zhège bēizi hěn piàoliang.", english:"This cup is very beautiful." },
+    writing:"杯: 木 (wood radical) + 不 (negation sound). 子: child — but here means 'small object.'",
+    tip:"The 木 (tree/wood) radical hints at wooden cups. Imagine a tiny (子) wooden cup."
+  },
+  {
+    id:5, hanzi:"北京", pinyin:"Běijīng", meaning:"Beijing (capital of China)",
+    category:"Places",
+    example:{ hanzi:"北京是中国的首都。", pinyin:"Běijīng shì Zhōngguó de shǒudū.", english:"Beijing is the capital of China." },
+    writing:"北: two people back-to-back facing north/south. 京: tall building on a hill — the capital city.",
+    tip:"北 (north) + 京 (capital) = Northern Capital. Easy — Beijing is literally the 'Northern Capital'!"
+  },
+  {
+    id:6, hanzi:"本", pinyin:"běn", meaning:"book; volume; (measure word for books)",
+    category:"Objects",
+    example:{ hanzi:"我买了一本书。", pinyin:"Wǒ mǎile yī běn shū.", english:"I bought one book." },
+    writing:"木 (tree/wood) with a stroke at the bottom — the ROOT of a tree. Books come from trees.",
+    tip:"A tree (木) with a mark at its BASE — the root. Books come from the root (trees). Root → paper → book!"
+  },
+  {
+    id:7, hanzi:"不客气", pinyin:"bú kèqi", meaning:"you're welcome; don't mention it",
+    category:"Phrases",
+    example:{ hanzi:"谢谢你！不客气！", pinyin:"Xièxie nǐ! Bú kèqi!", english:"Thank you! You're welcome!" },
+    writing:"不 (not) + 客 (guest) + 气 (air/manner). Literally 'don't be a polite guest.'",
+    tip:"'Not-guest-air' = Don't be so formal! Imagine waving off a very formal guest bowing to you."
+  },
+  {
+    id:8, hanzi:"不", pinyin:"bù", meaning:"not; no (negation)",
+    category:"Grammar",
+    example:{ hanzi:"我不去。", pinyin:"Wǒ bù qù.", english:"I'm not going." },
+    writing:"A bird flying upward — symbolizing something going away or being absent.",
+    tip:"Looks like a bird (丿) flying away from under a roof (一) — what's NOT there flew away!"
+  },
+  {
+    id:9, hanzi:"菜", pinyin:"cài", meaning:"vegetable; dish; food",
+    category:"Food",
+    example:{ hanzi:"这个菜很好吃。", pinyin:"Zhège cài hěn hǎochī.", english:"This dish is very delicious." },
+    writing:"艹 (grass/plant radical on top) + 采 (to pick) — picking plants to eat.",
+    tip:"Grass (艹) you pick (采) — picture picking fresh vegetables from a garden!"
+  },
+  {
+    id:10, hanzi:"茶", pinyin:"chá", meaning:"tea",
+    category:"Food",
+    example:{ hanzi:"我喜欢喝茶。", pinyin:"Wǒ xǐhuān hē chá.", english:"I like drinking tea." },
+    writing:"艹 (grass) on top, 木 (wood/tree) inside, 人 (person) at bottom — a person under a tea tree.",
+    tip:"Grass (艹) + tree (木) + person (人) = a person sitting under a tea bush. Very zen!"
+  },
+  {
+    id:11, hanzi:"吃", pinyin:"chī", meaning:"to eat",
+    category:"Actions",
+    example:{ hanzi:"我想吃饺子。", pinyin:"Wǒ xiǎng chī jiǎozi.", english:"I want to eat dumplings." },
+    writing:"口 (mouth radical) + 乞 (to beg). An open mouth begging for food!",
+    tip:"Mouth (口) + begging (乞) = eating! Picture someone opening their mouth and begging for food."
+  },
+  {
+    id:12, hanzi:"出租车", pinyin:"chūzūchē", meaning:"taxi; cab",
+    category:"Transport",
+    example:{ hanzi:"我打了一辆出租车。", pinyin:"Wǒ dǎle yī liàng chūzūchē.", english:"I hailed a taxi." },
+    writing:"出 (go out) + 租 (rent) + 车 (vehicle) = a 'go-out-rent-car'.",
+    tip:"'Exit-rent-car' — a car you rent when you go out. Perfect description of a taxi!"
+  },
+  {
+    id:13, hanzi:"打电话", pinyin:"dǎ diànhuà", meaning:"to make a phone call",
+    category:"Actions",
+    example:{ hanzi:"我给你打电话。", pinyin:"Wǒ gěi nǐ dǎ diànhuà.", english:"I'll give you a call." },
+    writing:"打 (hit/strike) + 电 (electricity) + 话 (speech/words). Strike electricity words!",
+    tip:"'Hit electric-words' — imagine striking lightning and words flying through — a phone call!"
+  },
+  {
+    id:14, hanzi:"大", pinyin:"dà", meaning:"big; large; great",
+    category:"Adjectives",
+    example:{ hanzi:"这是一个大房间。", pinyin:"Zhè shì yīgè dà fángjiān.", english:"This is a big room." },
+    writing:"A person (人) with arms spread wide — showing off how BIG something is.",
+    tip:"A person (大) spreading both arms wide to show you how BIG it is — 'It's THIS big!'"
+  },
+  {
+    id:15, hanzi:"的", pinyin:"de", meaning:"(possessive/descriptive particle)",
+    category:"Grammar",
+    example:{ hanzi:"我的书包很重。", pinyin:"Wǒ de shūbāo hěn zhòng.", english:"My backpack is very heavy." },
+    writing:"白 (white/clear) + 勺 (spoon). Grammatical particle — just memorize it.",
+    tip:"The most common character in Chinese! It's like apostrophe-s ('s) in English for possession."
+  },
+  {
+    id:16, hanzi:"点", pinyin:"diǎn", meaning:"o'clock; point; dot; a little",
+    category:"Time",
+    example:{ hanzi:"现在三点了。", pinyin:"Xiànzài sān diǎn le.", english:"It's three o'clock now." },
+    writing:"黑 (black/dark) + 灬 (fire) — fire makes a mark or point in the dark.",
+    tip:"Imagine a clock face with a single dot marking the hour — 'three DOT = three o'clock!'"
+  },
+  {
+    id:17, hanzi:"电脑", pinyin:"diànnǎo", meaning:"computer",
+    category:"Objects",
+    example:{ hanzi:"我的电脑坏了。", pinyin:"Wǒ de diànnǎo huài le.", english:"My computer is broken." },
+    writing:"电 (electricity) + 脑 (brain) = electric brain. Perfectly logical!",
+    tip:"'Electric brain' — a computer IS an electric brain. Chinese named it perfectly!"
+  },
+  {
+    id:18, hanzi:"电视", pinyin:"diànshì", meaning:"television; TV",
+    category:"Objects",
+    example:{ hanzi:"我晚上看电视。", pinyin:"Wǒ wǎnshang kàn diànshì.", english:"I watch TV in the evening." },
+    writing:"电 (electricity) + 视 (to look at/watch). Electric-watch!",
+    tip:"'Electric-see' — you electrically see things on it. TV is literally an 'electric viewer'!"
+  },
+  {
+    id:19, hanzi:"电影", pinyin:"diànyǐng", meaning:"movie; film",
+    category:"Entertainment",
+    example:{ hanzi:"这部电影很精彩。", pinyin:"Zhè bù diànyǐng hěn jīngcǎi.", english:"This movie is wonderful." },
+    writing:"电 (electricity) + 影 (shadow/image). Electricity + shadows = projected film!",
+    tip:"'Electric shadow' — old movies were literally shadows projected by electric light. Perfect!"
+  },
+  {
+    id:20, hanzi:"东西", pinyin:"dōngxi", meaning:"thing; stuff; object",
+    category:"General",
+    example:{ hanzi:"你买了什么东西？", pinyin:"Nǐ mǎile shénme dōngxi?", english:"What things did you buy?" },
+    writing:"东 (east) + 西 (west). East-West = everything between — all things!",
+    tip:"East + West = all directions = EVERYTHING. If you cover East and West, you have all things!"
+  },
+  {
+    id:21, hanzi:"都", pinyin:"dōu", meaning:"all; both; already",
+    category:"Grammar",
+    example:{ hanzi:"我们都是学生。", pinyin:"Wǒmen dōu shì xuéshēng.", english:"We are all students." },
+    writing:"者 (person) + 阝(city radical). All people in a city.",
+    tip:"Imagine gathering everyone (都) in a city — ALL the people assembled together!"
+  },
+  {
+    id:22, hanzi:"读", pinyin:"dú", meaning:"to read; to study",
+    category:"Actions",
+    example:{ hanzi:"她喜欢读书。", pinyin:"Tā xǐhuān dú shū.", english:"She likes to read books." },
+    writing:"讠(speech radical) + 卖 (sell). Reading is 'selling words' — sharing spoken language.",
+    tip:"Speech (讠) + sell (卖) = reading aloud sells the words, brings them to life!"
+  },
+  {
+    id:23, hanzi:"对不起", pinyin:"duìbuqǐ", meaning:"sorry; I'm sorry",
+    category:"Phrases",
+    example:{ hanzi:"对不起，我来晚了。", pinyin:"Duìbuqǐ, wǒ lái wǎn le.", english:"Sorry, I'm late." },
+    writing:"对 (correct/face) + 不 (not) + 起 (rise/worthy). 'Cannot face you worthy.'",
+    tip:"'Face-not-rise' — I can't face you with my head up. I'm so sorry I must look down in shame!"
+  },
+  {
+    id:24, hanzi:"多", pinyin:"duō", meaning:"many; much; a lot",
+    category:"Adjectives",
+    example:{ hanzi:"这里人很多。", pinyin:"Zhèlǐ rén hěn duō.", english:"There are many people here." },
+    writing:"Two 夕 (evening/moon) stacked — so many evenings, so many things pile up.",
+    tip:"Two moons (夕夕) stacked on top of each other — SO MANY moons = so MANY things!"
+  },
+  {
+    id:25, hanzi:"多少", pinyin:"duōshao", meaning:"how many; how much",
+    category:"Questions",
+    example:{ hanzi:"这个多少钱？", pinyin:"Zhège duōshao qián?", english:"How much does this cost?" },
+    writing:"多 (many) + 少 (few) = between many and few = how many/much?",
+    tip:"'Many-few?' — You're asking where between MANY and FEW is the actual amount!"
+  },
+  {
+    id:26, hanzi:"儿子", pinyin:"érzi", meaning:"son",
+    category:"Family",
+    example:{ hanzi:"他有一个儿子。", pinyin:"Tā yǒu yīgè érzi.", english:"He has a son." },
+    writing:"儿 (child/son radical) + 子 (child). Double emphasis on being a child-son.",
+    tip:"儿 looks like a child (人 with wobbly legs). 子 also means child — a double-child = son!"
+  },
+  {
+    id:27, hanzi:"二", pinyin:"èr", meaning:"two",
+    category:"Numbers",
+    example:{ hanzi:"我有两个弟弟。", pinyin:"Wǒ yǒu liǎng gè dìdi.", english:"I have two younger brothers." },
+    writing:"Two horizontal strokes — literally two lines for two.",
+    tip:"Two lines = two. As simple as it gets! First you write one line (一), then add another (二)."
+  },
+  {
+    id:28, hanzi:"饭馆", pinyin:"fànguǎn", meaning:"restaurant",
+    category:"Places",
+    example:{ hanzi:"这家饭馆很好吃。", pinyin:"Zhè jiā fànguǎn hěn hǎochī.", english:"This restaurant is delicious." },
+    writing:"饭 (food/rice) + 馆 (building/hall). A building for food.",
+    tip:"'Food-hall' — a hall where you eat food. The building (馆) of rice and dishes (饭)!"
+  },
+  {
+    id:29, hanzi:"飞机", pinyin:"fēijī", meaning:"airplane",
+    category:"Transport",
+    example:{ hanzi:"我坐飞机去北京。", pinyin:"Wǒ zuò fēijī qù Běijīng.", english:"I'm flying to Beijing." },
+    writing:"飞 (fly — looks like a bird with wings) + 机 (machine). Flying machine!",
+    tip:"飞 looks like a bird flying! 飞 (fly) + 机 (machine) = flying machine = airplane. Perfect!"
+  },
+  {
+    id:30, hanzi:"分钟", pinyin:"fēnzhōng", meaning:"minute",
+    category:"Time",
+    example:{ hanzi:"请等我五分钟。", pinyin:"Qǐng děng wǒ wǔ fēnzhōng.", english:"Please wait five minutes for me." },
+    writing:"分 (divide/minute) + 钟 (clock/bell). Divided clock units = minutes.",
+    tip:"'Divide-bell' — a clock bell divides time into minutes. Tick-tock, one minute at a time!"
+  },
+  {
+    id:31, hanzi:"高兴", pinyin:"gāoxìng", meaning:"happy; glad; pleased",
+    category:"Emotions",
+    example:{ hanzi:"我很高兴见到你。", pinyin:"Wǒ hěn gāoxìng jiàn dào nǐ.", english:"I'm very happy to meet you." },
+    writing:"高 (tall/high) + 兴 (rise/thrive). Spirits rising high!",
+    tip:"'High-rising spirits' — happiness is when your spirits RISE HIGH. Feel your mood lifting up!"
+  },
+  {
+    id:32, hanzi:"个", pinyin:"gè", meaning:"(general measure word)",
+    category:"Grammar",
+    example:{ hanzi:"我买了三个苹果。", pinyin:"Wǒ mǎile sān gè píngguǒ.", english:"I bought three apples." },
+    writing:"人 (person) + 一 (one) — one-person unit, a single entity.",
+    tip:"Think of 个 as the English 'a/an' but for counting. One (一) person (人) = one unit!"
+  },
+  {
+    id:33, hanzi:"工作", pinyin:"gōngzuò", meaning:"work; job; to work",
+    category:"Work",
+    example:{ hanzi:"他每天工作八小时。", pinyin:"Tā měitiān gōngzuò bā xiǎoshí.", english:"He works eight hours every day." },
+    writing:"工 (work/craft tool — looks like a I-beam) + 作 (make/do). Making-doing = working.",
+    tip:"工 looks like a construction I-beam — the tool of a worker. 工+作 = doing the beam-work!"
+  },
+  {
+    id:34, hanzi:"狗", pinyin:"gǒu", meaning:"dog",
+    category:"Animals",
+    example:{ hanzi:"我家有一只狗。", pinyin:"Wǒ jiā yǒu yī zhī gǒu.", english:"My family has a dog." },
+    writing:"犭(dog/animal radical) + 句 (phrase sound). An animal that barks phrases!",
+    tip:"The 犭 on the left is the dog radical — it looks like a dog running. 狗 is the dog that runs!"
+  },
+  {
+    id:35, hanzi:"汉语", pinyin:"Hànyǔ", meaning:"Chinese language (Mandarin)",
+    category:"Language",
+    example:{ hanzi:"我在学汉语。", pinyin:"Wǒ zài xué Hànyǔ.", english:"I am learning Chinese." },
+    writing:"汉 (Han Chinese/Han dynasty) + 语 (language/speech). Language of the Han people.",
+    tip:"Han (汉) + Language (语) = the Han people's language. You're learning the language of 1.4 billion!"
+  },
+  {
+    id:36, hanzi:"好", pinyin:"hǎo", meaning:"good; fine; well; nice",
+    category:"Adjectives",
+    example:{ hanzi:"你好！今天天气很好。", pinyin:"Nǐ hǎo! Jīntiān tiānqì hěn hǎo.", english:"Hello! The weather is very good today." },
+    writing:"女 (woman) + 子 (child). A woman with a child — the ancient ideal of good/blessed.",
+    tip:"Woman (女) + Child (子) = GOOD! In ancient China, having a healthy mother and child = everything's GOOD!"
+  },
+  {
+    id:37, hanzi:"好吃", pinyin:"hǎochī", meaning:"delicious; tasty",
+    category:"Food",
+    example:{ hanzi:"妈妈做的菜很好吃！", pinyin:"Māma zuò de cài hěn hǎochī!", english:"The food mom makes is delicious!" },
+    writing:"好 (good) + 吃 (eat). Good-to-eat = delicious.",
+    tip:"'Good-eat' = delicious! If it's good to eat, it's 好吃. Simple and sensible!"
+  },
+  {
+    id:38, hanzi:"号", pinyin:"hào", meaning:"number; day of month; size",
+    category:"Numbers",
+    example:{ hanzi:"今天是几号？", pinyin:"Jīntiān shì jǐ hào?", english:"What's today's date?" },
+    writing:"口 (mouth) + 丂 (bent tool). A mouth announcing a number.",
+    tip:"A mouth (口) calling out numbers! 'Number 1, Number 2...' — an announcer calling out dates!"
+  },
+  {
+    id:39, hanzi:"喝", pinyin:"hē", meaning:"to drink",
+    category:"Actions",
+    example:{ hanzi:"你想喝什么？", pinyin:"Nǐ xiǎng hē shénme?", english:"What do you want to drink?" },
+    writing:"口 (mouth) + 曷 (sound component). A mouth making drinking sounds.",
+    tip:"Mouth (口) wide open making the 'Ahhh' drinking sound. Open up and drink — 喝!"
+  },
+  {
+    id:40, hanzi:"和", pinyin:"hé", meaning:"and; with; harmonious",
+    category:"Grammar",
+    example:{ hanzi:"我和你一起去。", pinyin:"Wǒ hé nǐ yīqǐ qù.", english:"I'll go together with you." },
+    writing:"禾 (grain/rice plant) + 口 (mouth). Sharing grain = harmony and togetherness.",
+    tip:"Grain (禾) and mouths (口) together — sharing food creates HARMONY and AND-ness!"
+  },
+  {
+    id:41, hanzi:"很", pinyin:"hěn", meaning:"very; quite",
+    category:"Grammar",
+    example:{ hanzi:"这里很漂亮。", pinyin:"Zhèlǐ hěn piàoliang.", english:"It's very beautiful here." },
+    writing:"彳(step radical) + 艮 (solid/stubborn). Walking stubbornly = very much so!",
+    tip:"Think 'hen' like a stubborn chicken walking — VERY stubbornly forward. 很 = VERY!"
+  },
+  {
+    id:42, hanzi:"后面", pinyin:"hòumiàn", meaning:"back; behind; rear",
+    category:"Direction",
+    example:{ hanzi:"学校后面有公园。", pinyin:"Xuéxiào hòumiàn yǒu gōngyuán.", english:"There's a park behind the school." },
+    writing:"后 (behind/after) + 面 (face/side). The back-face/side.",
+    tip:"后 has 幺 (small) + 口 (mouth) — a small mouth at the back, speaking quietly from behind!"
+  },
+  {
+    id:43, hanzi:"回", pinyin:"huí", meaning:"to return; to go back",
+    category:"Actions",
+    example:{ hanzi:"我明天回家。", pinyin:"Wǒ míngtiān huí jiā.", english:"I'm going home tomorrow." },
+    writing:"A square within a square — spiraling back to the center. Return to the origin.",
+    tip:"A box inside a box — like a boomerang returning to its origin, spiraling back home. Return!"
+  },
+  {
+    id:44, hanzi:"会", pinyin:"huì", meaning:"can; will; know how to; meeting",
+    category:"Grammar",
+    example:{ hanzi:"我会说中文。", pinyin:"Wǒ huì shuō Zhōngwén.", english:"I can speak Chinese." },
+    writing:"人 (person) + 云 (cloud/say). A person saying — ability to communicate and gather.",
+    tip:"People (人) gathering to say (云) things — a meeting where people CAN communicate!"
+  },
+  {
+    id:45, hanzi:"几", pinyin:"jǐ", meaning:"how many; several; a few",
+    category:"Questions",
+    example:{ hanzi:"你有几个孩子？", pinyin:"Nǐ yǒu jǐ gè háizi?", english:"How many children do you have?" },
+    writing:"Like a small table with two legs — a few legs holding up something.",
+    tip:"Looks like a tiny table with 2 legs — 'a FEW legs.' Ask: how MANY legs? 几 = how many!"
+  },
+  {
+    id:46, hanzi:"家", pinyin:"jiā", meaning:"home; family; house",
+    category:"Places",
+    example:{ hanzi:"我家在北京。", pinyin:"Wǒ jiā zài Běijīng.", english:"My home is in Beijing." },
+    writing:"宀 (roof radical) + 豕 (pig). A roof over a pig — ancient farm home!",
+    tip:"A ROOF (宀) over a PIG (豕) — ancient Chinese families kept pigs. If you have a roof and food, you're home!"
+  },
+  {
+    id:47, hanzi:"叫", pinyin:"jiào", meaning:"to call; to be called; to yell",
+    category:"Actions",
+    example:{ hanzi:"我叫李明。", pinyin:"Wǒ jiào Lǐ Míng.", english:"My name is Li Ming." },
+    writing:"口 (mouth) + 丩 (twisting sound). A mouth making a calling/twisting cry.",
+    tip:"Mouth (口) twisted open CALLING out — '叫!' shout your name out loud!"
+  },
+  {
+    id:48, hanzi:"今天", pinyin:"jīntiān", meaning:"today",
+    category:"Time",
+    example:{ hanzi:"今天天气怎么样？", pinyin:"Jīntiān tiānqì zěnmeyàng?", english:"How's the weather today?" },
+    writing:"今 (now/present) + 天 (day/sky). The present day.",
+    tip:"今 (now) + 天 (sky/day) = today's sky = TODAY. You see the sky NOW = today!"
+  },
+  {
+    id:49, hanzi:"九", pinyin:"jiǔ", meaning:"nine",
+    category:"Numbers",
+    example:{ hanzi:"我家离这里九公里。", pinyin:"Wǒ jiā lí zhèlǐ jiǔ gōnglǐ.", english:"My home is nine kilometers from here." },
+    writing:"A curved stroke with a hook — like a bent arm or the number 9.",
+    tip:"九 looks like the number 9 mirrored! A curved arm reaching up — nine fingers grabbing the sky!"
+  },
+  {
+    id:50, hanzi:"开", pinyin:"kāi", meaning:"to open; to start; to drive",
+    category:"Actions",
+    example:{ hanzi:"请开门！", pinyin:"Qǐng kāi mén!", english:"Please open the door!" },
+    writing:"门 (door) with hands opening it — two hands pushing a door open.",
+    tip:"Imagine pushing open big doors with both hands spread wide — OPEN! 开!"
+  },
+  {
+    id:51, hanzi:"看", pinyin:"kàn", meaning:"to look; to watch; to read",
+    category:"Actions",
+    example:{ hanzi:"我看书。", pinyin:"Wǒ kàn shū.", english:"I'm reading a book." },
+    writing:"手 (hand) above 目 (eye). A hand shading the eye to look into the distance.",
+    tip:"A HAND (手) over the EYE (目) — like shading your eyes to LOOK into the distance. Classic!"
+  },
+  {
+    id:52, hanzi:"看见", pinyin:"kànjiàn", meaning:"to see; to catch sight of",
+    category:"Actions",
+    example:{ hanzi:"我看见一只猫。", pinyin:"Wǒ kànjiàn yī zhī māo.", english:"I see a cat." },
+    writing:"看 (look) + 见 (see/appear). Looking AND seeing — to actually catch sight of.",
+    tip:"看 (looking) + 见 (seeing) = actually seeing it! Looking until you finally SEE it!"
+  },
+  {
+    id:53, hanzi:"块", pinyin:"kuài", meaning:"(measure word); piece; chunk; yuan (money)",
+    category:"Money",
+    example:{ hanzi:"这个苹果五块钱。", pinyin:"Zhège píngguǒ wǔ kuài qián.", english:"This apple costs five yuan." },
+    writing:"土 (earth) + 夬 (determination). A solid chunk of earth — a piece/block.",
+    tip:"Like a chunk (块) of earth — a solid piece. Also the colloquial word for Chinese yuan coins!"
+  },
+  {
+    id:54, hanzi:"来", pinyin:"lái", meaning:"to come",
+    category:"Actions",
+    example:{ hanzi:"请进来！", pinyin:"Qǐng jìnlái!", english:"Please come in!" },
+    writing:"木 (tree) with strokes at top — a person coming from the trees, approaching.",
+    tip:"Picture someone COMING toward you from a forest (木). Arms spread wide — come, come!"
+  },
+  {
+    id:55, hanzi:"老师", pinyin:"lǎoshī", meaning:"teacher",
+    category:"People",
+    example:{ hanzi:"我们的老师很好。", pinyin:"Wǒmen de lǎoshī hěn hǎo.", english:"Our teacher is very good." },
+    writing:"老 (old/elder) + 师 (master/expert). Old master — an elder expert.",
+    tip:"Old (老) + Master (师) = teacher! A wise elder master who teaches. Respectful title!"
+  },
+  {
+    id:56, hanzi:"了", pinyin:"le", meaning:"(completed action particle); (change of state)",
+    category:"Grammar",
+    example:{ hanzi:"他走了。", pinyin:"Tā zǒu le.", english:"He left." },
+    writing:"子 (child) with a modified stroke — a child that has grown/changed.",
+    tip:"了 marks that something is DONE/CHANGED. Like a checkbox: ✓ Done! Action completed!"
+  },
+  {
+    id:57, hanzi:"冷", pinyin:"lěng", meaning:"cold",
+    category:"Weather",
+    example:{ hanzi:"今天很冷。", pinyin:"Jīntiān hěn lěng.", english:"It's very cold today." },
+    writing:"冫(ice/cold radical) + 令 (command). Ice commanding you to shiver!",
+    tip:"Ice droplets (冫) on the left — COLD! The ice radical makes everything cold. Brrrr!"
+  },
+  {
+    id:58, hanzi:"里", pinyin:"lǐ", meaning:"inside; in; (unit of distance)",
+    category:"Direction",
+    example:{ hanzi:"冰箱里有牛奶。", pinyin:"Bīngxiāng lǐ yǒu niúnǎi.", english:"There's milk in the fridge." },
+    writing:"田 (field) + 土 (earth). Earth inside a field — inside, interior.",
+    tip:"Earth (土) inside a field (田) — imagine what's INSIDE a plot of land. Inside = 里!"
+  },
+  {
+    id:59, hanzi:"六", pinyin:"liù", meaning:"six",
+    category:"Numbers",
+    example:{ hanzi:"我六点起床。", pinyin:"Wǒ liù diǎn qǐchuáng.", english:"I get up at six o'clock." },
+    writing:"亠 (top/dot) + 八 (eight minus 2). A dot over spread legs — six points of a figure.",
+    tip:"A person (人) with a dot hat (亠) — standing for six! Or: 八 (8) minus 2 legs = 6!"
+  },
+  {
+    id:60, hanzi:"妈妈", pinyin:"māma", meaning:"mom; mother",
+    category:"Family",
+    example:{ hanzi:"妈妈做的饭最好吃。", pinyin:"Māma zuò de fàn zuì hǎochī.", english:"Mom's cooking is the most delicious." },
+    writing:"妈 = 女 (woman) + 马 (horse sound). The woman of the house — doubled for mom.",
+    tip:"'Ma-ma' is a universal baby sound for mother across languages! The first sounds a baby makes."
+  },
+  {
+    id:61, hanzi:"买", pinyin:"mǎi", meaning:"to buy",
+    category:"Actions",
+    example:{ hanzi:"我想买一件衣服。", pinyin:"Wǒ xiǎng mǎi yī jiàn yīfu.", english:"I want to buy a piece of clothing." },
+    writing:"头 (head — simplified) on top + 贝 (money/shell). Exchanging money for goods.",
+    tip:"Shells (贝) were ancient Chinese money. 买 has a shell (贝) at the bottom — spending money to BUY!"
+  },
+  {
+    id:62, hanzi:"猫", pinyin:"māo", meaning:"cat",
+    category:"Animals",
+    example:{ hanzi:"我的猫很可爱。", pinyin:"Wǒde māo hěn kě'ài.", english:"My cat is very cute." },
+    writing:"犭(animal radical) + 苗 (sprout sound). An animal in the grass — sneaky cat!",
+    tip:"The dog/animal radical (犭) + sounds like 'meow' — māo! The sound tells you it's a cat: MEOW!"
+  },
+  {
+    id:63, hanzi:"没关系", pinyin:"méi guānxi", meaning:"it's okay; never mind; doesn't matter",
+    category:"Phrases",
+    example:{ hanzi:"没关系，不用道歉。", pinyin:"Méi guānxi, bùyòng dàoqiàn.", english:"It's okay, no need to apologize." },
+    writing:"没 (not have) + 关 (connection) + 系 (tie). No connection or ties — no relation = no problem!",
+    tip:"'No-connection-ties' — there's NO link between us and this mistake. It doesn't matter!"
+  },
+  {
+    id:64, hanzi:"没有", pinyin:"méiyǒu", meaning:"don't have; there isn't; not",
+    category:"Grammar",
+    example:{ hanzi:"我没有钱。", pinyin:"Wǒ méiyǒu qián.", english:"I don't have money." },
+    writing:"没 (not/sink) + 有 (have). Sunken into not-having.",
+    tip:"没 shows something sinking underwater (氵water + 殳 disappear) — your money sinks away. Don't have!"
+  },
+  {
+    id:65, hanzi:"米饭", pinyin:"mǐfàn", meaning:"(cooked) rice",
+    category:"Food",
+    example:{ hanzi:"我喜欢吃米饭。", pinyin:"Wǒ xǐhuān chī mǐfàn.", english:"I like eating rice." },
+    writing:"米 (rice/grain) + 饭 (cooked food). Grain that is cooked into food.",
+    tip:"米 looks like a star/cross — grains of rice scattered. 米饭 = the grain made into a meal!"
+  },
+  {
+    id:66, hanzi:"明天", pinyin:"míngtiān", meaning:"tomorrow",
+    category:"Time",
+    example:{ hanzi:"明天我们去爬山。", pinyin:"Míngtiān wǒmen qù páshān.", english:"Tomorrow we'll go hiking." },
+    writing:"明 (bright: sun + moon) + 天 (day). The bright day — tomorrow's fresh bright day.",
+    tip:"明 = sun (日) + moon (月) = bright! The BRIGHT coming day = tomorrow!"
+  },
+  {
+    id:67, hanzi:"名字", pinyin:"míngzi", meaning:"name",
+    category:"General",
+    example:{ hanzi:"你叫什么名字？", pinyin:"Nǐ jiào shénme míngzi?", english:"What is your name?" },
+    writing:"名 (name: evening+mouth — calling in the dark) + 字 (character/letter). Named characters.",
+    tip:"名 = evening (夕) + mouth (口) — calling out your NAME in the dark so others know you!"
+  },
+  {
+    id:68, hanzi:"明白", pinyin:"míngbái", meaning:"to understand; clear",
+    category:"Actions",
+    example:{ hanzi:"你明白了吗？", pinyin:"Nǐ míngbái le ma?", english:"Do you understand?" },
+    writing:"明 (bright/clear) + 白 (white/clear). Double clarity — bright and white = crystal clear!",
+    tip:"Bright (明) and white (白) = crystal CLEAR understanding! Everything is illuminated!"
+  },
+  {
+    id:69, hanzi:"哪", pinyin:"nǎ", meaning:"which; where",
+    category:"Questions",
+    example:{ hanzi:"你是哪国人？", pinyin:"Nǐ shì nǎ guó rén?", english:"Which country are you from?" },
+    writing:"口 (mouth) + 那 (that). A mouth questioning which of 'those'.",
+    tip:"Mouth (口) + 'that' (那) = WHICH one of those?! Your mouth asking while pointing!"
+  },
+  {
+    id:70, hanzi:"哪儿", pinyin:"nǎr", meaning:"where (spoken form)",
+    category:"Questions",
+    example:{ hanzi:"你去哪儿？", pinyin:"Nǐ qù nǎr?", english:"Where are you going?" },
+    writing:"哪 (which) + 儿 (child/erhua). Northern Mandarin erhua — rolled 'r' ending.",
+    tip:"哪 (which) + 儿 (child-er sound) = spoken northern Chinese 'where'. Think: 'where-r?'"
+  },
+  {
+    id:71, hanzi:"那", pinyin:"nà", meaning:"that; those; then",
+    category:"Grammar",
+    example:{ hanzi:"那本书是我的。", pinyin:"Nà běn shū shì wǒ de.", english:"That book is mine." },
+    writing:"阝(city mound radical) + 冄 (whiskers). Something further away — that thing over there.",
+    tip:"那 points away from you — imagine pointing at something FAR away: 'THAT thing over there!'"
+  },
+  {
+    id:72, hanzi:"呢", pinyin:"ne", meaning:"(question particle — what about...?)",
+    category:"Grammar",
+    example:{ hanzi:"我很好，你呢？", pinyin:"Wǒ hěn hǎo, nǐ ne?", english:"I'm fine, and you?" },
+    writing:"口 (mouth) + 尼 (Buddhist nun sound). A mouth softly questioning.",
+    tip:"呢 is like raising your eyebrow and saying 'AND you?' — a gentle questioning nudge!"
+  },
+  {
+    id:73, hanzi:"能", pinyin:"néng", meaning:"can; be able to",
+    category:"Grammar",
+    example:{ hanzi:"你能帮我吗？", pinyin:"Nǐ néng bāng wǒ ma?", english:"Can you help me?" },
+    writing:"熊 (bear) simplified — an animal body with ability. Strong like a bear = CAN do!",
+    tip:"A BEAR can do many things — it's strong and capable! 能 = CAN, like a powerful bear!"
+  },
+  {
+    id:74, hanzi:"你", pinyin:"nǐ", meaning:"you (singular)",
+    category:"Pronouns",
+    example:{ hanzi:"你好！", pinyin:"Nǐ hǎo!", english:"Hello! (lit. You good!)" },
+    writing:"亻(person radical) + 尔 (you in classical Chinese). You = a person addressed.",
+    tip:"Person (亻) + classical 'you' (尔) = YOU. The person standing right in front of you!"
+  },
+  {
+    id:75, hanzi:"年", pinyin:"nián", meaning:"year",
+    category:"Time",
+    example:{ hanzi:"今年是哪年？", pinyin:"Jīnnián shì nǎ nián?", english:"What year is this year?" },
+    writing:"Grain stalks standing tall — a full harvest cycle = one year passing.",
+    tip:"年 looks like crops (grain on top of 人) after a full YEAR of growth. One harvest = one year!"
+  },
+  {
+    id:76, hanzi:"女儿", pinyin:"nǚ'ér", meaning:"daughter",
+    category:"Family",
+    example:{ hanzi:"她是我的女儿。", pinyin:"Tā shì wǒ de nǚ'ér.", english:"She is my daughter." },
+    writing:"女 (woman/female) + 儿 (child). Female child = daughter.",
+    tip:"Female (女) + child (儿) = daughter! Simple and clear — a girl child."
+  },
+  {
+    id:77, hanzi:"女", pinyin:"nǚ", meaning:"female; woman; daughter",
+    category:"People",
+    example:{ hanzi:"她是一个女学生。", pinyin:"Tā shì yīgè nǚ xuéshēng.", english:"She is a female student." },
+    writing:"A figure with arms out and legs crossed — like a kneeling woman in ancient script.",
+    tip:"女 looks like a woman sitting with arms crossed (modestly, in ancient imagery). Female!"
+  },
+  {
+    id:78, hanzi:"朋友", pinyin:"péngyou", meaning:"friend",
+    category:"People",
+    example:{ hanzi:"他是我的好朋友。", pinyin:"Tā shì wǒ de hǎo péngyou.", english:"He is my good friend." },
+    writing:"朋: two moons side by side — two people equal like the moon. 友: two hands helping each other.",
+    tip:"Two moons (朋) side by side, equal and bright + helping hands (友) = FRIEND!"
+  },
+  {
+    id:79, hanzi:"苹果", pinyin:"píngguǒ", meaning:"apple",
+    category:"Food",
+    example:{ hanzi:"我每天吃一个苹果。", pinyin:"Wǒ měitiān chī yīgè píngguǒ.", english:"I eat one apple every day." },
+    writing:"苹: 艹(grass) + 平 (flat/even). 果: tree with fruit on top — fruit of a tree.",
+    tip:"苹 sounds like 'ping' (peaceful) + 果 (fruit on a tree) = Apple! A peaceful fruit!"
+  },
+  {
+    id:80, hanzi:"七", pinyin:"qī", meaning:"seven",
+    category:"Numbers",
+    example:{ hanzi:"一周有七天。", pinyin:"Yī zhōu yǒu qī tiān.", english:"One week has seven days." },
+    writing:"A horizontal stroke with a vertical crossing — like a plus sign cut in half.",
+    tip:"七 looks like a reversed number 7 with a cross. Seven days in a week — week cross!"
+  },
+  {
+    id:81, hanzi:"钱", pinyin:"qián", meaning:"money",
+    category:"Money",
+    example:{ hanzi:"你有多少钱？", pinyin:"Nǐ yǒu duōshao qián?", english:"How much money do you have?" },
+    writing:"钅(gold/metal radical) + 戋 (small amount). Small amounts of metal = money!",
+    tip:"Metal (钅) + small (戋) = small bits of metal = MONEY! Ancient coins were little pieces of metal!"
+  },
+  {
+    id:82, hanzi:"前面", pinyin:"qiánmiàn", meaning:"front; ahead; in front",
+    category:"Direction",
+    example:{ hanzi:"前面有一家餐厅。", pinyin:"Qiánmiàn yǒu yī jiā cāntīng.", english:"There's a restaurant ahead." },
+    writing:"前 (front/before) + 面 (face/surface). The forward-facing surface — front!",
+    tip:"前 has a boat (月=舟) going FORWARD, with a 刀 (knife) cutting ahead. Full speed front!"
+  },
+  {
+    id:83, hanzi:"请", pinyin:"qǐng", meaning:"please; to invite; to treat",
+    category:"Phrases",
+    example:{ hanzi:"请坐！", pinyin:"Qǐng zuò!", english:"Please sit down!" },
+    writing:"讠(speech radical) + 青 (green/clear). Clear polite speech = please!",
+    tip:"Speaking (讠) clearly (青) = polite 'please'! Green-clear-speech = crystal clear politeness!"
+  },
+  {
+    id:84, hanzi:"去", pinyin:"qù", meaning:"to go",
+    category:"Actions",
+    example:{ hanzi:"我们去哪儿？", pinyin:"Wǒmen qù nǎr?", english:"Where are we going?" },
+    writing:"土 (earth) + 厶 (private/go). A person going from the earth — departing.",
+    tip:"A person leaving the ground (土) — feet lifting off to GO somewhere. Departure!"
+  },
+  {
+    id:85, hanzi:"热", pinyin:"rè", meaning:"hot; heat",
+    category:"Weather",
+    example:{ hanzi:"今天很热！", pinyin:"Jīntiān hěn rè!", english:"It's very hot today!" },
+    writing:"执 (hold/grasp) + 灬 (fire radical at bottom). Holding fire — HOT!",
+    tip:"Four fire dots (灬) burning at the bottom — that's HOT! Like a stove with four burners blazing!"
+  },
+  {
+    id:86, hanzi:"人", pinyin:"rén", meaning:"person; people",
+    category:"People",
+    example:{ hanzi:"那个人是谁？", pinyin:"Nàgè rén shì shéi?", english:"Who is that person?" },
+    writing:"Two strokes — one leaning on the other. Two legs of a standing human being.",
+    tip:"Two strokes = two legs of a person walking. Lean on each other to stand up — 人 = HUMAN!"
+  },
+  {
+    id:87, hanzi:"认识", pinyin:"rènshi", meaning:"to know; to recognize; to be acquainted with",
+    category:"Actions",
+    example:{ hanzi:"很高兴认识你！", pinyin:"Hěn gāoxìng rènshi nǐ!", english:"Nice to meet you!" },
+    writing:"认 (recognize: speech+recognize) + 识 (know: speech+flag/mark). Recognizing speech-marks.",
+    tip:"Both characters have speech (讠) — using words to recognize and know someone. Nice to KNOW you!"
+  },
+  {
+    id:88, hanzi:"日", pinyin:"rì", meaning:"sun; day",
+    category:"Time",
+    example:{ hanzi:"今日天气很好。", pinyin:"Jīn rì tiānqì hěn hǎo.", english:"Today's weather is very good." },
+    writing:"A rectangle with a line through it — a square sun with a bright center.",
+    tip:"日 is an ancient pictograph of the SUN — a square with a dot center. The original sun icon!"
+  },
+  {
+    id:89, hanzi:"三", pinyin:"sān", meaning:"three",
+    category:"Numbers",
+    example:{ hanzi:"我有三只猫。", pinyin:"Wǒ yǒu sān zhī māo.", english:"I have three cats." },
+    writing:"Three horizontal strokes. One + one + one = three.",
+    tip:"三 = three horizontal lines. Count them: ー, ー, ー. One, two, three! Could not be simpler!"
+  },
+  {
+    id:90, hanzi:"商店", pinyin:"shāngdiàn", meaning:"shop; store",
+    category:"Places",
+    example:{ hanzi:"附近有商店吗？", pinyin:"Fùjìn yǒu shāngdiàn ma?", english:"Is there a shop nearby?" },
+    writing:"商 (commerce/trade) + 店 (shop/inn). Commercial establishment.",
+    tip:"商 (trade) + 店 (inn/place) = STORE! A place of trading — the commercial establishment!"
+  },
+  {
+    id:91, hanzi:"上", pinyin:"shàng", meaning:"up; above; on top; to go up",
+    category:"Direction",
+    example:{ hanzi:"桌子上有一本书。", pinyin:"Zhuōzi shàng yǒu yī běn shū.", english:"There's a book on the table." },
+    writing:"A stroke pointing UP from a baseline — above the line, going upward.",
+    tip:"上 has the stroke going UP above the baseline. Arrow pointing UP = above/up!"
+  },
+  {
+    id:92, hanzi:"上午", pinyin:"shàngwǔ", meaning:"morning; AM",
+    category:"Time",
+    example:{ hanzi:"我上午有课。", pinyin:"Wǒ shàngwǔ yǒu kè.", english:"I have class in the morning." },
+    writing:"上 (up/above) + 午 (noon). Before noon — the upper half of the day.",
+    tip:"上 (above) + 午 (noon) = before noon = morning! The upper part of the day before midday!"
+  },
+  {
+    id:93, hanzi:"少", pinyin:"shǎo", meaning:"few; little; less",
+    category:"Adjectives",
+    example:{ hanzi:"这里人很少。", pinyin:"Zhèlǐ rén hěn shǎo.", english:"There are few people here." },
+    writing:"小 (small) with an extra stroke — even smaller than small = few!",
+    tip:"小 (small) with a dash cutting it smaller — already small (小) minus a bit = FEW!"
+  },
+  {
+    id:94, hanzi:"谁", pinyin:"shéi", meaning:"who; whom",
+    category:"Questions",
+    example:{ hanzi:"你是谁？", pinyin:"Nǐ shì shéi?", english:"Who are you?" },
+    writing:"讠(speech) + 隹 (short-tailed bird). Asking who speaks — which bird is singing?",
+    tip:"Speech (讠) + bird (隹) = WHO is that bird singing? Which person is speaking? WHO?"
+  },
+  {
+    id:95, hanzi:"什么", pinyin:"shénme", meaning:"what",
+    category:"Questions",
+    example:{ hanzi:"你在做什么？", pinyin:"Nǐ zài zuò shénme?", english:"What are you doing?" },
+    writing:"什: person+ten (many things). 么: small tail. What little thing among many?",
+    tip:"什 (many things) + 么 (small tail) = WHAT small thing among many? Grabbing at 'what'!"
+  },
+  {
+    id:96, hanzi:"身体", pinyin:"shēntǐ", meaning:"body; health",
+    category:"Body",
+    example:{ hanzi:"你身体好吗？", pinyin:"Nǐ shēntǐ hǎo ma?", english:"Are you in good health?" },
+    writing:"身 (body — pregnant woman pictograph) + 体 (body structure: person+root).",
+    tip:"身 shows a pregnant body (全 body) + 体 (person's structure) = your physical body/health!"
+  },
+  {
+    id:97, hanzi:"生日", pinyin:"shēngrì", meaning:"birthday",
+    category:"Time",
+    example:{ hanzi:"你的生日是几月几号？", pinyin:"Nǐde shēngrì shì jǐ yuè jǐ hào?", english:"What month and day is your birthday?" },
+    writing:"生 (life/birth — plant sprouting) + 日 (day/sun). The day of birth!",
+    tip:"生 (birth — a sprout rising) + 日 (day) = the day you were born! Your BIRTH-DAY!"
+  },
+  {
+    id:98, hanzi:"时候", pinyin:"shíhou", meaning:"time; moment; when",
+    category:"Time",
+    example:{ hanzi:"你什么时候来？", pinyin:"Nǐ shénme shíhou lái?", english:"When are you coming?" },
+    writing:"时 (time: sun+inch) + 候 (wait/climate). Waiting for the sun-inch of time.",
+    tip:"Time (时) + waiting (候) = a moment you wait for. 'When the moment comes...' = WHEN!"
+  },
+  {
+    id:99, hanzi:"是", pinyin:"shì", meaning:"to be; is; am; are",
+    category:"Grammar",
+    example:{ hanzi:"我是学生。", pinyin:"Wǒ shì xuéshēng.", english:"I am a student." },
+    writing:"日 (sun) + 正 (correct/upright). The sun is upright = it IS so = truth/being.",
+    tip:"The sun (日) standing upright (正) = things ARE as they truly ARE. The truth: IS!"
+  },
+  {
+    id:100, hanzi:"书", pinyin:"shū", meaning:"book",
+    category:"Objects",
+    example:{ hanzi:"我喜欢看书。", pinyin:"Wǒ xǐhuān kànshū.", english:"I like reading books." },
+    writing:"聿 simplified — a hand holding a brush writing. The act of writing = book.",
+    tip:"书 looks like a brush writing. A hand gripping a pen making strokes — a BOOK is written!"
+  },
+  {
+    id:101, hanzi:"水", pinyin:"shuǐ", meaning:"water",
+    category:"Nature",
+    example:{ hanzi:"我想喝水。", pinyin:"Wǒ xiǎng hē shuǐ.", english:"I want to drink water." },
+    writing:"A center stroke with droplets spreading — flowing water rippling outward.",
+    tip:"水 looks like water flowing — a vertical stream (|) with droplets splashing sideways! Flow!"
+  },
+  {
+    id:102, hanzi:"水果", pinyin:"shuǐguǒ", meaning:"fruit",
+    category:"Food",
+    example:{ hanzi:"我喜欢吃水果。", pinyin:"Wǒ xǐhuān chī shuǐguǒ.", english:"I like eating fruit." },
+    writing:"水 (water) + 果 (fruit/result). Water fruit — fruit grows with water.",
+    tip:"'Water-fruit' — fruit is full of water! Juicy watermelon, oranges = water-fruits. Makes sense!"
+  },
+  {
+    id:103, hanzi:"睡觉", pinyin:"shuìjiào", meaning:"to sleep",
+    category:"Actions",
+    example:{ hanzi:"我晚上十点睡觉。", pinyin:"Wǒ wǎnshang shí diǎn shuìjiào.", english:"I sleep at ten o'clock at night." },
+    writing:"睡: 目(eye)+垂(droop). 觉: 学(learn)+见(see). Eyes drooping, perception learning — sleep!",
+    tip:"Eyes (目) drooping (垂) = 睡 SLEEP! Your eyes literally droop when you get sleepy!"
+  },
+  {
+    id:104, hanzi:"说", pinyin:"shuō", meaning:"to speak; to say; to talk",
+    category:"Actions",
+    example:{ hanzi:"他说中文说得很好。", pinyin:"Tā shuō Zhōngwén shuō de hěn hǎo.", english:"He speaks Chinese very well." },
+    writing:"讠(speech radical) + 兑 (exchange/trade words). Trading words = speaking!",
+    tip:"Speech (讠) + exchange (兑) = SPEAKING! Trading and exchanging words with people!"
+  },
+  {
+    id:105, hanzi:"四", pinyin:"sì", meaning:"four",
+    category:"Numbers",
+    example:{ hanzi:"一年有四个季节。", pinyin:"Yī nián yǒu sì gè jìjié.", english:"A year has four seasons." },
+    writing:"A box with two strokes inside — a framed four-sided shape.",
+    tip:"四 has 4 sides like a square — count the 4 strokes forming the outside box!"
+  },
+  {
+    id:106, hanzi:"岁", pinyin:"suì", meaning:"year(s) old; age",
+    category:"Time",
+    example:{ hanzi:"我二十岁。", pinyin:"Wǒ èrshí suì.", english:"I am twenty years old." },
+    writing:"山 (mountain/years) + 戊 (growth/age). Mountains of years = age.",
+    tip:"Mountains (山) of time passed = years of your life = your AGE. How many mountains have you climbed?"
+  },
+  {
+    id:107, hanzi:"他", pinyin:"tā", meaning:"he; him",
+    category:"Pronouns",
+    example:{ hanzi:"他是我的哥哥。", pinyin:"Tā shì wǒ de gēgē.", english:"He is my older brother." },
+    writing:"亻(person) + 也 (also). A person + also = another person (he/him).",
+    tip:"Person (亻) + also (也) = ALSO a person = HE/HIM! Another person besides you."
+  },
+  {
+    id:108, hanzi:"她", pinyin:"tā", meaning:"she; her",
+    category:"Pronouns",
+    example:{ hanzi:"她是老师。", pinyin:"Tā shì lǎoshī.", english:"She is a teacher." },
+    writing:"女 (woman radical) + 也 (also). A woman + also = she/her.",
+    tip:"Woman (女) + also (也) = SHE! Same pronunciation as 他(he) — context tells you the gender!"
+  },
+  {
+    id:109, hanzi:"太", pinyin:"tài", meaning:"too; extremely; very",
+    category:"Adjectives",
+    example:{ hanzi:"这个太贵了！", pinyin:"Zhège tài guì le!", english:"This is too expensive!" },
+    writing:"大 (big/person) with an extra dot — excessively big, beyond big = TOO MUCH!",
+    tip:"大 (big) + an extra dot pushing it further = TOOOOO big! That extra dot = overflowing excess!"
+  },
+  {
+    id:110, hanzi:"天气", pinyin:"tiānqì", meaning:"weather",
+    category:"Weather",
+    example:{ hanzi:"今天天气怎么样？", pinyin:"Jīntiān tiānqì zěnmeyàng?", english:"What's the weather like today?" },
+    writing:"天 (sky/heaven) + 气 (air/breath). Sky + air = weather!",
+    tip:"Sky (天) + air (气) = the sky's air = WEATHER! What the sky breathes out is the weather!"
+  },
+  {
+    id:111, hanzi:"听", pinyin:"tīng", meaning:"to listen; to hear",
+    category:"Actions",
+    example:{ hanzi:"请听我说。", pinyin:"Qǐng tīng wǒ shuō.", english:"Please listen to me." },
+    writing:"口 (mouth) + 斤 (axe/weight). A weighty mouth = listening carefully.",
+    tip:"Ear (hidden in 听) + a sharp tool (斤) = sharp LISTENING! Cut through the noise and hear!"
+  },
+  {
+    id:112, hanzi:"同学", pinyin:"tóngxué", meaning:"classmate",
+    category:"People",
+    example:{ hanzi:"他是我的同学。", pinyin:"Tā shì wǒ de tóngxué.", english:"He is my classmate." },
+    writing:"同 (same/together) + 学 (study/learn). Studying together = classmate!",
+    tip:"Same (同) + study (学) = studying together = CLASSMATE! People sharing the same learning!"
+  },
+  {
+    id:113, hanzi:"喂", pinyin:"wèi", meaning:"hello (on phone); hey",
+    category:"Phrases",
+    example:{ hanzi:"喂，你好！", pinyin:"Wèi, nǐ hǎo!", english:"Hello? (answering phone)" },
+    writing:"口 (mouth) + 畏 (fear/feed). A mouth calling out — feed the conversation!",
+    tip:"'WEI!' — onomatopoeia! When you answer the phone in China, you say '喂!' just like 'Hello!'"
+  },
+  {
+    id:114, hanzi:"我", pinyin:"wǒ", meaning:"I; me",
+    category:"Pronouns",
+    example:{ hanzi:"我是中国人。", pinyin:"Wǒ shì Zhōngguórén.", english:"I am Chinese." },
+    writing:"手 (hand) + 戈 (spear). A hand holding a spear — defending one's self!",
+    tip:"Hand (手) on a spear (戈) — protecting MYSELF! A warrior standing his ground = ME/I!"
+  },
+  {
+    id:115, hanzi:"我们", pinyin:"wǒmen", meaning:"we; us",
+    category:"Pronouns",
+    example:{ hanzi:"我们是朋友。", pinyin:"Wǒmen shì péngyou.", english:"We are friends." },
+    writing:"我 (I/me) + 们 (plural suffix). Me + plural = we/us!",
+    tip:"我 (I) + 们 (plural marker) = WE! Add 们 to any pronoun to make it plural in Chinese."
+  },
+  {
+    id:116, hanzi:"五", pinyin:"wǔ", meaning:"five",
+    category:"Numbers",
+    example:{ hanzi:"今天是五号。", pinyin:"Jīntiān shì wǔ hào.", english:"Today is the 5th." },
+    writing:"Like an X with a top and bottom line — five points of a star or a cross.",
+    tip:"五 looks like it's crossing itself at 5 points. A Roman numeral V inside a box! Five!"
+  },
+  {
+    id:117, hanzi:"午饭", pinyin:"wǔfàn", meaning:"lunch",
+    category:"Food",
+    example:{ hanzi:"你午饭吃什么？", pinyin:"Nǐ wǔfàn chī shénme?", english:"What are you eating for lunch?" },
+    writing:"午 (noon) + 饭 (meal/cooked rice). The noon meal = lunch.",
+    tip:"午 (noon) + 饭 (food/rice) = noon-food = LUNCH! The meal you eat at noon!"
+  },
+  {
+    id:118, hanzi:"喜欢", pinyin:"xǐhuān", meaning:"to like; to enjoy",
+    category:"Emotions",
+    example:{ hanzi:"我喜欢学中文！", pinyin:"Wǒ xǐhuān xué Zhōngwén!", english:"I like learning Chinese!" },
+    writing:"喜: two drums with mouth — joyful drumming. 欢: feather+sigh = light happy sigh.",
+    tip:"喜 has a drum and smiling mouth — joyful rhythms! 欢 is a light happy feather. TO LIKE!"
+  },
+  {
+    id:119, hanzi:"下", pinyin:"xià", meaning:"down; below; under; next",
+    category:"Direction",
+    example:{ hanzi:"桌子下面有猫。", pinyin:"Zhuōzi xiàmiàn yǒu māo.", english:"There's a cat under the table." },
+    writing:"A stroke pointing DOWN from a baseline — below the line, going downward.",
+    tip:"下 has the stroke going DOWN below the baseline. Arrow pointing DOWN = below/down!"
+  },
+  {
+    id:120, hanzi:"下午", pinyin:"xiàwǔ", meaning:"afternoon; PM",
+    category:"Time",
+    example:{ hanzi:"下午我们去购物吧。", pinyin:"Xiàwǔ wǒmen qù gòuwù ba.", english:"Let's go shopping this afternoon." },
+    writing:"下 (below/after) + 午 (noon). After noon — the lower half of the day.",
+    tip:"下 (below) + 午 (noon) = after noon = AFTERNOON! The lower half of the day!"
+  },
+  {
+    id:121, hanzi:"下雨", pinyin:"xià yǔ", meaning:"to rain",
+    category:"Weather",
+    example:{ hanzi:"今天下雨了。", pinyin:"Jīntiān xià yǔ le.", english:"It rained today." },
+    writing:"下 (to fall down) + 雨 (rain). Rain falling down from the sky.",
+    tip:"下 (fall) + 雨 (rain) = rain falling down! 雨 even looks like raindrops falling inside a cloud!"
+  },
+  {
+    id:122, hanzi:"先生", pinyin:"xiānshēng", meaning:"Mr.; sir; husband; teacher (respectful)",
+    category:"People",
+    example:{ hanzi:"王先生，您好！", pinyin:"Wáng xiānshēng, nín hǎo!", english:"Mr. Wang, hello!" },
+    writing:"先 (first/earlier) + 生 (born/life). Born first — elder/sir/mister.",
+    tip:"'First-born' or 'born earlier' = senior/sir. The one born before you — you respect them!"
+  },
+  {
+    id:123, hanzi:"现在", pinyin:"xiànzài", meaning:"now; at present",
+    category:"Time",
+    example:{ hanzi:"现在几点了？", pinyin:"Xiànzài jǐ diǎn le?", english:"What time is it now?" },
+    writing:"现 (appear/now: jade+see) + 在 (exist/at). Appearing and existing = right now!",
+    tip:"现 (appearing) + 在 (existing) = appearing-existing = RIGHT NOW! This very moment!"
+  },
+  {
+    id:124, hanzi:"想", pinyin:"xiǎng", meaning:"to want; to think; to miss",
+    category:"Actions",
+    example:{ hanzi:"我想回家。", pinyin:"Wǒ xiǎng huí jiā.", english:"I want to go home." },
+    writing:"相 (mutual/think) + 心 (heart). Heart thinking = wanting/missing.",
+    tip:"Heart (心) at the bottom = thinking from the heart. When your heart thinks of something, you WANT/MISS it!"
+  },
+  {
+    id:125, hanzi:"小", pinyin:"xiǎo", meaning:"small; little; young",
+    category:"Adjectives",
+    example:{ hanzi:"这只猫很小。", pinyin:"Zhè zhī māo hěn xiǎo.", english:"This cat is very small." },
+    writing:"A center stroke with two small strokes spreading outward — tiny, spreading small.",
+    tip:"小 = a tiny thing in the center with little bits spreading. Three tiny strokes = SMALL!"
+  },
+  {
+    id:126, hanzi:"小姐", pinyin:"xiǎojiě", meaning:"Miss; young woman",
+    category:"People",
+    example:{ hanzi:"请问，小姐，这里有洗手间吗？", pinyin:"Qǐngwèn, xiǎojiě, zhèlǐ yǒu xǐshǒujiān ma?", english:"Excuse me, Miss, is there a restroom here?" },
+    writing:"小 (small/young) + 姐 (older sister: woman+elder). Young woman.",
+    tip:"Young (小) + sister (姐) = young lady/Miss! A polite way to address a young woman!"
+  },
+  {
+    id:127, hanzi:"小时", pinyin:"xiǎoshí", meaning:"hour",
+    category:"Time",
+    example:{ hanzi:"我睡了八小时。", pinyin:"Wǒ shuìle bā xiǎoshí.", english:"I slept for eight hours." },
+    writing:"小 (small) + 时 (time/hour). A small unit of time = one hour.",
+    tip:"Small (小) + time (时) = a small time-unit = one HOUR! 24 little time-units make a day!"
+  },
+  {
+    id:128, hanzi:"谢谢", pinyin:"xièxie", meaning:"thank you",
+    category:"Phrases",
+    example:{ hanzi:"谢谢你的帮助！", pinyin:"Xièxie nǐ de bāngzhù!", english:"Thank you for your help!" },
+    writing:"谢: 讠(speech)+射(shoot/express). Doubled for emphasis.",
+    tip:"Doubled thanks (谢谢) for double appreciation! Shooting gratitude with your words — THANK YOU!"
+  },
+  {
+    id:129, hanzi:"写", pinyin:"xiě", meaning:"to write",
+    category:"Actions",
+    example:{ hanzi:"请写下你的名字。", pinyin:"Qǐng xiě xià nǐ de míngzi.", english:"Please write down your name." },
+    writing:"冖 (cover) + 与 (give). Covering paper and giving strokes = writing!",
+    tip:"A roof (冖) with hands giving (与) — covering paper with ink strokes. WRITING!"
+  },
+  {
+    id:130, hanzi:"星期", pinyin:"xīngqī", meaning:"week; day of week",
+    category:"Time",
+    example:{ hanzi:"一星期有七天。", pinyin:"Yī xīngqī yǒu qī tiān.", english:"One week has seven days." },
+    writing:"星 (star: sun+sprout) + 期 (period/cycle). Star cycles = weeks!",
+    tip:"Stars (星) making cycles (期) in the sky — ancient timekeeping by star cycles = WEEK!"
+  },
+  {
+    id:131, hanzi:"学生", pinyin:"xuéshēng", meaning:"student",
+    category:"People",
+    example:{ hanzi:"我是大学生。", pinyin:"Wǒ shì dàxuéshēng.", english:"I am a university student." },
+    writing:"学 (study) + 生 (born/life). A life of studying = student!",
+    tip:"Study (学) + life/born (生) = a life of studying = STUDENT! Born to learn!"
+  },
+  {
+    id:132, hanzi:"学习", pinyin:"xuéxí", meaning:"to study; to learn",
+    category:"Actions",
+    example:{ hanzi:"我每天学习两小时汉语。", pinyin:"Wǒ měitiān xuéxí liǎng xiǎoshí Hànyǔ.", english:"I study Chinese for two hours every day." },
+    writing:"学 (learn) + 习 (practice: white wings flapping). Learning through practice!",
+    tip:"学 (learn) + 习 (practice/white wings) = study! A bird practicing flying = LEARNING through doing!"
+  },
+  {
+    id:133, hanzi:"学校", pinyin:"xuéxiào", meaning:"school",
+    category:"Places",
+    example:{ hanzi:"我的学校很大。", pinyin:"Wǒde xuéxiào hěn dà.", english:"My school is very big." },
+    writing:"学 (study) + 校 (tree-school structure). A structured place for studying.",
+    tip:"Study (学) + school-building (校) = SCHOOL! The place where structured learning happens!"
+  },
+  {
+    id:134, hanzi:"一", pinyin:"yī", meaning:"one",
+    category:"Numbers",
+    example:{ hanzi:"我只有一个苹果。", pinyin:"Wǒ zhǐ yǒu yīgè píngguǒ.", english:"I only have one apple." },
+    writing:"One horizontal stroke — the simplest possible character. The origin of all numbers.",
+    tip:"一 = one line = one! The very first character written, the beginning of all Chinese numbers!"
+  },
+  {
+    id:135, hanzi:"医生", pinyin:"yīshēng", meaning:"doctor; physician",
+    category:"People",
+    example:{ hanzi:"我想当医生。", pinyin:"Wǒ xiǎng dāng yīshēng.", english:"I want to be a doctor." },
+    writing:"医 (medicine/heal) + 生 (life). A life of healing = doctor!",
+    tip:"Medicine (医) + life (生) = a life in medicine = DOCTOR! The one who gives you back your life!"
+  },
+  {
+    id:136, hanzi:"医院", pinyin:"yīyuàn", meaning:"hospital",
+    category:"Places",
+    example:{ hanzi:"我去医院看病。", pinyin:"Wǒ qù yīyuàn kàn bìng.", english:"I'm going to the hospital to see a doctor." },
+    writing:"医 (medicine) + 院 (compound/courtyard). A medicinal compound = hospital.",
+    tip:"Medicine (医) + courtyard/compound (院) = a compound of healing = HOSPITAL!"
+  },
+  {
+    id:137, hanzi:"椅子", pinyin:"yǐzi", meaning:"chair",
+    category:"Objects",
+    example:{ hanzi:"请坐到椅子上。", pinyin:"Qǐng zuò dào yǐzi shàng.", english:"Please sit on the chair." },
+    writing:"木 (wood) + 奇 (strange/wonderful). A wonderful wooden object to sit on.",
+    tip:"Wood (木) + wonder (奇) = a wonderful wooden thing = CHAIR! An amazing wooden invention!"
+  },
+  {
+    id:138, hanzi:"一起", pinyin:"yīqǐ", meaning:"together",
+    category:"Grammar",
+    example:{ hanzi:"我们一起去吧！", pinyin:"Wǒmen yīqǐ qù ba!", english:"Let's go together!" },
+    writing:"一 (one) + 起 (rise/start). One rising together = starting as one = together!",
+    tip:"One (一) + rise (起) = rising as ONE unit = TOGETHER! All for one and one for all!"
+  },
+  {
+    id:139, hanzi:"一下", pinyin:"yīxià", meaning:"once; a moment; a bit",
+    category:"Grammar",
+    example:{ hanzi:"请等一下！", pinyin:"Qǐng děng yīxià!", english:"Please wait a moment!" },
+    writing:"一 (one) + 下 (down/under). One quick downward moment.",
+    tip:"One (一) quick down (下) = one quick moment. 'Just A MOMENT!' — one quick thing!"
+  },
+  {
+    id:140, hanzi:"衣服", pinyin:"yīfu", meaning:"clothes; clothing",
+    category:"Objects",
+    example:{ hanzi:"这件衣服很贵。", pinyin:"Zhè jiàn yīfu hěn guì.", english:"This piece of clothing is very expensive." },
+    writing:"衣 (clothing radical — like a robe outline) + 服 (serve/wear). Wearing clothes.",
+    tip:"衣 looks like a robe/kimono spread open! 服 = to wear/serve. CLOTHES you wear to serve (dress up)!"
+  },
+  {
+    id:141, hanzi:"有", pinyin:"yǒu", meaning:"to have; there is/are",
+    category:"Grammar",
+    example:{ hanzi:"我有一只猫。", pinyin:"Wǒ yǒu yī zhī māo.", english:"I have a cat." },
+    writing:"手 (hand) holding 月 (moon/meat). A hand holding something = having it!",
+    tip:"A hand (手) clutching the moon (月) — grabbing and HAVING something. Possessing!"
+  },
+  {
+    id:142, hanzi:"月", pinyin:"yuè", meaning:"moon; month",
+    category:"Time",
+    example:{ hanzi:"这个月是几月？", pinyin:"Zhège yuè shì jǐ yuè?", english:"What month is this month?" },
+    writing:"An ancient crescent moon pictograph — two lines forming a crescent.",
+    tip:"月 = crescent moon shape — a beautiful lunar picture! Moon = month (one moon cycle)!"
+  },
+  {
+    id:143, hanzi:"再见", pinyin:"zàijiàn", meaning:"goodbye; see you again",
+    category:"Phrases",
+    example:{ hanzi:"明天见！再见！", pinyin:"Míngtiān jiàn! Zàijiàn!", english:"See you tomorrow! Goodbye!" },
+    writing:"再 (again) + 见 (see/meet). See again — until we meet again!",
+    tip:"Again (再) + see (见) = SEE AGAIN = GOODBYE! Not farewell — see you AGAIN!"
+  },
+  {
+    id:144, hanzi:"在", pinyin:"zài", meaning:"at; in; on; to be located at",
+    category:"Grammar",
+    example:{ hanzi:"他在学校。", pinyin:"Tā zài xuéxiào.", english:"He is at school." },
+    writing:"土 (earth) + 才 (talent/just). Planted in the earth = located at a place.",
+    tip:"Talent (才) planted in the earth (土) — LOCATED somewhere, rooted in place. AT!"
+  },
+  {
+    id:145, hanzi:"怎么", pinyin:"zěnme", meaning:"how; why; what",
+    category:"Questions",
+    example:{ hanzi:"你怎么去学校？", pinyin:"Nǐ zěnme qù xuéxiào?", english:"How do you get to school?" },
+    writing:"怎 (how-heart) + 么 (small tail). Heart asking small questions = HOW?",
+    tip:"Heart (心 at bottom of 怎) asking the small (么) 'how' question. HOW does the heart do it?"
+  },
+  {
+    id:146, hanzi:"怎么样", pinyin:"zěnmeyàng", meaning:"how is it; how about; what's it like",
+    category:"Questions",
+    example:{ hanzi:"你今天怎么样？", pinyin:"Nǐ jīntiān zěnmeyàng?", english:"How are you today?" },
+    writing:"怎么 (how) + 样 (appearance/manner). How does it look/appear?",
+    tip:"'How-like' — asking about the MANNER or appearance of something. How is it looking?"
+  },
+  {
+    id:147, hanzi:"这", pinyin:"zhè", meaning:"this; these",
+    category:"Grammar",
+    example:{ hanzi:"这是什么？", pinyin:"Zhè shì shénme?", english:"What is this?" },
+    writing:"辶(movement radical) + 文 (culture/writing). Moving toward culture = this near thing.",
+    tip:"这 points toward you — THIS thing close to me! Imagine reaching out and touching THIS!"
+  },
+  {
+    id:148, hanzi:"中国", pinyin:"Zhōngguó", meaning:"China",
+    category:"Places",
+    example:{ hanzi:"中国有很多好吃的东西。", pinyin:"Zhōngguó yǒu hěn duō hǎochī de dōngxi.", english:"China has many delicious things." },
+    writing:"中 (middle/center) + 国 (country: jade inside walls). The Middle Country/Kingdom.",
+    tip:"中 (middle) + 国 (kingdom) = The MIDDLE KINGDOM! China saw itself as the center of the world!"
+  },
+  {
+    id:149, hanzi:"中文", pinyin:"Zhōngwén", meaning:"Chinese language (written/general)",
+    category:"Language",
+    example:{ hanzi:"你中文说得很好！", pinyin:"Nǐ Zhōngwén shuō de hěn hǎo!", english:"Your Chinese is very good!" },
+    writing:"中 (middle/China) + 文 (writing/language/culture). Chinese writing system.",
+    tip:"Middle (中) + writing/culture (文) = Chinese written language. 文 means both writing AND culture!"
+  },
+  {
+    id:150, hanzi:"坐", pinyin:"zuò", meaning:"to sit; to take (transport)",
+    category:"Actions",
+    example:{ hanzi:"请坐下！", pinyin:"Qǐng zuò xià!", english:"Please sit down!" },
+    writing:"Two people (人人) on the earth (土) — two people sitting on the ground.",
+    tip:"Two people (人人) sitting back-to-back on the earth (土) — SIT DOWN together!"
+  }
+];
+
+// ════════════════════════════════════════════════
+//  APP STATE
+// ════════════════════════════════════════════════
+let mastered = JSON.parse(localStorage.getItem('hsk1_mastered') || '[]');
+let currentFilter = 'all';
+let currentCategory = 'all';
+let currentView = 'grid';
+let modalIndex = 0;
+let quizScore = 0;
+let quizStreak = 0;
+let quizCurrentWord = null;
+
+// ════════════════════════════════════════════════
+//  CATEGORIES
+// ════════════════════════════════════════════════
+const categories = [...new Set(hsk1.map(w => w.category))].sort();
+
+function buildFilterBar() {
+  const bar = document.getElementById('filterBar');
+  bar.innerHTML = '<span class="label">Category:</span>';
+  const allBtn = document.createElement('button');
+  allBtn.className = 'cat-btn active';
+  allBtn.textContent = 'All';
+  allBtn.onclick = () => setCat('all', allBtn);
+  bar.appendChild(allBtn);
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn';
+    btn.textContent = cat;
+    btn.onclick = () => setCat(cat, btn);
+    bar.appendChild(btn);
+  });
+}
+
+function setCat(cat, btn) {
+  currentCategory = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+}
+
+// ════════════════════════════════════════════════
+//  RENDER
+// ════════════════════════════════════════════════
+function getFiltered() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  return hsk1.filter(w => {
+    if (currentFilter === 'mastered' && !mastered.includes(w.id)) return false;
+    if (currentFilter === 'unmastered' && mastered.includes(w.id)) return false;
+    if (currentCategory !== 'all' && w.category !== currentCategory) return false;
+    if (q && !w.hanzi.includes(q) && !w.pinyin.toLowerCase().includes(q) && !w.meaning.toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+
+function renderCards() {
+  const grid = document.getElementById('cardsGrid');
+  const words = getFiltered();
+  document.getElementById('countShown').textContent = words.length;
+  updateProgress();
+
+  if (words.length === 0) {
+    grid.innerHTML = '<div class="empty-state"><div class="big">找</div><p>No words found. Try a different search.</p></div>';
+    return;
+  }
+
+  grid.innerHTML = '';
+  words.forEach(w => {
+    const isMastered = mastered.includes(w.id);
+    const card = document.createElement('div');
+    card.className = `card${isMastered ? ' mastered' : ''}`;
+    card.dataset.id = w.id;
+
+    if (currentView === 'list') {
+      card.innerHTML = `
+        <div class="card-front" onclick="openModal(${w.id-1})">
+          <div class="card-number">#${w.id}</div>
+          <div class="hanzi">${w.hanzi}</div>
+          <div class="pinyin">${w.pinyin}</div>
+          <div class="meaning-short">${w.meaning}</div>
+        </div>`;
+    } else {
+      card.innerHTML = `
+        <div class="card-front" onclick="openModal(${w.id-1})">
+          <div class="card-number">#${w.id}</div>
+          <div class="hanzi">${w.hanzi}</div>
+          <div class="pinyin">${w.pinyin}</div>
+          <div class="meaning-short">${w.meaning}</div>
+        </div>`;
+    }
+    grid.appendChild(card);
+  });
+}
+
+// ════════════════════════════════════════════════
+//  MODAL
+// ════════════════════════════════════════════════
+function openModal(idx) {
+  modalIndex = idx;
+  populateModal(hsk1[idx]);
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function populateModal(w) {
+  document.getElementById('mHanzi').textContent = w.hanzi;
+  document.getElementById('mPinyin').textContent = w.pinyin;
+  document.getElementById('mMeaning').textContent = w.meaning;
+  document.getElementById('mExHanzi').textContent = w.example.hanzi;
+  document.getElementById('mExPinyin').textContent = w.example.pinyin;
+  document.getElementById('mExEnglish').textContent = w.example.english;
+  document.getElementById('mWriting').textContent = w.writing;
+  document.getElementById('mTip').textContent = '💡 ' + w.tip;
+  const mb = document.getElementById('modalMasterBtn');
+  if (mastered.includes(w.id)) {
+    mb.textContent = '✓ Mastered!';
+    mb.style.background = 'var(--green)';
+    mb.style.color = '#fff';
+    mb.style.borderColor = 'var(--green)';
+  } else {
+    mb.textContent = 'Mark as Mastered';
+    mb.style.background = '';
+    mb.style.color = '';
+    mb.style.borderColor = '';
+  }
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+}
+
+function closeModalDirect() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function navModal(dir) {
+  modalIndex = (modalIndex + dir + hsk1.length) % hsk1.length;
+  populateModal(hsk1[modalIndex]);
+}
+
+function toggleMasterFromModal() {
+  const w = hsk1[modalIndex];
+  toggleMaster(w.id);
+  populateModal(w);
+  renderCards();
+}
+
+function speakWord() {
+  const w = hsk1[modalIndex];
+  speak(w.hanzi);
+}
+
+function speakExample() {
+  const w = hsk1[modalIndex];
+  speak(w.example.hanzi);
+}
+
+// ════════════════════════════════════════════════
+//  SPEECH SYNTHESIS
+// ════════════════════════════════════════════════
+function speak(text) {
+  if (!window.speechSynthesis) { showToast('Speech not supported in this browser.'); return; }
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = 'zh-CN';
+  utt.rate = 0.85;
+  utt.pitch = 1.0;
+
+  const voices = window.speechSynthesis.getVoices();
+  const zhVoice = voices.find(v => v.lang.startsWith('zh')) || voices.find(v => v.lang.includes('CN'));
+  if (zhVoice) utt.voice = zhVoice;
+
+  window.speechSynthesis.speak(utt);
+  showToast('🔊 Playing pronunciation...');
+}
+
+// Load voices async
+if (window.speechSynthesis) {
+  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+}
+
+// ════════════════════════════════════════════════
+//  MASTERED
+// ════════════════════════════════════════════════
+function toggleMaster(id) {
+  if (mastered.includes(id)) {
+    mastered = mastered.filter(x => x !== id);
+    showToast('Removed from mastered.');
+  } else {
+    mastered.push(id);
+    showToast('🎉 Marked as mastered!');
+  }
+  localStorage.setItem('hsk1_mastered', JSON.stringify(mastered));
+  updateProgress();
+}
+
+function updateProgress() {
+  const pct = (mastered.length / 150 * 100).toFixed(0);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${mastered.length}/150`;
+}
+
+// ════════════════════════════════════════════════
+//  FILTER / SEARCH / VIEW
+// ════════════════════════════════════════════════
+function filterCards() { renderCards(); }
+
+function setFilter(type, btn) {
+  currentFilter = type;
+  document.querySelectorAll('.btn-group .btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+}
+
+function setView(v) {
+  currentView = v;
+  const grid = document.getElementById('cardsGrid');
+  document.getElementById('gridViewBtn').classList.toggle('active', v === 'grid');
+  document.getElementById('listViewBtn').classList.toggle('active', v === 'list');
+  grid.classList.toggle('list-view', v === 'list');
+  renderCards();
+}
+
+// ════════════════════════════════════════════════
+//  QUIZ
+// ════════════════════════════════════════════════
+function openQuiz() {
+  quizScore = 0; quizStreak = 0;
+  document.getElementById('quizOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  nextQuestion();
+}
+
+function closeQuiz() {
+  document.getElementById('quizOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function nextQuestion() {
+  const pool = hsk1.filter(w => !mastered.includes(w.id));
+  const source = pool.length >= 4 ? pool : hsk1;
+  quizCurrentWord = source[Math.floor(Math.random() * source.length)];
+
+  document.getElementById('quizHanzi').textContent = quizCurrentWord.hanzi;
+  document.getElementById('quizQuestion').textContent = 'What does this mean?';
+  document.getElementById('quizScore').textContent = `Score: ${quizScore} | Streak: ${quizStreak} 🔥`;
+
+  // Generate options
+  const wrongPool = hsk1.filter(w => w.id !== quizCurrentWord.id);
+  const wrongs = [];
+  while (wrongs.length < 3) {
+    const r = wrongPool[Math.floor(Math.random() * wrongPool.length)];
+    if (!wrongs.find(w => w.id === r.id)) wrongs.push(r);
+  }
+  const options = [...wrongs, quizCurrentWord].sort(() => Math.random() - 0.5);
+
+  const optDiv = document.getElementById('quizOptions');
+  optDiv.innerHTML = '';
+  options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.textContent = opt.meaning;
+    btn.onclick = () => checkAnswer(opt.id === quizCurrentWord.id, btn, optDiv);
+    optDiv.appendChild(btn);
+  });
+}
+
+function checkAnswer(correct, btn, container) {
+  const btns = container.querySelectorAll('.quiz-option');
+  btns.forEach(b => b.onclick = null);
+
+  if (correct) {
+    btn.classList.add('correct');
+    quizScore++;
+    quizStreak++;
+    showToast('✅ Correct! +1');
+  } else {
+    btn.classList.add('wrong');
+    quizStreak = 0;
+    btns.forEach(b => { if (b.textContent === quizCurrentWord.meaning) b.classList.add('correct'); });
+    showToast('❌ Wrong! The answer was: ' + quizCurrentWord.meaning);
+  }
+
+  setTimeout(nextQuestion, 1500);
+}
+
+// ════════════════════════════════════════════════
+//  TOAST
+// ════════════════════════════════════════════════
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ════════════════════════════════════════════════
+//  KEYBOARD SHORTCUTS
+// ════════════════════════════════════════════════
+document.addEventListener('keydown', e => {
+  if (document.getElementById('modalOverlay').classList.contains('open')) {
+    if (e.key === 'ArrowLeft') navModal(-1);
+    if (e.key === 'ArrowRight') navModal(1);
+    if (e.key === 'Escape') closeModalDirect();
+    if (e.key === ' ') { e.preventDefault(); speakWord(); }
+    if (e.key === 'm' || e.key === 'M') toggleMasterFromModal();
+  }
+  if (document.getElementById('quizOverlay').classList.contains('open') && e.key === 'Escape') closeQuiz();
+});
+
+// ════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════
+buildFilterBar();
+renderCards();
+</script>
+</body>
+</html>
