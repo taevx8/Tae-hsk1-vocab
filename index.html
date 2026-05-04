@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>HSK Master - Smart Edition</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<!-- مكتبة المعلم الذكي للرسم -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HSK 1 — Master Chinese</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- مكتبة الرسم الذكية -->
 <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
-
 <style>
   :root {
     --ink: #1a1008;
@@ -16,349 +15,442 @@
     --red: #c0392b;
     --red-light: #e74c3c;
     --gold: #b8860b;
+    --gold-light: #d4a017;
     --muted: #7a6f60;
     --border: #c8bfaa;
     --card-bg: #faf7f2;
     --shadow: rgba(26,16,8,0.12);
+    --shadow-deep: rgba(26,16,8,0.25);
     --green: #2e7d32;
     --blue: #1565c0;
   }
 
-  /* الوضع الداكن */
-  body.dark-mode {
-    --ink: #f5f0e8;
-    --paper: #121212;
-    --cream: #1e1e1e;
-    --card-bg: #1a1a1a;
-    --border: #333333;
-    --muted: #aaaaaa;
-    --shadow: rgba(0,0,0,0.5);
-    background-image: none;
-  }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background-color: var(--paper);
-    color: var(--ink);
-    font-family: 'Crimson Pro', serif;
-    min-height: 100vh;
-    transition: background-color 0.3s, color 0.3s;
-  }
 
-  /* HEADER & STATS */
-  header {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 1.5rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  .logo { font-family: 'Noto Serif SC', serif; font-size: 1.8rem; font-weight: 900; color: var(--red-light); }
-  .stats-bar {
-    display: flex;
-    gap: 1rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.85rem;
-  }
-  .streak { color: #e67e22; font-weight: bold; }
-  
-  .controls { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-  .btn {
-    background: transparent;
-    border: 1px solid rgba(245,240,232,0.3);
-    color: var(--paper);
-    border-radius: 6px;
-    padding: 0.4rem 0.8rem;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    cursor: pointer;
-  }
-  .btn:hover, .btn.active { background: var(--red); border-color: var(--red); }
-  .btn-theme { background: var(--gold); border: none; color: #1a1008; font-weight: bold; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Crimson Pro', Georgia, serif; min-height: 100vh; background-image: radial-gradient(ellipse at 20% 0%, rgba(192,57,43,0.06) 0%, transparent 60%), radial-gradient(ellipse at 80% 100%, rgba(184,134,11,0.06) 0%, transparent 60%); }
 
-  /* MAIN GRID */
-  main { padding: 1.5rem; display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 1rem; }
-  
-  .card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 1.5rem 1rem;
-    text-align: center;
-    cursor: pointer;
-    box-shadow: 0 4px 10px var(--shadow);
-    transition: transform 0.2s;
-  }
-  .card:hover { transform: translateY(-3px); border-color: var(--gold); }
-  .card.srs-due { border-left: 4px solid var(--red); }
-  .card.srs-done { border-left: 4px solid var(--green); opacity: 0.8; }
-  
-  .hanzi { font-family: 'Noto Serif SC', serif; font-size: 2.5rem; margin-bottom: 0.5rem; }
-  .pinyin { font-size: 0.9rem; color: var(--red); font-style: italic; }
-  .meaning { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+  header { background: var(--ink); color: var(--paper); padding: 2rem 2rem 1.5rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px var(--shadow-deep); }
+  .header-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .logo { display: flex; align-items: baseline; gap: 0.75rem; }
+  .logo-hanzi { font-family: 'Noto Serif SC', serif; font-size: 2.2rem; font-weight: 900; color: var(--red-light); line-height: 1; text-shadow: 0 0 20px rgba(231,76,60,0.4); }
+  .logo-text { font-family: 'Crimson Pro', serif; font-size: 1.5rem; font-weight: 300; letter-spacing: 0.1em; color: var(--cream); }
+  .logo-sub { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.25em; color: var(--gold-light); text-transform: uppercase; margin-top: 0.15rem; }
 
-  /* MODAL */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000;
-    align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(5px);
-  }
+  .controls { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+  .search-wrap { position: relative; }
+  .search-wrap input { background: rgba(245,240,232,0.1); border: 1px solid rgba(245,240,232,0.2); border-radius: 6px; color: var(--paper); font-family: 'Crimson Pro', serif; font-size: 1rem; padding: 0.5rem 1rem 0.5rem 2.2rem; width: 220px; outline: none; }
+  .search-icon { position: absolute; left: 0.6rem; top: 50%; transform: translateY(-50%); color: rgba(245,240,232,0.4); font-size: 0.9rem; }
+  .btn-group { display: flex; gap: 0.4rem; }
+  .btn { background: transparent; border: 1px solid rgba(245,240,232,0.25); border-radius: 6px; color: rgba(245,240,232,0.7); cursor: pointer; font-family: 'DM Mono', monospace; font-size: 0.7rem; padding: 0.45rem 0.9rem; text-transform: uppercase; }
+  .btn:hover, .btn.active { background: var(--red); border-color: var(--red); color: #fff; }
+  .btn.gold.active { background: var(--gold); border-color: var(--gold); }
+  .btn.srs-btn-head { border-color: var(--blue); color: var(--blue); }
+  .btn.srs-btn-head:hover, .btn.srs-btn-head.active { background: var(--blue); color: #fff; }
+
+  .progress-bar-wrap { display: flex; align-items: center; gap: 0.6rem; font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--gold-light); }
+  .progress-bar { width: 120px; height: 4px; background: rgba(245,240,232,0.15); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--red), var(--gold-light)); transition: width 0.4s ease; }
+
+  .filter-bar { background: var(--cream); border-bottom: 1px solid var(--border); padding: 0.75rem 2rem; display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; align-items: center;}
+  .filter-bar .label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); text-transform: uppercase;}
+  .cat-btn { background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px; color: var(--muted); padding: 0.25rem 0.85rem; cursor: pointer; font-family: 'Crimson Pro'; font-size: 0.85rem; }
+  .cat-btn.active { background: var(--red); color: white; border-color: var(--red); }
+
+  .stats-bar { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem 0; display: flex; justify-content: space-between; align-items: center; }
+  .stats-count { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted); display:flex; align-items:center; gap:1rem;}
+  .stats-count span { color: var(--red); font-weight: 500; }
+  .streak-badge { background: linear-gradient(135deg, #e67e22, var(--red)); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-weight: bold; font-size: 0.7rem; letter-spacing: 0.05em; display: inline-flex; align-items: center; gap: 0.2rem; box-shadow: 0 2px 4px rgba(230,126,34,0.3);}
+  
+  .view-toggle { display: flex; gap: 0.3rem; }
+  .view-btn { background: var(--cream); border: 1px solid var(--border); border-radius: 5px; color: var(--muted); padding: 0.3rem 0.6rem; cursor: pointer; }
+  .view-btn.active { background: var(--ink); color: var(--paper); }
+
+  main { max-width: 1400px; margin: 0 auto; padding: 1.5rem 2rem 4rem; }
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.25rem; }
+  .cards-grid.list-view { grid-template-columns: 1fr; gap: 0.75rem; }
+
+  .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; position: relative; box-shadow: 0 2px 8px var(--shadow); transition: all 0.3s; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px var(--shadow-deep); border-color: var(--gold); }
+  .card.mastered { border-color: var(--green); background: linear-gradient(135deg, var(--card-bg), rgba(46,125,50,0.04)); }
+  .card.mastered::after { content: '✓'; position: absolute; top: 0.5rem; right: 0.6rem; color: var(--green); font-size: 0.8rem; font-weight: bold; }
+  .card-front { padding: 1.5rem 1rem; text-align: center; min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem; }
+  .hanzi { font-family: 'Noto Serif SC', serif; font-size: 2.8rem; font-weight: 700; color: var(--ink); line-height: 1; }
+  .card:hover .hanzi { color: var(--red); }
+  .pinyin { font-family: 'Crimson Pro', serif; font-size: 0.95rem; color: var(--red); font-style: italic; }
+  .meaning-short { font-size: 0.85rem; color: var(--muted); }
+  .card-number { position: absolute; top: 0.5rem; left: 0.6rem; font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--border); }
+
+  /* Modal & Smart Board */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(26,16,8,0.7); z-index: 1000; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(4px); }
   .modal-overlay.open { display: flex; }
+  .modal { background: var(--card-bg); border-radius: 16px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; box-shadow: 0 24px 80px var(--shadow-deep); }
+  .modal-header { background: var(--ink); color: var(--paper); padding: 2rem 2rem 1.5rem; text-align: center; position: relative; border-radius: 16px 16px 0 0; }
+  .modal-hanzi { font-family: 'Noto Serif SC', serif; font-size: 5rem; font-weight: 900; color: var(--paper); line-height: 1; text-shadow: 0 0 40px rgba(231,76,60,0.5); }
+  .modal-pinyin { font-family: 'Crimson Pro', serif; font-size: 1.4rem; font-style: italic; color: var(--red-light); margin-top: 0.5rem; }
+  .modal-meaning { font-size: 1.15rem; color: rgba(245,240,232,0.7); margin-top: 0.25rem; }
+  .modal-close { position: absolute; top: 1rem; right: 1rem; background: rgba(245,240,232,0.1); border: none; border-radius: 50%; color: var(--paper); cursor: pointer; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; }
+  .modal-body { padding: 1.75rem 2rem 2rem; }
+  .detail-section { margin-bottom: 1.5rem; }
+  .detail-label { font-family: 'DM Mono', monospace; font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem; }
+  .detail-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
   
-  .modal {
-    background: var(--card-bg); border-radius: 16px; width: 100%; max-width: 400px;
-    max-height: 90vh; overflow-y: auto;
-  }
-  .modal-header { padding: 1.5rem; text-align: center; border-bottom: 1px solid var(--border); position: relative;}
-  .close-btn { position: absolute; top: 1rem; right: 1rem; background: var(--cream); border: none; width: 30px; height: 30px; border-radius: 50%; font-weight: bold; color: var(--ink); cursor: pointer;}
+  .drawing-board-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 1rem; touch-action: none; background: var(--cream); padding: 1rem; border-radius: 8px; border: 1px solid var(--border);}
+  .hanzi-character-box { background: var(--paper); border: 2px dashed #b8860b; border-radius: 8px; width: 100px; height: 100px; }
+  .drawing-controls { display: flex; justify-content: center; gap: 0.5rem; }
+  .draw-btn { background: var(--ink); color: var(--paper); border: none; padding: 0.4rem 0.8rem; border-radius: 6px; font-family: 'DM Mono'; font-size: 0.7rem; cursor: pointer; text-transform: uppercase;}
+  .draw-btn.practice { background: var(--green); }
+
+  .example-block { background: var(--cream); border-left: 3px solid var(--red); border-radius: 0 6px 6px 0; padding: 0.75rem; }
+  .example-hanzi { font-family: 'Noto Serif SC', serif; font-size: 1.1rem; color: var(--ink); }
+  .example-pinyin { font-family: 'Crimson Pro', serif; font-style: italic; color: var(--red); font-size: 0.9rem; margin: 0.2rem 0; }
+  .example-english { font-size: 0.9rem; color: var(--muted); }
+  .tip-block { background: linear-gradient(135deg, rgba(184,134,11,0.08), rgba(184,134,11,0.04)); border: 1px solid rgba(184,134,11,0.2); border-radius: 6px; padding: 0.65rem 0.85rem; font-size: 0.9rem; color: var(--ink); }
+  .writing-block { font-size: 0.9rem; color: var(--ink); }
   
-  /* HANZI WRITER STYLES */
-  .writer-section { padding: 1.5rem; text-align: center; background: var(--cream); }
-  .writer-container {
-    display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 1rem;
-    touch-action: none; /* مهم جداً للرسم على الآيفون بدون تمرير الشاشة */
-  }
-  .hanzi-box {
-    background: var(--paper); border: 2px dashed var(--border); border-radius: 8px;
-    width: 120px; height: 120px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-  }
+  .speak-btn { background: var(--red); border: none; border-radius: 6px; color: #fff; cursor: pointer; font-family: 'DM Mono', monospace; font-size: 0.65rem; padding: 0.35rem 0.7rem; text-transform: uppercase; display: inline-flex; align-items: center; gap: 0.3rem; }
+  .speak-btn.example { background: var(--blue); margin-top: 0.5rem; }
   
-  .writer-controls button {
-    background: var(--ink); color: var(--paper); border: none; padding: 0.5rem 1rem;
-    border-radius: 6px; font-family: 'DM Mono'; font-size: 0.75rem; margin: 0 0.2rem; cursor: pointer;
-  }
-  .writer-controls button.draw-btn { background: var(--green); }
-  
-  .word-details { padding: 1.5rem; }
-  .detail-lbl { font-family: 'DM Mono'; font-size: 0.7rem; color: var(--muted); text-transform: uppercase; margin-bottom: 0.2rem;}
-  .detail-txt { margin-bottom: 1rem; font-size: 0.95rem; }
-  .example-box { background: var(--cream); padding: 0.8rem; border-left: 3px solid var(--red); border-radius: 0 6px 6px 0; }
-  
-  /* SRS BUTTONS */
-  .srs-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;}
-  .srs-btn { padding: 0.8rem; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; }
-  .srs-again { background: var(--red); }
-  .srs-good { background: var(--green); }
+  /* SRS Navigation Area */
+  .modal-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); gap: 10px; flex-wrap: wrap;}
+  .nav-btn { background: var(--cream); border: 1px solid var(--border); border-radius: 8px; color: var(--ink); padding: 0.5rem 1rem; font-family: 'DM Mono'; font-size: 0.7rem; cursor: pointer; text-transform: uppercase;}
+  .srs-actions { display: flex; gap: 0.5rem; flex: 1; justify-content: center; }
+  .master-btn { background: transparent; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); cursor: pointer; font-family: 'DM Mono'; font-size: 0.65rem; padding: 0.4rem 0.8rem; text-transform: uppercase; font-weight: bold; transition: all 0.2s;}
+  .master-btn.hard { border-color: var(--red); color: var(--red); }
+  .master-btn.hard:hover { background: var(--red); color: white; }
+  .master-btn.easy { background: var(--green); border-color: var(--green); color: #fff; }
+  .master-btn.easy:hover { opacity: 0.9; transform: scale(1.05); }
+
+  /* Quiz & Toast */
+  .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--ink); color: var(--paper); border-radius: 8px; padding: 0.75rem 1.5rem; font-family: 'DM Mono'; font-size: 0.75rem; z-index: 2000; transition: transform 0.3s; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .quiz-overlay { display: none; position: fixed; inset: 0; background: var(--paper); z-index: 500; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; }
+  .quiz-overlay.open { display: flex; }
+  .quiz-card { background: var(--card-bg); border: 2px solid var(--border); border-radius: 20px; padding: 3rem; max-width: 480px; width: 100%; text-align: center; box-shadow: 0 20px 60px var(--shadow-deep); }
+  .quiz-hanzi { font-family: 'Noto Serif SC', serif; font-size: 6rem; font-weight: 900; color: var(--ink); margin-bottom: 1rem; }
+  .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1.5rem; }
+  .quiz-option { background: var(--cream); border: 2px solid var(--border); border-radius: 10px; color: var(--ink); cursor: pointer; font-family: 'Crimson Pro'; font-size: 1.05rem; padding: 0.85rem; }
+  .quiz-option.correct { background: rgba(46,125,50,0.15); border-color: var(--green); color: var(--green); }
+  .quiz-option.wrong { background: rgba(192,57,43,0.1); border-color: var(--red); color: var(--red); }
+  .quiz-score { font-family: 'DM Mono'; font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .quiz-close { position: fixed; top: 1.5rem; right: 1.5rem; background: var(--ink); border: none; border-radius: 50%; color: var(--paper); font-size: 1.2rem; width: 42px; height: 42px; cursor: pointer; }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-top">
-    <div class="logo">HSK Master</div>
-    <div class="stats-bar">
-      <span title="Daily Streak">🔥 <span id="streakCount">0</span> Days</span>
-      <button class="btn btn-theme" onclick="toggleTheme()">🌓 Theme</button>
+  <div class="header-inner">
+    <div class="logo">
+      <div><div class="logo-hanzi">汉语</div><div class="logo-sub">HSK Level 1</div></div>
+      <div class="logo-text">Master Chinese</div>
     </div>
-  </div>
-  <div class="controls">
-    <button class="btn active" onclick="filterCards('all', this)">All Words</button>
-    <button class="btn" onclick="filterCards('due', this)">Needs Review (SRS)</button>
+    <div class="controls">
+      <div class="search-wrap"><span class="search-icon">🔍</span><input type="text" id="searchInput" placeholder="Search characters..." oninput="filterCards()"></div>
+      <div class="btn-group">
+        <button class="btn active" onclick="setFilter('all',this)">All</button>
+        <button class="btn srs-btn-head" onclick="setFilter('due',this)">Review Due</button>
+        <button class="btn gold" onclick="setFilter('mastered',this)">Mastered</button>
+      </div>
+      <button class="btn" onclick="openQuiz()">⚡ Quiz</button>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <span id="progressText">0/500</span>
+      </div>
+    </div>
   </div>
 </header>
 
-<main id="cardsGrid"></main>
+<div class="filter-bar" id="filterBar"></div>
+<div class="stats-bar">
+  <div class="stats-count">
+    <div>Showing <span id="countShown"></span> words</div>
+    <div class="streak-badge" id="streakBadge">🔥 0 Days Streak</div>
+  </div>
+  <div class="view-toggle">
+    <button class="view-btn active" id="gridViewBtn" onclick="setView('grid')">⊞</button>
+    <button class="view-btn" id="listViewBtn" onclick="setView('list')">☰</button>
+  </div>
+</div>
 
-<!-- Modal -->
+<main><div class="cards-grid" id="cardsGrid"></div></main>
+
+<!-- Modal with Drawing Board and SRS -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal" id="modalContent">
+  <div class="modal" id="modal">
     <div class="modal-header">
-      <button class="close-btn" onclick="closeModalDirect()">✕</button>
-      <div class="hanzi" id="mHanzi" style="display:none;"></div>
-      <div class="pinyin" id="mPinyin" style="font-size: 1.2rem;"></div>
-      <div class="meaning" id="mMeaning"></div>
-    </div>
-    
-    <div class="writer-section">
-      <div class="detail-lbl">Smart Board (Draw Here)</div>
-      <div class="writer-container" id="writerContainer"></div>
-      <div class="writer-controls">
-        <button onclick="animateStrokes()">👁️ Animate</button>
-        <button class="draw-btn" onclick="startQuiz()">✍️ Practice</button>
-        <button onclick="resetWriters()">↺ Clear</button>
+      <button class="modal-close" onclick="closeModalDirect()">✕</button>
+      <div class="modal-hanzi" id="mHanzi"></div>
+      <div class="modal-pinyin" id="mPinyin"></div>
+      <div class="modal-meaning" id="mMeaning"></div>
+      <div style="margin-top:1rem;">
+        <button class="speak-btn" onclick="speakWord()">🔊 Pronounce</button>
       </div>
     </div>
+    <div class="modal-body">
+      
+      <!-- Smart Drawing Board -->
+      <div class="detail-section">
+        <div class="detail-label">✍️ Smart Drawing Board</div>
+        <div class="drawing-board-container" id="hanziWriterContainer"></div>
+        <div class="drawing-controls">
+          <button class="draw-btn" onclick="animateWriters()">👁️ Animate</button>
+          <button class="draw-btn practice" onclick="quizWriters()">🎯 Practice</button>
+          <button class="draw-btn" onclick="resetWriters()">↺ Clear</button>
+        </div>
+      </div>
 
-    <div class="word-details">
-      <div class="detail-lbl">Example</div>
-      <div class="example-box detail-txt" id="mExample"></div>
+      <div class="detail-section">
+        <div class="detail-label">Example Sentence</div>
+        <div class="example-block">
+          <div class="example-hanzi" id="mExHanzi"></div>
+          <div class="example-pinyin" id="mExPinyin"></div>
+          <div class="example-english" id="mExEnglish"></div>
+        </div>
+        <button class="speak-btn example" onclick="speakExample()">🔊 Hear Example</button>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Writing Guide</div>
+        <div class="writing-block" id="mWriting"></div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-label">Memory Tip 💡</div>
+        <div class="tip-block" id="mTip"></div>
+      </div>
       
-      <div class="detail-lbl">Memory Tip</div>
-      <div class="detail-txt" id="mTip"></div>
-      
-      <div class="srs-controls">
-        <button class="srs-btn srs-again" onclick="processSRS('again')">Hard / Again</button>
-        <button class="srs-btn srs-good" onclick="processSRS('good')">Easy / Mastered</button>
+      <!-- SRS Controls -->
+      <div class="modal-nav">
+        <button class="nav-btn" onclick="navModal(-1)">← Prev</button>
+        <div class="srs-actions">
+          <button class="master-btn hard" onclick="processSRS('hard')">Hard ↻</button>
+          <button class="master-btn easy" onclick="processSRS('good')">Easy ✓</button>
+        </div>
+        <button class="nav-btn" onclick="navModal(1)">Next →</button>
       </div>
     </div>
   </div>
 </div>
 
+<div class="quiz-overlay" id="quizOverlay">
+  <button class="quiz-close" onclick="closeQuiz()">✕</button>
+  <div class="quiz-score" id="quizScore">Score: 0 | Streak: 0</div>
+  <div class="quiz-card">
+    <div class="quiz-hanzi" id="quizHanzi">?</div>
+    <div id="quizQuestion" style="font-size:1rem; color:var(--muted);">What does this mean?</div>
+    <div class="quiz-options" id="quizOptions"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-// --- SAMPLE DATA (FIRST 15 WORDS FOR TESTING) ---
+// ════════════════════════════════════════════════
+// الصق جميع الكلمات الـ 175 الخاصة بك هنا (داخل القوسين المربعين)
+// ════════════════════════════════════════════════
 const hsk1 = [
-  { id:1, hanzi:"爱", pinyin:"ài", meaning:"to love", category:"Emotions", example:{ hanzi:"我爱你。", pinyin:"Wǒ ài nǐ.", english:"I love you." }, tip:"Picture a hand (爫) over a heart with a friend (友)." },
-  { id:2, hanzi:"八", pinyin:"bā", meaning:"eight", category:"Numbers", example:{ hanzi:"八本书", pinyin:"bā běn shū", english:"eight books" }, tip:"Looks like two legs spreading apart." },
-  { id:3, hanzi:"爸爸", pinyin:"bàba", meaning:"dad", category:"Family", example:{ hanzi:"我爸爸", pinyin:"wǒ bàba", english:"my dad" }, tip:"Universal baby talk 'ba-ba'." },
-  { id:4, hanzi:"杯子", pinyin:"bēizi", meaning:"cup", category:"Objects", example:{ hanzi:"这个杯子", pinyin:"zhège bēizi", english:"this cup" }, tip:"木 (wood) hints at wooden cups." },
-  { id:5, hanzi:"北京", pinyin:"Běijīng", meaning:"Beijing", category:"Places", example:{ hanzi:"去北京", pinyin:"qù Běijīng", english:"go to Beijing" }, tip:"Northern (北) Capital (京)." },
-  { id:6, hanzi:"本", pinyin:"běn", meaning:"book (measure word)", category:"Objects", example:{ hanzi:"一本书", pinyin:"yī běn shū", english:"one book" }, tip:"Root of a tree (木)." },
-  { id:7, hanzi:"不", pinyin:"bù", meaning:"not; no", category:"Grammar", example:{ hanzi:"我不去", pinyin:"wǒ bù qù", english:"I won't go" }, tip:"A bird flying away." },
-  { id:8, hanzi:"菜", pinyin:"cài", meaning:"vegetable; dish", category:"Food", example:{ hanzi:"中国菜", pinyin:"Zhōngguó cài", english:"Chinese food" }, tip:"Picking (采) grass/plants (艹)." },
-  { id:9, hanzi:"茶", pinyin:"chá", meaning:"tea", category:"Food", example:{ hanzi:"喝茶", pinyin:"hē chá", english:"drink tea" }, tip:"Person under a tea tree." },
-  { id:10, hanzi:"吃", pinyin:"chī", meaning:"to eat", category:"Actions", example:{ hanzi:"吃饭", pinyin:"chī fàn", english:"eat food" }, tip:"Mouth (口) begging (乞) for food." },
-  { id:11, hanzi:"大", pinyin:"dà", meaning:"big", category:"Adjectives", example:{ hanzi:"很大", pinyin:"hěn dà", english:"very big" }, tip:"Person with arms spread wide." },
-  { id:12, hanzi:"的", pinyin:"de", meaning:"(possessive particle)", category:"Grammar", example:{ hanzi:"我的书", pinyin:"wǒ de shū", english:"my book" }, tip:"Most common character!" },
-  { id:13, hanzi:"点", pinyin:"diǎn", meaning:"o'clock; dot", category:"Time", example:{ hanzi:"两点", pinyin:"liǎng diǎn", english:"two o'clock" }, tip:"Fire marks a point in the dark." },
-  { id:14, hanzi:"电脑", pinyin:"diànnǎo", meaning:"computer", category:"Objects", example:{ hanzi:"新电脑", pinyin:"xīn diànnǎo", english:"new computer" }, tip:"Electric (电) brain (脑)." },
-  { id:15, hanzi:"电视", pinyin:"diànshì", meaning:"TV", category:"Objects", example:{ hanzi:"看电视", pinyin:"kàn diànshì", english:"watch TV" }, tip:"Electric (电) viewing (视)." }
+
+  // 🔴 انسخ المصفوفة التي تحتوي على كلماتك والصقها هنا 🔴
+
 ];
 
-// --- APP STATE ---
-let srsData = JSON.parse(localStorage.getItem('hsk_srs')) || {};
-let currentWordId = null;
-let writers = []; // To hold HanziWriter instances
+let mastered = JSON.parse(localStorage.getItem('hsk1_mastered') || '[]');
+let srsData = JSON.parse(localStorage.getItem('hsk1_srs') || '{}');
+let currentFilter = 'all';
+let currentCategory = 'all';
+let currentView = 'grid';
+let modalIndex = 0;
+let quizScore = 0; let quizStreak = 0; let quizCurrentWord = null;
+let activeWriters = [];
 
-// --- INIT APP ---
-function init() {
-  checkStreak();
-  if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
-  renderCards('all');
-}
+const categories = [...new Set(hsk1.map(w => w.category))].sort();
 
-// --- STREAK SYSTEM ---
-function checkStreak() {
-  let lastVisit = localStorage.getItem('lastVisit');
-  let streak = parseInt(localStorage.getItem('streak') || '0');
-  let today = new Date().toDateString();
-  
+// Streak System
+function updateStreak() {
+  const today = new Date().toDateString();
+  let lastVisit = localStorage.getItem('hsk_last_visit');
+  let streak = parseInt(localStorage.getItem('hsk_streak') || '0');
   if (lastVisit !== today) {
-    let yesterday = new Date();
+    const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
-    if (lastVisit === yesterday.toDateString()) { streak++; } 
-    else { streak = 1; }
-    localStorage.setItem('lastVisit', today);
-    localStorage.setItem('streak', streak);
+    if (lastVisit === yesterday.toDateString()) { streak++; } else { streak = 1; }
+    localStorage.setItem('hsk_last_visit', today);
+    localStorage.setItem('hsk_streak', streak);
   }
-  document.getElementById('streakCount').textContent = streak;
+  document.getElementById('streakBadge').innerHTML = `🔥 ${streak} Days Streak`;
 }
 
-// --- THEME ---
-function toggleTheme() {
-  document.body.classList.toggle('dark-mode');
-  localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+function buildFilterBar() {
+  const bar = document.getElementById('filterBar');
+  bar.innerHTML = '<span class="label">Category:</span>';
+  const allBtn = document.createElement('button');
+  allBtn.className = 'cat-btn active';
+  allBtn.textContent = 'All';
+  allBtn.onclick = () => setCat('all', allBtn);
+  bar.appendChild(allBtn);
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn';
+    btn.textContent = cat;
+    btn.onclick = () => setCat(cat, btn);
+    bar.appendChild(btn);
+  });
 }
 
-// --- RENDER ---
-function renderCards(filter) {
+function setCat(cat, btn) {
+  currentCategory = cat;
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCards();
+}
+
+function getFiltered() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  const now = Date.now();
+  return hsk1.filter(w => {
+    if (currentFilter === 'mastered' && !mastered.includes(w.id)) return false;
+    if (currentFilter === 'unmastered' && mastered.includes(w.id)) return false;
+    if (currentFilter === 'due') {
+      let data = srsData[w.id];
+      if (data && data.nextReview > now) return false; // Not due yet
+      if (mastered.includes(w.id)) return false; // Skip if already mastered
+    }
+    if (currentCategory !== 'all' && w.category !== currentCategory) return false;
+    if (q && !w.hanzi.includes(q) && !w.pinyin.toLowerCase().includes(q) && !w.meaning.toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+
+function renderCards() {
   const grid = document.getElementById('cardsGrid');
+  const words = getFiltered();
+  document.getElementById('countShown').textContent = words.length;
+  updateProgress();
   grid.innerHTML = '';
-  let now = Date.now();
-  
-  hsk1.forEach(w => {
-    let wordSrs = srsData[w.id];
-    let isDue = wordSrs && wordSrs.nextReview <= now;
-    let isMastered = wordSrs && wordSrs.nextReview > now + (86400000 * 3); // More than 3 days in future
-    
-    if (filter === 'due' && !isDue) return;
-    
-    let card = document.createElement('div');
-    card.className = `card ${isDue ? 'srs-due' : ''} ${isMastered ? 'srs-done' : ''}`;
-    card.innerHTML = `<div class="hanzi">${w.hanzi}</div><div class="pinyin">${w.pinyin}</div><div class="meaning">${w.meaning}</div>`;
-    card.onclick = () => openModal(w);
+  words.forEach(w => {
+    const isMastered = mastered.includes(w.id);
+    const card = document.createElement('div');
+    card.className = `card${isMastered ? ' mastered' : ''}`;
+    card.innerHTML = `<div class="card-front" onclick="openModal(${hsk1.indexOf(w)})">
+        <div class="card-number">#${w.id}</div>
+        <div class="hanzi">${w.hanzi}</div>
+        <div class="pinyin">${w.pinyin}</div>
+        <div class="meaning-short">${w.meaning}</div>
+      </div>`;
     grid.appendChild(card);
   });
 }
 
-function filterCards(type, btn) {
-  document.querySelectorAll('header .btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderCards(type);
-}
-
-// --- MODAL & SMART WRITER ---
-function openModal(w) {
-  currentWordId = w.id;
-  document.getElementById('mPinyin').textContent = w.pinyin;
-  document.getElementById('mMeaning').textContent = w.meaning;
-  document.getElementById('mExample').innerHTML = `${w.example.hanzi}<br><em>${w.example.pinyin}</em><br>${w.example.english}`;
-  document.getElementById('mTip').textContent = '💡 ' + w.tip;
-  
-  setupSmartWriter(w.hanzi);
-  
+function openModal(idx) {
+  modalIndex = idx;
+  populateModal(hsk1[idx]);
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
-function setupSmartWriter(hanziWord) {
-  const container = document.getElementById('writerContainer');
-  container.innerHTML = '';
-  writers = [];
-  
-  let chars = Array.from(hanziWord); // Split into individual characters
-  chars.forEach(char => {
-    let box = document.createElement('div');
-    box.className = 'hanzi-box';
-    container.appendChild(box);
-    
-    let isDark = document.body.classList.contains('dark-mode');
-    
-    let writer = HanziWriter.create(box, char, {
-      width: 120, height: 120,
-      padding: 10,
-      showCharacter: false,
-      strokeAnimationSpeed: 1.5,
-      delayBetweenStrokes: 100,
-      strokeColor: isDark ? '#e74c3c' : '#c0392b',
-      drawingColor: isDark ? '#2e7d32' : '#1565c0',
-      outlineColor: isDark ? '#333' : '#ddd'
-    });
-    writers.push(writer);
-  });
+function populateModal(w) {
+  document.getElementById('mHanzi').textContent = w.hanzi;
+  document.getElementById('mPinyin').textContent = w.pinyin;
+  document.getElementById('mMeaning').textContent = w.meaning;
+  document.getElementById('mExHanzi').textContent = w.example.hanzi;
+  document.getElementById('mExPinyin').textContent = w.example.pinyin;
+  document.getElementById('mExEnglish').textContent = w.example.english;
+  document.getElementById('mWriting').textContent = w.writing;
+  document.getElementById('mTip').textContent = w.tip;
+  setupHanziWriter(w.hanzi);
 }
 
-function animateStrokes() { writers.forEach(w => w.animateCharacter()); }
-function startQuiz() { writers.forEach(w => w.quiz()); }
-function resetWriters() {
-  writers.forEach(w => {
-    w.hideCharacter();
-    w.cancelQuiz();
-  });
-}
+// SRS Logic
+function processSRS(grade) {
+  const w = hsk1[modalIndex];
+  const now = Date.now();
+  if(!srsData[w.id]) srsData[w.id] = { level: 0, nextReview: 0 };
 
-function closeModal(e) { if (e.target.id === 'modalOverlay') closeModalDirect(); }
-function closeModalDirect() {
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-// --- SIMPLE SRS SYSTEM ---
-function processSRS(performance) {
-  let now = Date.now();
-  let nextReview = now;
-  
-  // again = review in 1 minute, good = review in 3 days
-  if (performance === 'again') {
-    nextReview = now + 60000; 
-  } else if (performance === 'good') {
-    nextReview = now + (86400000 * 3); 
+  if(grade === 'hard') {
+    srsData[w.id].level = Math.max(0, srsData[w.id].level - 1);
+    srsData[w.id].nextReview = now + (1000 * 60 * 60 * 12); // Review in 12 hours
+    mastered = mastered.filter(id => id !== w.id);
+    showToast('↻ Will review again soon.');
+  } else if(grade === 'good') {
+    srsData[w.id].level += 1;
+    let days = Math.pow(2, srsData[w.id].level); // 2, 4, 8 days...
+    srsData[w.id].nextReview = now + (1000 * 60 * 60 * 24 * days);
+    if(srsData[w.id].level >= 2 && !mastered.includes(w.id)) { mastered.push(w.id); }
+    showToast('✓ Great job! Mastered.');
   }
   
-  srsData[currentWordId] = { nextReview: nextReview };
-  localStorage.setItem('hsk_srs', JSON.stringify(srsData));
-  
+  localStorage.setItem('hsk1_srs', JSON.stringify(srsData));
+  localStorage.setItem('hsk1_mastered', JSON.stringify(mastered));
   closeModalDirect();
-  renderCards(document.querySelector('header .btn.active').textContent.includes('All') ? 'all' : 'due');
+  renderCards();
 }
 
-// Run app
-init();
+function setupHanziWriter(hanziWord) {
+  const container = document.getElementById('hanziWriterContainer');
+  container.innerHTML = ''; activeWriters = [];
+  Array.from(hanziWord).forEach(char => {
+    const box = document.createElement('div');
+    box.className = 'hanzi-character-box';
+    container.appendChild(box);
+    const writer = HanziWriter.create(box, char, { width: 100, height: 100, padding: 5, showCharacter: false, strokeAnimationSpeed: 1.5, delayBetweenStrokes: 100, strokeColor: '#c0392b', drawingColor: '#2e7d32', outlineColor: '#ddd' });
+    activeWriters.push(writer);
+  });
+}
+
+function animateWriters() { activeWriters.forEach(w => w.animateCharacter()); }
+function quizWriters() { activeWriters.forEach(w => w.quiz()); }
+function resetWriters() { activeWriters.forEach(w => { w.hideCharacter(); w.cancelQuiz(); }); }
+
+function closeModal(e) { if (e.target === document.getElementById('modalOverlay')) closeModalDirect(); }
+function closeModalDirect() { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow = ''; resetWriters(); }
+function navModal(dir) { modalIndex = (modalIndex + dir + hsk1.length) % hsk1.length; populateModal(hsk1[modalIndex]); }
+
+function updateProgress() {
+  const pct = (mastered.length / (hsk1.length || 1) * 100).toFixed(0);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${mastered.length}/${hsk1.length || 500}`;
+}
+
+function speak(text) {
+  if (!window.speechSynthesis) { showToast('Speech not supported.'); return; }
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text); utt.lang = 'zh-CN'; utt.rate = 0.85;
+  window.speechSynthesis.speak(utt);
+}
+function speakWord() { speak(hsk1[modalIndex].hanzi); }
+function speakExample() { speak(hsk1[modalIndex].example.hanzi); }
+
+function filterCards() { renderCards(); }
+function setFilter(type, btn) { currentFilter = type; document.querySelectorAll('.btn-group .btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderCards(); }
+function setView(v) { currentView = v; document.getElementById('gridViewBtn').classList.toggle('active', v === 'grid'); document.getElementById('listViewBtn').classList.toggle('active', v === 'list'); document.getElementById('cardsGrid').classList.toggle('list-view', v === 'list'); }
+
+function openQuiz() { quizScore = 0; quizStreak = 0; document.getElementById('quizOverlay').classList.add('open'); nextQuestion(); }
+function closeQuiz() { document.getElementById('quizOverlay').classList.remove('open'); }
+function nextQuestion() {
+  const pool = hsk1.filter(w => !mastered.includes(w.id));
+  const source = pool.length >= 4 ? pool : hsk1;
+  quizCurrentWord = source[Math.floor(Math.random() * source.length)];
+  document.getElementById('quizHanzi').textContent = quizCurrentWord.hanzi;
+  document.getElementById('quizScore').textContent = `Score: ${quizScore} | Streak: ${quizStreak} 🧠`;
+  const wrongPool = hsk1.filter(w => w.id !== quizCurrentWord.id);
+  const wrongs = []; while (wrongs.length < 3) { const r = wrongPool[Math.floor(Math.random() * wrongPool.length)]; if (!wrongs.find(w => w.id === r.id)) wrongs.push(r); }
+  const options = [...wrongs, quizCurrentWord].sort(() => Math.random() - 0.5);
+  const optDiv = document.getElementById('quizOptions'); optDiv.innerHTML = '';
+  options.forEach(opt => { const btn = document.createElement('button'); btn.className = 'quiz-option'; btn.textContent = opt.meaning; btn.onclick = () => checkAnswer(opt.id === quizCurrentWord.id, btn, optDiv); optDiv.appendChild(btn); });
+}
+function checkAnswer(correct, btn, container) {
+  container.querySelectorAll('.quiz-option').forEach(b => b.onclick = null);
+  if (correct) { btn.classList.add('correct'); quizScore++; quizStreak++; showToast('✅ Correct!'); } 
+  else { btn.classList.add('wrong'); quizStreak = 0; container.querySelectorAll('.quiz-option').forEach(b => { if (b.textContent === quizCurrentWord.meaning) b.classList.add('correct'); }); showToast('❌ Wrong!'); }
+  setTimeout(nextQuestion, 1500);
+}
+
+let toastTimer;
+function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2500); }
+
+setTimeout(() => { 
+  updateStreak();
+  if (hsk1.length > 0) { buildFilterBar(); renderCards(); } 
+  else { document.getElementById('cardsGrid').innerHTML = "<h2 style='text-align:center; width:100%; margin-top:2rem;'>الرجاء لصق الكلمات داخل مصفوفة hsk1 في الكود ليتم عرضها!</h2>"; } 
+}, 100);
+
 </script>
 </body>
 </html>
