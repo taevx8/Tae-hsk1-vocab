@@ -163,8 +163,9 @@
 </div>
 
 <div class="toast" id="toast"></div>
+  
 
-
+  
 <script>
 // ════════════════════════════════════════════════
 // ضع قائمة كلماتك الـ 500 كاملة هنا (داخل المصفوفة)
@@ -2364,6 +2365,10 @@ function renderCards() {
   updateProgress();
 }
 
+  function navModal(dir) { 
+  modalIndex = (modalIndex + dir + hsk1.length) % hsk1.length; 
+  openModal(modalIndex); 
+}
 // MODAL & SMART WRITER
 function openModal(idx) {
   modalIndex = idx;
@@ -2452,10 +2457,7 @@ window.onload = () => {
   }
   document.getElementById('streakBadge').textContent = `🔥 ${streak} Days Streak`;
 
-  function navModal(dir) { 
-  modalIndex = (modalIndex + dir + hsk1.length) % hsk1.length; 
-  openModal(modalIndex); 
-}
+
 
   if(hsk1.length > 0) {
       buildFilterBar(); renderCards();
