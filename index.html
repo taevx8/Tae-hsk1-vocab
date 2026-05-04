@@ -28,9 +28,6 @@
   .search-wrap { position: relative; }
   .search-wrap input { background: rgba(245,240,232,0.1); border: 1px solid rgba(245,240,232,0.2); border-radius: 6px; color: var(--paper); font-family: 'Crimson Pro', serif; font-size: 1rem; padding: 0.5rem 1rem 0.5rem 2.2rem; width: 180px; outline: none; }
   .search-icon { position: absolute; left: 0.6rem; top: 50%; transform: translateY(-50%); color: rgba(245,240,232,0.4); font-size: 0.9rem; }
-  .btn-group { display: flex; gap: 0.4rem; }
-  .btn { background: transparent; border: 1px solid rgba(245,240,232,0.25); border-radius: 6px; color: rgba(245,240,232,0.7); cursor: pointer; font-family: 'DM Mono'; font-size: 0.7rem; padding: 0.45rem 0.9rem; text-transform: uppercase; }
-  .btn:hover, .btn.active { background: var(--red); border-color: var(--red); color: #fff; }
   .progress-bar-wrap { display: flex; align-items: center; gap: 0.6rem; font-family: 'DM Mono'; font-size: 0.7rem; color: var(--gold-light); }
   .progress-bar { width: 100px; height: 4px; background: rgba(245,240,232,0.15); border-radius: 2px; overflow: hidden; }
   .progress-fill { height: 100%; background: linear-gradient(90deg, var(--red), var(--gold-light)); transition: width 0.4s ease; }
@@ -39,22 +36,19 @@
   .cat-btn.active { background: var(--red); color: white; }
   .stats-bar { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem 0; display: flex; justify-content: space-between; align-items: center; }
   .streak-badge { background: linear-gradient(135deg, #e67e22, var(--red)); color: white; padding: 0.2rem 0.6rem; border-radius: 12px; font-weight: bold; font-size: 0.7rem; }
-  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.25rem; }
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1.25rem; padding: 2rem; }
   .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; position: relative; box-shadow: 0 2px 8px var(--shadow); transition: all 0.3s; padding: 1.5rem 1rem; text-align: center; }
   .card.mastered { border-color: var(--green); background: linear-gradient(135deg, var(--card-bg), rgba(46,125,50,0.04)); }
   .hanzi { font-family: 'Noto Serif SC', serif; font-size: 2.8rem; font-weight: 700; }
   .pinyin { color: var(--red); font-style: italic; font-size: 0.95rem; }
-  #grammarMain { display: none; }
+  .card-number { position: absolute; top: 0.5rem; left: 0.5rem; font-size: 0.7rem; color: var(--muted); font-family: 'DM Mono'; }
+  #grammarMain { display: none; padding: 2rem; max-width: 1000px; margin: 0 auto; }
   .grammar-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px var(--shadow); }
   .g-title { font-size: 1.5rem; font-weight: bold; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1rem; font-family: 'Noto Serif SC', serif; }
   .g-structure { font-family: 'DM Mono'; background: var(--cream); padding: 0.5rem; border-radius: 6px; color: var(--blue); margin-bottom: 1rem; display: inline-block; }
-  .g-quiz-box { background: rgba(46,125,50,0.05); border: 1px solid rgba(46,125,50,0.2); border-radius: 8px; padding: 1rem; margin-top: 1rem; }
-  .g-opt-btn { background: var(--card-bg); border: 1px solid var(--border); padding: 0.5rem; border-radius: 6px; cursor: pointer; margin: 0.2rem; transition: 0.2s; }
-  .g-opt-btn.correct { background: var(--green); color: white; }
-  .g-opt-btn.wrong { background: var(--red); color: white; }
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(26,16,8,0.7); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
   .modal-overlay.open { display: flex; }
-  .modal { background: var(--card-bg); border-radius: 16px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; }
+  .modal { background: var(--card-bg); border-radius: 16px; max-width: 600px; width: 95%; max-height: 90vh; overflow-y: auto; }
   .drawing-board-container { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; background: var(--cream); padding: 1rem; border-radius: 8px; }
   .hanzi-character-box { background: var(--paper); border: 2px dashed #b8860b; border-radius: 8px; width: 100px; height: 100px; }
   .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--ink); color: var(--paper); border-radius: 8px; padding: 0.75rem 1.5rem; z-index: 2000; transition: 0.3s; }
@@ -77,38 +71,53 @@
 </header>
 <div class="filter-bar vocab-only" id="filterBar"></div>
 <div class="stats-bar vocab-only"><div class="stats-count"><div>Showing <span id="countShown"></span> words</div><div class="streak-badge" id="streakBadge">🔥 0 Days Streak</div></div></div>
+
 <main id="vocabMain"><div class="cards-grid" id="cardsGrid"></div></main>
-<main id="grammarMain"><div id="grammarList" style="max-width:1000px; margin:0 auto;"></div></main>
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal" id="modal">
+<main id="grammarMain"><div id="grammarList"></div></main>
+
+<!-- النافذة المنبثقة الكاملة -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target === this) closeModalDirect()">
+  <div class="modal">
     <div style="background:var(--ink); color:var(--paper); padding:2rem; text-align:center; position:relative;">
       <button onclick="closeModalDirect()" style="position:absolute; top:1rem; right:1rem; background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;">✕</button>
       <div id="mHanzi" style="font-size:4rem; font-family:'Noto Serif SC';"></div>
-      <div id="mPinyin" style="color:var(--red-light); font-style:italic;"></div>
-      <div id="mMeaning" style="opacity:0.8;"></div>
+      <div id="mPinyin" style="color:var(--red-light); font-style:italic; font-size:1.5rem;"></div>
+      <div id="mMeaning" style="opacity:0.8; font-size:1.2rem; margin-top:0.5rem;"></div>
     </div>
-    <div style="padding:2rem;">
+    <div style="padding:1.5rem;">
       <div class="drawing-board-container" id="hanziWriterContainer"></div>
       <div style="text-align:center; margin:1rem 0;">
         <button onclick="animateWriters()" style="background:var(--ink); color:white; border:none; padding:0.5rem 1rem; border-radius:6px; cursor:pointer; margin:0.2rem;">👁️ Animate</button>
         <button onclick="quizWriters()" style="background:var(--green); color:white; border:none; padding:0.5rem 1rem; border-radius:6px; cursor:pointer; margin:0.2rem;">🎯 Practice</button>
       </div>
+      
       <div style="margin-top:1rem; border-top:1px solid var(--border); padding-top:1rem;">
-        <button class="btn" style="background:var(--red); color:white; width:100%; margin-bottom:1rem;" onclick="speakWord()">🔊 Pronounce</button>
-        <div id="mTip" style="background:var(--cream); padding:1rem; border-radius:8px; font-size:0.9rem;"></div>
+         <h4 style="margin-bottom:0.5rem; color:var(--red);">Example:</h4>
+         <div id="mExHanzi" style="font-size:1.3rem; font-weight:bold;"></div>
+         <div id="mExPinyin" style="color:var(--muted); font-style:italic;"></div>
+         <div id="mExEnglish" style="margin-bottom:1rem;"></div>
+         
+         <h4 style="margin-bottom:0.5rem; color:var(--gold);">Writing & Tip:</h4>
+         <div id="mWriting" style="font-size:0.9rem; margin-bottom:0.5rem; color:var(--ink);"></div>
+         <div id="mTip" style="background:var(--cream); padding:0.8rem; border-radius:8px; font-size:0.9rem; border-left:4px solid var(--gold);"></div>
       </div>
-      <div style="display:flex; justify-content:space-between; margin-top:1rem;">
-        <button onclick="processSRS('hard')" style="background:var(--red); color:white; border:none; padding:0.8rem; border-radius:8px; flex:1; margin-right:0.5rem; cursor:pointer;">Hard ↻</button>
-        <button onclick="processSRS('good')" style="background:var(--green); color:white; border:none; padding:0.8rem; border-radius:8px; flex:1; cursor:pointer;">Easy ✓</button>
+
+      <div style="display:flex; gap:10px; margin-top:1.5rem;">
+        <button class="btn" style="background:var(--blue); color:white; flex:1; border:none; padding:0.8rem; border-radius:8px; cursor:pointer;" onclick="speakWord()">🔊 Pronounce</button>
+        <button onclick="processSRS('hard')" style="background:var(--red); color:white; border:none; padding:0.8rem; border-radius:8px; flex:1; cursor:pointer;">Hard ↻</button>
+        <button onclick="processSRS('good')" style="background:var(--green); color:white; border:none; padding:0.8rem; border-radius:8px; flex:1; cursor:pointer;">Mastered ✓</button>
       </div>
     </div>
   </div>
 </div>
+
 <div class="toast" id="toast"></div>
+
 <script>
- // 🔴 ضع كلماتك الـ 500 هنا لاحقاً 🔴
+// قائمة الكلمات (تأكد من وضع كل كلماتك هنا)
 const hsk1 = [
-  
+  {
+
 {
     id:1, hanzi:"爱", pinyin:"ài", meaning:"to love; love",
     category:"Emotions",
@@ -1336,7 +1345,7 @@ const hsk1 = [
     writing:"参 (join/consult) + 加 (add/plus). Adding yourself to a group.",
     tip:"Adding (加) yourself into an event or group = PARTICIPATING!"
   },
-  { id:176, hanzi:"操场", pinyin:"cāochǎng", meaning:"playground; sports field", category:"Places", example:{ hanzi:"我们在操场跑步。", pinyin:"Wǒmen zài cāochǎng pǎobù.", english:"We are running on the playground." }, writing:"操 (exercise) + 场 (field).", tip:"A field (场) where you do physical exercises (操)." },
+    { id:176, hanzi:"操场", pinyin:"cāochǎng", meaning:"playground; sports field", category:"Places", example:{ hanzi:"我们在操场跑步。", pinyin:"Wǒmen zài cāochǎng pǎobù.", english:"We are running on the playground." }, writing:"操 (exercise) + 场 (field).", tip:"A field (场) where you do physical exercises (操)." },
   { id:177, hanzi:"草", pinyin:"cǎo", meaning:"grass", category:"Nature", example:{ hanzi:"羊在吃草。", pinyin:"Yáng zài chī cǎo.", english:"The sheep is eating grass." }, writing:"艹 (grass radical) + 早 (early).", tip:"Grass (艹) covered in dew early (早) in the morning." },
   { id:178, hanzi:"层", pinyin:"céng", meaning:"layer; floor (of a building)", category:"Objects", example:{ hanzi:"我住在三层。", pinyin:"Wǒ zhù zài sān céng.", english:"I live on the third floor." }, writing:"尸 (body/roof) + 云 (cloud).", tip:"A building so high it has layers reaching the clouds (云)." },
   { id:179, hanzi:"查", pinyin:"chá", meaning:"to check; to look up", category:"Actions", example:{ hanzi:"请查一下字典。", pinyin:"Qǐng chá yīxià zìdiǎn.", english:"Please check the dictionary." }, writing:"木 (tree/wood) + 旦 (dawn).", tip:"Checking the wooden (木) logs early at dawn (旦)." },
@@ -1661,225 +1670,155 @@ const hsk1 = [
   { id:498, hanzi:"照相机", pinyin:"zhàoxiàngjī", meaning:"camera", category:"Technology", example:{ hanzi:"我买了一个新照相机。", pinyin:"Wǒ mǎile yīgè xīn zhàoxiàngjī.", english:"I bought a new camera." }, writing:"照相 (take photo) + 机 (machine).", tip:"The machine (机) used to capture images." },
   { id:499, hanzi:"这", pinyin:"zhè", meaning:"this", category:"Grammar", example:{ hanzi:"这是我的书。", pinyin:"Zhè shì wǒ de shū.", english:"This is my book." }, writing:"辶 (movement) + 文 (culture).", tip:"Pointing at something close to you." },
   { id:500, hanzi:"着", pinyin:"zhe", meaning:"(particle indicating action in progress)", category:"Grammar", example:{ hanzi:"门开着。", pinyin:"Mén kāi zhe.", english:"The door is open (and remains open)." }, writing:"羊 (sheep) + 目 (eye).", tip:"A state that is ongoing, like keeping your eyes on a sheep." },
-
-  
 ];
 
 const hsk1_grammar = [
-  { id:1, title:"Possession with 的 (de)", structure:"Noun + 的 + Noun", desc:"Used to show belonging. Similar to 's in English.", examples:[{h:"我的书", p:"Wǒ de shū", e:"My book"}], quiz:{q:"How to say 'Dad's car'?", opts:["爸爸车", "爸爸的车", "的车爸爸"], c:1}},
+{ id:1, title:"Possession with 的 (de)", structure:"Noun + 的 + Noun", desc:"Used to show belonging. Similar to 's in English.", examples:[{h:"我的书", p:"Wǒ de shū", e:"My book"}], quiz:{q:"How to say 'Dad's car'?", opts:["爸爸车", "爸爸的车", "的车爸爸"], c:1}},
   { id:2, title:"Yes/No Questions with 吗 (ma)", structure:"Statement + 吗?", desc:"Add 吗 at the end to make a question.", examples:[{h:"你好吗？", p:"Nǐ hǎo ma?", e:"Are you okay?"}], quiz:{q:"Question form of 'He is a teacher'?", opts:["他是老师吗？", "吗他是老师？", "他是吗老师"], c:0}},
   { id:3, title:"Negation with 不 (bù)", structure:"Subject + 不 + Verb", desc:"Use 不 to negate actions in present/future.", examples:[{h:"我不吃", p:"Wǒ bù chī", e:"I don't eat"}], quiz:{q:"Translate 'Not good'", opts:["不没", "不好", "好不"], c:1}},
   { id:4, title:"The Verb 'To Be' 是 (shì)", structure:"A + 是 + B", desc:"Used to link two nouns (A is B).", examples:[{h:"我是学生", p:"Wǒ shì xuéshēng", e:"I am a student"}], quiz:{q:"'She is my mom'?", opts:["她是我妈妈", "她是我的是妈妈", "她是妈妈我"], c:0}},
   { id:5, title:"Quantity with 个 (gè)", structure:"Number + 个 + Noun", desc:"The most common measure word.", examples:[{h:"三个人", p:"Sān gè rén", e:"Three people"}], quiz:{q:"'Two cups'?", opts:["二个杯子", "两个杯子", "个两杯子"], c:1}}
-  // ... سيتم إضافة باقي القواعد هنا تلقائياً عند تشغيلك للموقع
+
 ];
 
-  // --- الجزء الخاص بالجافا سكريبت المعدل بالكامل ---
-
 let mastered = JSON.parse(localStorage.getItem('hsk1_mastered') || '[]');
-let srsData = JSON.parse(localStorage.getItem('hsk1_srs') || '{}');
-let currentFilter = 'all';
 let currentCategory = 'all';
-let currentView = 'grid';
 let modalIndex = 0;
-let quizScore = 0; let quizStreak = 0; let quizCurrentWord = null;
 let activeWriters = [];
+let currentMode = 'vocab';
 
-// استخراج الفئات تلقائياً من قائمة الكلمات
-const categories = [...new Set(hsk1.map(w => w.category))].sort();
-
-// نظام أيام المتابعة (Streak)
-function updateStreak() {
-  const today = new Date().toDateString();
-  let lastVisit = localStorage.getItem('hsk_last_visit');
-  let streak = parseInt(localStorage.getItem('hsk_streak') || '0');
-  if (lastVisit !== today) {
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    if (lastVisit === yesterday.toDateString()) { 
-      streak++; 
-    } else { 
-      streak = 1; 
-    }
-    localStorage.setItem('hsk_last_visit', today);
-    localStorage.setItem('hsk_streak', streak);
-  }
-  const badge = document.getElementById('streakBadge');
-  if(badge) badge.innerHTML = `🔥 ${streak} Days Streak`;
+function switchMode(m) {
+  currentMode = m;
+  document.getElementById('tabVocab').classList.toggle('active', m === 'vocab');
+  document.getElementById('tabGrammar').classList.toggle('active', m === 'grammar');
+  document.getElementById('vocabMain').style.display = (m === 'vocab') ? 'block' : 'none';
+  document.getElementById('grammarMain').style.display = (m === 'grammar') ? 'block' : 'none';
+  document.querySelectorAll('.vocab-only').forEach(el => el.style.display = (m === 'vocab') ? 'flex' : 'none');
+  if (m === 'grammar') renderGrammar();
 }
 
-// بناء شريط الفئات (التصنيفات)
 function buildFilterBar() {
   const bar = document.getElementById('filterBar');
-  if(!bar) return;
-  bar.innerHTML = '<span style="margin-right:10px; font-weight:bold;">Category:</span>';
-  
-  const allBtn = document.createElement('button');
-  allBtn.className = 'cat-btn active';
-  allBtn.textContent = 'All';
-  allBtn.onclick = () => setCat('all', allBtn);
-  bar.appendChild(allBtn);
-
-  categories.forEach(cat => {
-    if(cat) {
-      const btn = document.createElement('button');
-      btn.className = 'cat-btn';
-      btn.textContent = cat;
-      btn.onclick = () => setCat(cat, btn);
-      bar.appendChild(btn);
-    }
+  const cats = ['all', ...new Set(hsk1.map(w => w.category))];
+  bar.innerHTML = '';
+  cats.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = `cat-btn ${cat === currentCategory ? 'active' : ''}`;
+    btn.textContent = cat;
+    btn.onclick = () => {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCards();
+    };
+    bar.appendChild(btn);
   });
 }
 
-function setCat(cat, btn) {
-  currentCategory = cat;
-  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderCards();
-}
-
-// دالة البحث والفلترة الأساسية (تجمع بين البحث والتصنيف)
-function getFiltered() {
-  const q = document.getElementById('searchInput').value.toLowerCase().trim();
-  const now = Date.now();
-  return hsk1.filter(w => {
-    // فلترة بناءً على الحالة (متقن أو غير متقن)
-    if (currentFilter === 'mastered' && !mastered.includes(w.id)) return false;
-    if (currentFilter === 'unmastered' && mastered.includes(w.id)) return false;
-    
-    // فلترة بناءً على الفئة
-    if (currentCategory !== 'all' && w.category !== currentCategory) return false;
-    
-    // فلترة البحث (الاسم، البينين، أو المعنى)
-    if (q && !w.hanzi.includes(q) && !w.pinyin.toLowerCase().includes(q) && !w.meaning.toLowerCase().includes(q)) return false;
-    
-    return true;
-  });
-}
-
-// عرض الكلمات في الصفحة
 function renderCards() {
   const grid = document.getElementById('cardsGrid');
-  if(!grid) return;
-  const words = getFiltered();
-  
-  // تحديث عداد الكلمات
-  const countEl = document.getElementById('countShown');
-  if(countEl) countEl.textContent = words.length;
-  
-  updateProgress();
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const filtered = hsk1.filter(w => {
+    const matchesCat = (currentCategory === 'all' || w.category === currentCategory);
+    const matchesSearch = (w.hanzi.includes(q) || w.pinyin.toLowerCase().includes(q) || w.meaning.toLowerCase().includes(q));
+    return matchesCat && matchesSearch;
+  });
+
+  document.getElementById('countShown').textContent = filtered.length;
   grid.innerHTML = '';
-  
-  words.forEach(w => {
+  filtered.forEach(w => {
     const isMastered = mastered.includes(w.id);
     const card = document.createElement('div');
     card.className = `card ${isMastered ? 'mastered' : ''}`;
     card.innerHTML = `
-        <div class="hanzi">${w.hanzi}</div>
-        <div class="pinyin">${w.pinyin}</div>
-        <div style="font-size:0.85rem; color:var(--muted);">${w.meaning}</div>
-      `;
+      <div class="card-number">#${w.id}</div>
+      <div class="hanzi">${w.hanzi}</div>
+      <div class="pinyin">${w.pinyin}</div>
+      <div style="font-size:0.8rem;color:var(--muted)">${w.meaning}</div>
+    `;
     card.onclick = () => openModal(hsk1.indexOf(w));
     grid.appendChild(card);
   });
+  updateProgress();
 }
 
-// فتح النافذة المنبثقة للكلمة
 function openModal(idx) {
   modalIndex = idx;
   const w = hsk1[idx];
   document.getElementById('mHanzi').textContent = w.hanzi;
   document.getElementById('mPinyin').textContent = w.pinyin;
   document.getElementById('mMeaning').textContent = w.meaning;
-  document.getElementById('mTip').textContent = "💡 " + w.tip;
-  
+  document.getElementById('mExHanzi').textContent = w.example?.hanzi || "";
+  document.getElementById('mExPinyin').textContent = w.example?.pinyin || "";
+  document.getElementById('mExEnglish').textContent = w.example?.english || "";
+  document.getElementById('mWriting').textContent = w.writing || "";
+  document.getElementById('mTip').textContent = "💡 " + (w.tip || "");
   setupHanziWriter(w.hanzi);
   document.getElementById('modalOverlay').classList.add('open');
 }
 
-// إعداد مدرب كتابة الحروف (Hanzi Writer)
-function setupHanziWriter(hanziWord) {
+function setupHanziWriter(h) {
   const container = document.getElementById('hanziWriterContainer');
-  container.innerHTML = ''; 
-  activeWriters = [];
-  Array.from(hanziWord).forEach(char => {
+  container.innerHTML = ''; activeWriters = [];
+  Array.from(h).forEach(c => {
     const box = document.createElement('div');
     box.className = 'hanzi-character-box';
     container.appendChild(box);
-    const writer = HanziWriter.create(box, char, {
-      width: 100,
-      height: 100,
-      padding: 5,
-      strokeColor: '#c0392b'
-    });
-    activeWriters.push(writer);
+    activeWriters.push(HanziWriter.create(box, c, { width:100, height:100, padding:5, strokeColor:'#c0392b' }));
   });
 }
 
 function animateWriters() { activeWriters.forEach(w => w.animateCharacter()); }
 function quizWriters() { activeWriters.forEach(w => w.quiz()); }
 
-// نظام حفظ التقدم (SRS)
 function processSRS(grade) {
-  const w = hsk1[modalIndex];
-  if(grade === 'good') {
-    if(!mastered.includes(w.id)) mastered.push(w.id);
-    showToast('✓ تمت الإضافة للمتقن');
-  } else {
-    mastered = mastered.filter(id => id !== w.id);
-    showToast('↻ ستحتاج لمراجعتها');
-  }
-  
+  const id = hsk1[modalIndex].id;
+  if(grade === 'good') { if(!mastered.includes(id)) mastered.push(id); showToast('Mastered! ✓'); }
+  else { mastered = mastered.filter(x => x !== id); showToast('Marked for review ↻'); }
   localStorage.setItem('hsk1_mastered', JSON.stringify(mastered));
   closeModalDirect();
   renderCards();
 }
 
-function closeModalDirect() { 
-  document.getElementById('modalOverlay').classList.remove('open'); 
+function closeModalDirect() { document.getElementById('modalOverlay').classList.remove('open'); }
+
+function renderGrammar() {
+  const list = document.getElementById('grammarList');
+  list.innerHTML = '';
+  hsk1_grammar.forEach(g => {
+    const card = document.createElement('div');
+    card.className = 'grammar-card';
+    card.innerHTML = `<div class="g-title">${g.title}</div><div class="g-structure">${g.structure}</div><p>${g.desc}</p>`;
+    list.appendChild(card);
+  });
 }
+
+function filterCards() { renderCards(); }
 
 function updateProgress() {
-  const pct = (mastered.length / (hsk1.length || 1) * 100).toFixed(0);
-  const fill = document.getElementById('progressFill');
-  const txt = document.getElementById('progressText');
-  if(fill) fill.style.width = pct + '%';
-  if(txt) txt.textContent = `${mastered.length}/${hsk1.length}`;
+  const pct = (mastered.length / hsk1.length * 100).toFixed(0);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${mastered.length}/${hsk1.length}`;
 }
 
-// نطق الكلمات
 function speakWord() {
-  const w = hsk1[modalIndex];
-  const utt = new SpeechSynthesisUtterance(w.hanzi);
-  utt.lang = 'zh-CN';
-  window.speechSynthesis.speak(utt);
+  const u = new SpeechSynthesisUtterance(hsk1[modalIndex].hanzi);
+  u.lang = 'zh-CN';
+  window.speechSynthesis.speak(u);
 }
 
-// البحث عند الكتابة
-function filterCards() { 
-  renderCards(); 
-}
-
-let toastTimer;
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
 }
 
-// تشغيل الوظائف عند تحميل الصفحة
-setTimeout(() => { 
-  updateStreak();
-  if (hsk1.length > 0) { 
-    buildFilterBar(); 
-    renderCards(); 
-  } else {
-    document.getElementById('cardsGrid').innerHTML = "<h2>الرجاء التأكد من وجود الكلمات في المصفوفة!</h2>";
-  }
-}, 100);
-
+window.onload = () => {
+  buildFilterBar();
+  renderCards();
+  const s = parseInt(localStorage.getItem('hsk_streak') || '0');
+  document.getElementById('streakBadge').textContent = `🔥 ${s} Days Streak`;
+};
 </script>
 </body>
 </html>
