@@ -56,21 +56,35 @@ done by me the KING V
   .pinyin { color: var(--red); font-style: italic; font-size: 0.95rem; margin-bottom: 0.3rem;}
   .card-number { position: absolute; top: 0.5rem; left: 0.5rem; font-size: 0.7rem; color: var(--muted); font-family: 'DM Mono'; }
   
-  /* GRAMMAR SECTION */
+  /* GRAMMAR 2.0 SECTION */
   #grammarMain { display: none; max-width: 1000px; margin: 0 auto; }
-  .grammar-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 8px var(--shadow); }
-  .g-title { font-size: 1.5rem; font-weight: bold; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1rem; font-family: 'Noto Serif SC', serif; }
-  .g-structure { font-family: 'DM Mono'; background: var(--cream); padding: 0.5rem 1rem; border-radius: 6px; color: var(--blue); margin-bottom: 1rem; display: inline-block; font-weight: bold;}
-  .g-example-item { display: flex; align-items: center; gap: 1rem; background: var(--paper); padding: 0.8rem; border-radius: 8px; margin-top: 0.5rem; border: 1px solid var(--border); }
-  .g-ex-hanzi { font-family: 'Noto Serif SC', serif; font-size: 1.2rem; color: var(--ink); font-weight: bold;}
-  .g-ex-pinyin { font-family: 'Crimson Pro'; font-style: italic; color: var(--red); font-size: 0.95rem; }
+  .grammar-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 15px var(--shadow); }
+  .g-title { font-size: 1.6rem; font-weight: bold; border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1.5rem; font-family: 'Noto Serif SC', serif; color: var(--red); }
+  
+  /* Visual Sentence Builder */
+  .g-structure-blocks { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; align-items: center; }
+  .g-block { background: var(--ink); color: var(--paper); padding: 0.5rem 1rem; border-radius: 8px; font-family: 'DM Mono'; font-size: 0.9rem; font-weight: bold; box-shadow: 0 4px 6px rgba(26,16,8,0.15); letter-spacing: 0.05em; }
+  .g-block.plus { background: transparent; color: var(--muted); box-shadow: none; padding: 0.2rem; font-size: 1.2rem; }
+  
+  .g-example-item { display: flex; align-items: center; gap: 1rem; background: var(--paper); padding: 1rem; border-radius: 8px; margin-top: 0.8rem; border-left: 4px solid var(--blue); }
+  .g-ex-hanzi { font-family: 'Noto Serif SC', serif; font-size: 1.3rem; color: var(--ink); font-weight: bold;}
+  .g-ex-pinyin { font-family: 'Crimson Pro'; font-style: italic; color: var(--red); font-size: 1rem; margin: 0.2rem 0;}
   .g-ex-eng { color: var(--muted); font-size: 0.95rem; }
-  .g-quiz-box { background: rgba(46,125,50,0.05); border: 1px solid rgba(46,125,50,0.2); border-radius: 8px; padding: 1rem; margin-top: 1.5rem; }
-  .g-quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.8rem;}
-  .g-opt-btn { background: var(--card-bg); border: 1px solid var(--border); padding: 0.8rem; border-radius: 6px; cursor: pointer; font-family: 'Crimson Pro'; font-size: 1rem; transition: 0.2s; }
-  .g-opt-btn:hover { border-color: var(--green); }
-  .g-opt-btn.correct { background: var(--green); color: white; border-color: var(--green);}
-  .g-opt-btn.wrong { background: var(--red); color: white; border-color: var(--red);}
+  
+  /* Interactive Fill-in-the-blank Quiz */
+  .g-interactive-quiz { background: var(--cream); border: 2px dashed var(--gold); border-radius: 12px; padding: 1.5rem; margin-top: 2rem; text-align: center; }
+  .g-quiz-target { min-height: 80px; background: rgba(26,16,8,0.03); border-radius: 10px; margin: 1.5rem auto; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Noto Serif SC'; font-size: 1.2rem; color: var(--muted); border: 2px dashed var(--border); transition: all 0.3s; width: 80%; cursor: default;}
+  .g-quiz-target.success { background: rgba(46,125,50,0.1); border-color: var(--green); color: var(--green); border-style: solid; box-shadow: 0 4px 15px rgba(46,125,50,0.2); }
+  .g-quiz-target.error { background: rgba(192,57,43,0.1); border-color: var(--red); color: var(--red); animation: shake 0.4s; }
+  
+  .g-choices { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+  .g-choice-chip { background: var(--card-bg); border: 2px solid var(--border); border-radius: 12px; padding: 0.8rem 1.5rem; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 8px var(--shadow); width: calc(50% - 0.5rem); min-width: 140px;}
+  .g-choice-chip:hover { transform: translateY(-4px); border-color: var(--blue); box-shadow: 0 8px 15px var(--shadow-deep); }
+  .g-choice-chip .h { font-family: 'Noto Serif SC'; font-size: 1.3rem; font-weight: bold; color: var(--ink); }
+  .g-choice-chip .p { font-family: 'Crimson Pro'; font-size: 0.9rem; color: var(--red); margin-top: 0.3rem; }
+  
+  @keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-8px);} 75% {transform: translateX(8px);} }
+
   
   /* MODAL */
   .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(26,16,8,0.7); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
@@ -2254,54 +2268,90 @@ function switchMode(m) {
   if (m === 'grammar') renderGrammar();
 }
 
-// GRAMMAR RENDER
+// GRAMMAR 2.0 RENDER
 function renderGrammar() {
   const list = document.getElementById('grammarList');
   list.innerHTML = '';
-  hsk1_grammar.forEach(g => {
+  hsk1_grammar.forEach((g, index) => {
+    
+    // 1. Visual Sentence Builder (Auto-parsing)
+    let structureHtml = g.structure.split('+').map(part => {
+      let text = part.trim();
+      if(!text) return '';
+      return `<div class="g-block">${text}</div>`;
+    }).join('<div class="g-block plus">+</div>');
+
+    // 2. Examples
     let exHtml = g.examples.map(ex => `
       <div class="g-example-item">
         <button class="speak-btn" onclick="speak('${ex.h}')">🔊</button>
         <div><div class="g-ex-hanzi">${ex.h}</div><div class="g-ex-pinyin">${ex.p}</div></div>
-        <div class="g-ex-eng">${ex.e}</div>
+        <div class="g-ex-eng" style="margin-left:auto; text-align:right;">${ex.e}</div>
       </div>`).join('');
     
+    // 3. Interactive Quiz Options
     let optsHtml = g.quiz.opts.map((opt, i) => 
-      `<button class="g-opt-btn" onclick="checkGQuiz(this, ${i}, ${g.quiz.c})">
-         <div style="font-family:'Noto Serif SC', serif; font-size:1.2rem; font-weight:bold;">${opt.h}</div>
-         <div style="font-size:0.85rem; font-style:italic; opacity:0.8; margin-top:0.2rem;">${opt.p}</div>
-       </button>`
+      `<div class="g-choice-chip" onclick="handleGrammarTap(this, ${index}, ${i}, ${g.quiz.c})">
+         <div class="h">${opt.h}</div>
+         <div class="p">${opt.p}</div>
+       </div>`
     ).join('');
 
+    // 4. Build the Card
     const card = document.createElement('div');
     card.className = 'grammar-card';
     card.innerHTML = `
       <div class="g-title">Lesson ${g.id}: ${g.title}</div>
-      <div class="g-structure">${g.structure}</div>
-      <p style="font-size:1.05rem; line-height:1.6; color:var(--ink); margin-bottom:1rem;">${g.desc}</p>
-      <h4 style="margin-bottom:0.5rem; color:var(--red); font-family:'DM Mono'; text-transform:uppercase; font-size:0.8rem;">Examples:</h4>
+      <div class="g-structure-blocks">${structureHtml}</div>
+      <p style="font-size:1.1rem; line-height:1.7; color:var(--ink); margin-bottom:1.5rem;">${g.desc}</p>
+      
+      <h4 style="margin-bottom:0.5rem; color:var(--muted); font-family:'DM Mono'; text-transform:uppercase; font-size:0.85rem; letter-spacing:0.1em;">Examples</h4>
       <div style="margin-bottom:1.5rem;">${exHtml}</div>
-      <div class="g-quiz-box">
-        <div style="font-weight:bold; margin-bottom:0.8rem; font-size:1.1rem; color:var(--ink);">⚡ Test: ${g.quiz.q}</div>
-        <div class="g-quiz-options">${optsHtml}</div>
+      
+      <div class="g-interactive-quiz" id="quiz-area-${index}">
+        <div style="font-weight:900; font-size:1.2rem; color:var(--ink); margin-bottom:0.5rem; font-family:'DM Mono';">🧩 Build the Translation</div>
+        <div style="color:var(--muted); font-size:1.05rem; font-style:italic;">"${g.quiz.q.replace('Translate ', '').replace(':', '').replace("'", "").replace("'", "")}"</div>
+        
+        <div class="g-quiz-target" id="target-${index}">Tap the correct block below</div>
+        
+        <div class="g-choices" id="choices-${index}">
+          ${optsHtml}
+        </div>
       </div>
     `;
     list.appendChild(card);
   });
 }
 
-
-function checkGQuiz(btn, selected, correct) {
-  const parent = btn.parentElement;
-  parent.querySelectorAll('.g-opt-btn').forEach(b => b.style.pointerEvents = 'none');
-  if (selected === correct) {
-    btn.classList.add('correct'); showToast('✅ Correct!');
+// INTERACTIVE QUIZ LOGIC
+function handleGrammarTap(chip, quizIndex, selectedOpt, correctOpt) {
+  const target = document.getElementById(`target-${quizIndex}`);
+  const choicesArea = document.getElementById(`choices-${quizIndex}`);
+  const rule = hsk1_grammar[quizIndex];
+  
+  if (selectedOpt === correctOpt) {
+    // Success State
+    target.innerHTML = `<div style="font-family:'Noto Serif SC'; font-size:1.8rem; font-weight:bold; color:var(--green);">${rule.quiz.opts[correctOpt].h}</div>
+                        <div style="font-family:'Crimson Pro'; font-size:1.1rem; color:var(--ink); margin-top:0.3rem;">${rule.quiz.opts[correctOpt].p}</div>`;
+    target.className = 'g-quiz-target success';
+    choicesArea.style.opacity = '0.4';
+    choicesArea.style.pointerEvents = 'none';
+    showToast('🎉 Perfect Structure!');
+    speak(rule.quiz.opts[correctOpt].h); // Auto-pronounce correct answer
   } else {
-    btn.classList.add('wrong');
-    parent.children[correct].classList.add('correct');
-    showToast('❌ Incorrect. Look at the green option.');
+    // Error State
+    target.textContent = '❌ Try Again!';
+    target.className = 'g-quiz-target error';
+    showToast('Oops! Read the rule again.');
+    setTimeout(() => {
+      if(target.className.includes('error')) {
+        target.className = 'g-quiz-target';
+        target.textContent = 'Tap the correct block below';
+      }
+    }, 800);
   }
 }
+
 
 // VOCAB RENDER & FILTERS
 function buildFilterBar() {
